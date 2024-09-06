@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itinerary Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            max-width: 1200px;
+            height: 90vh;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .message {
+            border-radius: 20px;
+            padding: 10px;
+            margin: 10px 0;
+            max-width: 70%;
+        }
+        .bot-message {
+            background-color: #f1f1f1;
+            align-self: flex-start;
+        }
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+        form input, form button {
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        form select {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+            font-size: 16px;
+            width: 100%; /* Adjust the width to match input fields */
+            appearance: none; /* This removes the default dropdown arrow for a custom style */
+        }
+        form select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .add-destination-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            font-size: 18px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+        .destination-group {
+            display: flex;
+            align-items: center;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container" id="chat-container">
+        <!-- Messages and form fields will be injected here dynamically -->
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const chatContainer = document.getElementById('chat-container');
+
+            // Sequentially show messages and form
+            setTimeout(function() {
+                const hiMessage = document.createElement('div');
+                hiMessage.className = 'message bot-message fade-in';
+                hiMessage.textContent = 'Hi';
+                chatContainer.appendChild(hiMessage);
+            }, 500);
+
+            setTimeout(function() {
+                const introMessage = document.createElement('div');
+                introMessage.className = 'message bot-message fade-in';
+                introMessage.textContent = "You're looking for an itinerary, I see. How many people are going? What are the dates, starting location, and destination?";
+                chatContainer.appendChild(introMessage);
+            }, 2000);
+
+            setTimeout(function() {
+                const formHTML = `
+                  <form id="itinerary-form" class="fade-in">
+                    <label for="num-people">Number of People:</label>
+                    <input type="number" id="num-people" name="num_people" required>
+                    
+                    <label for="start-location">Starting Location:</label>
+                    <input type="text" id="start-location" name="start_location" required>
+                    
+                    <label for="destination">Destination(s):</label>
+                    <div id="destinations-container">
+                        <div class="destination-group">
+                            <input type="text" class="destination-field" name="destinations[]" placeholder="Enter a destination" required>
+                            <button type="button" class="add-destination-button" id="add-destination">+</button>
+                        </div>
+                    </div>
+                    
+                    <label for="vacation-type">Type of Vacation:</label>
+                    <select id="vacation-type" name="vacation_type" required>
+                        <option value="honeymoon">Honeymoon</option>
+                        <option value="pilgrimage">Pilgrimage</option>
+                        <option value="casual">Casual</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="family">Family</option>
+                    </select>
+                    
+                    <button type="submit">Confirm</button>
+                  </form>
+                `;
+                
+                const formContainer = document.createElement('div');
+                formContainer.innerHTML = formHTML;
+                chatContainer.appendChild(formContainer);
+
+                // Adding event listener for the + button after form is injected
+                document.getElementById('add-destination').addEventListener('click', function() {
+                    const newDestinationGroup = document.createElement('div');
+                    newDestinationGroup.className = 'destination-group';
+                    
+                    const newDestination = document.createElement('input');
+                    newDestination.type = 'text';
+                    newDestination.className = 'destination-field';
+                    newDestination.name = 'destinations[]'; // Array-like naming convention
+                    newDestination.placeholder = 'Enter a destination';
+                    newDestination.required = true;
+                    
+                    const newAddButton = document.createElement('button');
+                    newAddButton.type = 'button';
+                    newAddButton.className = 'add-destination-button';
+                    newAddButton.textContent = '+';
+                    
+                    // Add the new input and button to the container
+                    newDestinationGroup.appendChild(newDestination);
+                    newDestinationGroup.appendChild(newAddButton);
+                    
+                    document.getElementById('destinations-container').appendChild(newDestinationGroup);
+
+                    // Move the event listener to the new + button
+                    newAddButton.addEventListener('click', function() {
+                        // Repeat the process for adding more destinations
+                        const nextDestinationGroup = document.createElement('div');
+                        nextDestinationGroup.className = 'destination-group';
+
+                        const nextDestination = document.createElement('input');
+                        nextDestination.type = 'text';
+                        nextDestination.className = 'destination-field';
+                        nextDestination.name = 'destinations[]';
+                        nextDestination.placeholder = 'Enter a destination';
+                        nextDestination.required = true;
+
+                        const nextAddButton = document.createElement('button');
+                        nextAddButton.type = 'button';
+                        nextAddButton.className = 'add-destination-button';
+                        nextAddButton.textContent = '+';
+
+                        nextDestinationGroup.appendChild(nextDestination);
+                        nextDestinationGroup.appendChild(nextAddButton);
+                        
+                        document.getElementById('destinations-container').appendChild(nextDestinationGroup);
+
+                        nextAddButton.addEventListener('click', arguments.callee); // Recursively add the event listener
+                    });
+                });
+            }, 3500); // Adding delay to simulate the sequential flow
+
+            // Handle form submission via AJAX
+            document.addEventListener('submit', function(e) {
+                e.preventDefault();
+            
+                const form = document.getElementById('itinerary-form');
+                const confirmButton = form.querySelector('button[type="submit"]');
+            
+                // Collect destinations as an array
+                const destinationFields = document.querySelectorAll('.destination-field');
+                const destinations = Array.from(destinationFields).map(field => field.value);
+            
+                // Create form data
+                const formData = new FormData(form);
+                formData.append('destinations', JSON.stringify(destinations)); // Send destinations as JSON array
+            
+                // Send data via AJAX
+                fetch('/submit-itinerary/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'message bot-message fade-in';
+                        botMessage.textContent = `Okay perfect! You are ${data.num_people} people going from ${data.start_location} to ${data.destinations.join(', ')} on a ${data.vacation_type} trip.`;
+                        chatContainer.appendChild(botMessage);
+                        chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
+                    }
+                });
+
+                // Disable the confirm button to prevent multiple clicks
+                confirmButton.disabled = true;
+                confirmButton.style.cursor = 'not-allowed';
+            
+                // Disable all form fields to lock them
+                const formFields = form.querySelectorAll('input, select');
+                formFields.forEach(field => {
+                    field.disabled = true;
+                });
+            }); 
+        });
+
+        // CSRF token helper function
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; cookies.length > i; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+</html>

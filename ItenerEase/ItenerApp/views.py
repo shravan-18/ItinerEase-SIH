@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.conf import settings
 from django.http import StreamingHttpResponse, JsonResponse, HttpResponse, HttpResponseNotFound
+from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
@@ -102,3 +103,32 @@ def logoutuser(request):
 @login_required
 def dashboard(request):
     return render(request, 'ItenerApp/dashboard.html')
+
+
+'''View for the first starting page of creating a new itenary user'''
+@login_required
+def start(request):
+    return render(request, 'ItenerApp/start.html')
+
+
+'''View for the '''
+@csrf_exempt
+def submit_itinerary(request):
+    if request.method == 'POST':
+        num_people = request.POST.get('num_people')
+        start_location = request.POST.get('start_location')
+        vacation_type = request.POST.get('vacation_type')
+        
+        destinations = json.loads(request.POST.get('destinations', '[]'))  # Parse the JSON array
+
+        if not all([num_people, start_location, vacation_type]) or not destinations:
+            return JsonResponse({'success': False, 'error': 'Missing required fields'}, status=400)
+
+        # Send a JSON response back to the frontend with details
+        return JsonResponse({
+            'success': True,
+            'num_people': num_people,
+            'start_location': start_location,
+            'destinations': destinations,
+            'vacation_type': vacation_type
+        })

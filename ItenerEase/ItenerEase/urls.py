@@ -28,4 +28,6 @@ urlpatterns = [
     path('logout/', ItenerViews.logoutuser, name='logoutuser'),
     path('signup/', ItenerViews.signupuser, name='signupuser'),
     path('dashboard/', ItenerViews.dashboard, name='dashboard'),
+    path('create/', ItenerViews.start, name='start'),
+    path('submit-itinerary/', ItenerViews.submit_itinerary, name='submit_itenary'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
