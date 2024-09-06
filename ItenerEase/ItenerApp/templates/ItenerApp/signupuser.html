@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Desktop - 6</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@&display=swap" rel="stylesheet">
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/signup-styles.css' %}" />
+</head>
+<body>
+    <div class="desktop-6">
+        <div class="cervi-image"></div>
+        
+        <div class="container">
+            <div class="frame-23">
+                <div class="group-3">
+                    <div class="cervilens-2"></div>
+                    <img class="cervi-lens" src="{% static 'img/logo.png' %}" alt="Cervi Lens" />
+                </div>
+                
+                <div class="group-16">
+                    <span class="hello-there">Hello There!</span>
+                    <span class="register-anew-account">Register a new account</span>
+                </div>
+            </div>
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ error }}
+                
+                <div class="frame-22">
+                    <div class="username">Username</div>
+                    <div class="input">
+                        <input type="text" class="top" name="Username Field" placeholder="Enter username">
+                    </div>
+                    
+                    <div class="email">Email</div>
+                    <div class="input-2">
+                        <input type="email" class="top-2" name="Email Field" placeholder="Enter email">
+                    </div>
+                    
+                    <div class="password">Password</div>
+                    <div class="input-1">
+                        <input type="password" class="top-1" name="Password Field" placeholder="Enter password">
+                    </div>
+                    
+                    <div class="confirm-password">Confirm Password</div>
+                    <div class="input-3">
+                        <input type="password" class="top-3" name="Password Confirmation Field" placeholder="Re-enter password">
+                    </div>
+                </div>
+                
+                <div class="frame-15">
+                    <button type="submit" class="sign-up">Sign Up</button>
+                </div>
+            </form>
+            
+            <div class="frame-24">
+                <div class="already-have-an-account">Already have an account?</div>
+                
+                <div class="group-8">
+                    <span class="sign-in">
+                        <a href="{% url 'loginuser' %}" class="sign-in">LOG IN</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

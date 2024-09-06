@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endobuddy</title>
+
+    <!-- Bootstrap CSS File -->
+    <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link href="{% static 'css/index-styles.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>ItenerEase Landing Page</h1>
+        <!-- <button onclick="location.href='/signupuser'">Sign up</button>
+        <button onclick="location.href='/loginuser'">Log in</button> -->
+        <a class="btn btn-primary" href="{% url 'signupuser' %}">Sign up</a>
+        <a class="btn btn-primary" href="{% url 'loginuser' %}">Login</a>
+        
+    </div>
+
+    <!-- jQuery -->
+    <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+</body>
+</html>

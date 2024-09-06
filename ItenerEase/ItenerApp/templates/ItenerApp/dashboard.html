@@ -1,0 +1,36 @@
+{% load static %}
+
+<html>
+<head>
+    <title>Endobuddy</title>
+
+    <!-- Bootstrap CSS File -->
+   <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+   <link href="{% static 'css/dashboard-styles.css' %}" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navcontainer">
+      <div class="leftNav">
+        <a href="{% url 'dashboard' %}" class="no-underline-hover">
+          <h1 class="navs">ItenerEase Dashboard</h1>
+        </a>
+      </div>
+      <div class="rightNav">
+        <ul class="nav-list">
+          <li>
+            <form id="logoutForm" action="{% url 'logoutuser' %}" method="POST">
+              {% csrf_token %}
+            </form>
+            <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;" class="btn btn-blank">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+</body>
+</html>

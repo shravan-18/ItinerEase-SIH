@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Desktop - 5</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@&display=swap" rel="stylesheet">
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/login-styles.css' %}" />
+</head>
+<body>
+    <div class="desktop-5">
+        <div class="cervi-image"></div>
+        
+        <div class="container">
+            <div class="group-3">
+                <div class="cervilens-2"></div>
+                <img class="cervi-lens" src="{% static 'img/logo.png' %}" alt="Cervi Lens" />
+            </div>
+            
+            <div class="group-16">
+                <span class="welcome-back">Welcome Back!</span>
+                <span class="login-to-your-account">Login to your Account</span>
+            </div>
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ error }}
+                
+                <div class="username">Email Address</div>
+                <div class="input">
+                    <input type="text" name="Email" class="top" placeholder="Enter Email Address">
+                </div>
+                
+                <div class="password">Password</div>
+                <div class="input-1">
+                    <input type="password" name="Password" class="top-1" placeholder="Enter password">
+                </div>
+                
+                <div class="forgot-your-password">Forgot your password?</div>
+                
+                <div class="group-15">
+                    <button type="submit" class="sign-in">Sign In</button>
+                </div>
+            </form>
+            
+            <div class="container-1">
+                <div class="dont-have-an-account">Don’t have an account? </div>
+                
+                <div class="group-8">
+                    <a href="{% url 'signupuser' %}" class="sign-up">SIGN UP</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
