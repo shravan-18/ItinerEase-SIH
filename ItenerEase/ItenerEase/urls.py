@@ -30,4 +30,5 @@ urlpatterns = [
     path('dashboard/', ItenerViews.dashboard, name='dashboard'),
     path('create/', ItenerViews.start, name='start'),
     path('submit-itinerary/', ItenerViews.submit_itinerary, name='submit_itenary'),
+    path('submit-dates/', ItenerViews.submit_dates, name='submit-dates'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

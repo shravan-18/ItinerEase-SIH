@@ -117,14 +117,15 @@ def submit_itinerary(request):
     if request.method == 'POST':
         num_people = request.POST.get('num_people')
         start_location = request.POST.get('start_location')
+        destinations = request.POST.get('destinations')  # This is a JSON string
         vacation_type = request.POST.get('vacation_type')
-        
-        destinations = json.loads(request.POST.get('destinations', '[]'))  # Parse the JSON array
 
-        if not all([num_people, start_location, vacation_type]) or not destinations:
-            return JsonResponse({'success': False, 'error': 'Missing required fields'}, status=400)
+        # Convert destinations back to a Python list
+        import json
+        destinations = json.loads(destinations)
 
-        # Send a JSON response back to the frontend with details
+        # Process the data as needed...
+
         return JsonResponse({
             'success': True,
             'num_people': num_people,
@@ -132,3 +133,13 @@ def submit_itinerary(request):
             'destinations': destinations,
             'vacation_type': vacation_type
         })
+    
+def submit_dates(request):
+    if request.method == 'POST':
+        from_date = request.POST.get('from_date')
+        to_date = request.POST.get('to_date')
+        print(f"From: {from_date} to: {to_date}")
+
+        # Process the dates as needed...
+
+        return JsonResponse({'success': True})
