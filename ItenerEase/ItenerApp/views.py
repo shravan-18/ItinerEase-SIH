@@ -143,3 +143,11 @@ def submit_dates(request):
         # Process the dates as needed...
 
         return JsonResponse({'success': True})
+    
+def submit_interested_places(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print(data)
+        # Handle data here
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False}, status=404)

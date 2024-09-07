@@ -15,6 +15,7 @@
             align-items: center;
             height: 100vh;
         }
+        
         .chat-container {
             display: flex;
             flex-direction: column;
@@ -27,26 +28,46 @@
             padding: 20px;
             overflow-y: auto;
         }
+        
         .message {
             border-radius: 20px;
             padding: 10px;
             margin: 10px 0;
             max-width: 70%;
         }
+        
+        #submit-dates-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #submit-dates-button:hover {
+            background-color: #0056b3;
+        }
+        
         .bot-message {
             background-color: #f1f1f1;
             align-self: flex-start;
         }
+        
         .user-message {
             background-color: #007bff;
             color: white;
             align-self: flex-end;
         }
+        
         form {
             display: flex;
             flex-direction: column;
             margin-top: 20px;
         }
+        
         form input, form button {
             margin: 10px 0;
             cursor: pointer;
@@ -54,6 +75,7 @@
             border-radius: 5px;
             border: 1px solid #ccc;
         }
+        
         form select {
             margin: 10px 0;
             padding: 10px;
@@ -61,13 +83,15 @@
             border: 1px solid #ccc;
             background-color: white;
             font-size: 16px;
-            width: 100%; /* Adjust the width to match input fields */
-            appearance: none; /* This removes the default dropdown arrow for a custom style */
+            width: 100%;
+            appearance: none;
         }
+        
         form select:focus {
             outline: none;
             border-color: #007bff;
         }
+        
         .add-destination-button {
             background-color: #007bff;
             color: white;
@@ -83,13 +107,16 @@
             margin-left: 10px;
             margin-bottom: 10px;
         }
+        
         .destination-group {
             display: flex;
             align-items: center;
         }
+        
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
         }
+        
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -98,6 +125,139 @@
                 opacity: 1;
             }
         }
+        
+        /* Container for the entire destination section */
+        .destination-container {
+            margin-bottom: 20px;
+        }
+        
+        /* Section for each type of places */
+        .places-section {
+            margin-bottom: 20px;
+        }
+        
+        /* Title for each destination */
+        .destination-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        /* Title for each section */
+        .places-section h3 {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        /* Horizontal rule */
+        .places-section hr {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        
+        /* Container for places */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* Grid items */
+        .grid-item {
+            flex: 1 1 auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .grid-item:hover {
+            transform: scale(1.03);
+        }
+        
+        /* Ensure button color changes */
+        .grid-item button {
+            background-color: #f44336; /* Default color */
+            position: absolute;
+            left: 25px;
+            bottom: 0px;
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 80%; /* Ensure button does not cover the place name */
+        }
+        
+        .grid-item button.interested {
+            background-color: #4CAF50; /* Green when interested */
+        }
+        
+        .grid-item button:hover {
+            transform: scale(1.05);
+        }
+        
+        .place-box {
+            position: relative;
+            padding-bottom: 40px; /* Space for the button */
+            text-align: center;
+        }
+        
+        .place-box img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .place-box p {
+            font-size: 16px;
+            margin: 5px 0;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        /* Button container for finalize and default message buttons */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .button-container button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        #finalize-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #finalize-button:hover {
+            background-color: #45a049;
+        }
+        
+        #default-message-button {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        #default-message-button:hover {
+            background-color: #d32f2f;
+        }        
     </style>
 </head>
 <body>
@@ -107,6 +267,8 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const chatContainer = document.getElementById('chat-container');
+            let storedDestinations = [];
+            let storedVacationType = '';
         
             // Sequentially show messages and form
             setTimeout(function() {
@@ -140,19 +302,17 @@
                             </div>
                         </div>
         
-                        <label for="vacation-type">Type of Vacation:</label>
+                        <label for="vacation-type">Where would you like to go primarily during your trip?</label>
                         <select id="vacation-type" name="vacation_type" required>
-                            <option value="honeymoon">Honeymoon</option>
                             <option value="pilgrimage">Pilgrimage</option>
                             <option value="casual">Casual</option>
                             <option value="adventure">Adventure</option>
-                            <option value="family">Family</option>
                         </select>
         
                         <button type="submit">Confirm</button>
                     </form>
                 `;
-                
+        
                 const formContainer = document.createElement('div');
                 formContainer.innerHTML = formHTML;
                 chatContainer.appendChild(formContainer);
@@ -199,15 +359,16 @@
         
             function handleItineraryFormSubmit(form) {
                 const confirmButton = form.querySelector('button[type="submit"]');
-        
+                
                 // Collect destinations as an array
                 const destinationFields = document.querySelectorAll('.destination-field');
-                const destinations = Array.from(destinationFields).map(field => field.value);
-        
+                storedDestinations = Array.from(destinationFields).map(field => field.value);
+                storedVacationType = form.querySelector('#vacation-type').value;
+                
                 // Create form data
                 const formData = new FormData(form);
-                formData.append('destinations', JSON.stringify(destinations)); // Send destinations as JSON array
-        
+                formData.append('destinations', JSON.stringify(storedDestinations)); // Send destinations as JSON array
+                
                 // Send data via AJAX
                 fetch('/submit-itinerary/', {
                     method: 'POST',
@@ -221,20 +382,20 @@
                     if (data.success) {
                         const botMessage = document.createElement('div');
                         botMessage.className = 'message bot-message fade-in';
-                        botMessage.textContent = `Okay perfect! You are ${data.num_people} people going from ${data.start_location} to ${data.destinations.join(', ')} on a ${data.vacation_type} trip.`;
+                        botMessage.textContent = `Okay perfect! You are ${data.num_people} people going from ${data.start_location} to ${storedDestinations.join(', ')} on a ${storedVacationType} trip.`;
                         chatContainer.appendChild(botMessage);
                         chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
-        
+            
                         // Disable form to prevent resubmission
                         disableForm(form);
-        
+            
                         // After "Perfect!" message, ask for travel dates
                         setTimeout(function() {
                             askForTravelDates();
                         }, 2000); // Delay after "Perfect" message
                     }
                 });
-        
+                
                 // Disable the confirm button to prevent multiple clicks
                 confirmButton.disabled = true;
                 confirmButton.style.cursor = 'not-allowed';
@@ -242,7 +403,7 @@
         
             function handleDateFormSubmit(form) {
                 const dateFormData = new FormData(form);
-        
+                
                 // Send data via AJAX
                 fetch('/submit-dates/', {
                     method: 'POST',
@@ -259,19 +420,20 @@
                         botMessage.textContent = "Thank you! We have received your travel dates.";
                         chatContainer.appendChild(botMessage);
                         chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
-        
+            
+                        // Ask for places of interest after receiving dates
+                        askForPlacesOfInterest(storedDestinations, storedVacationType);
+            
                         // Disable form to prevent resubmission
                         disableForm(form);
-        
-                        // Add more questions here if needed (e.g., budget, preferences)
                     }
                 });
-        
+                
                 // Disable the submit button to prevent multiple clicks
                 form.querySelector('button[type="submit"]').disabled = true;
-            }
+            }            
         
-            function askForTravelDates() {
+            function askForTravelDates(destinations, vacationType) {
                 const travelDateMessage = document.createElement('div');
                 travelDateMessage.className = 'message bot-message fade-in';
                 travelDateMessage.textContent = "Great! Please provide your travel dates.";
@@ -302,23 +464,326 @@
                     field.disabled = true;
                 });
             }
-        });
         
-        // CSRF token helper function
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
+            function askForPlacesOfInterest(destinations, vacationType) {
+                setTimeout(function() {
+                    const interestMessage = document.createElement('div');
+                    interestMessage.className = 'message bot-message fade-in';
+                    interestMessage.textContent = "Would you like to tell us some places you'd specifically like to visit from your destination(s)?";
+                    chatContainer.appendChild(interestMessage);
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+                    // Display places for each destination
+                    destinations.forEach(destination => {
+                        displayPlacesForDestination(destination, vacationType);
+                    });
+            
+                    // Add buttons after grids are displayed
+                    const buttonContainer = document.createElement('div');
+                    buttonContainer.className = 'button-container';
+
+                    // Create the finalize button
+                    const finalizeButton = document.createElement('button');
+                    finalizeButton.id = 'finalize-button';
+                    finalizeButton.textContent = 'Finalize';
+                    finalizeButton.className = 'button finalize-button'; // Add a class for styling
+                    finalizeButton.addEventListener('click', finalizeSelection);
+
+                    // Create the "I'm open to anything" button
+                    const defaultMessageButton = document.createElement('button');
+                    defaultMessageButton.id = 'default-message-button';
+                    defaultMessageButton.textContent = "I'm open to anything";
+                    defaultMessageButton.className = 'button default-message-button'; // Add a class for styling
+                    defaultMessageButton.addEventListener('click', handleDefaultMessage);
+            
+                    buttonContainer.appendChild(finalizeButton);
+                    buttonContainer.appendChild(defaultMessageButton);
+                    chatContainer.appendChild(buttonContainer);
+                }, 1500); // Adjust the timing as needed
+            }        
+            
+            function handleDefaultMessage() {
+                lockButtons();
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user-message fade-in';
+                userMessage.textContent = "I'm open to anything";
+                chatContainer.appendChild(userMessage);
+                chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
+            
+                // Send the default message to the backend
+                fetch('/submit-interested-places/', {
+                    method: 'POST',
+                    body: JSON.stringify({ message: "I'm open to anything" }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'message bot-message fade-in';
+                        botMessage.textContent = "Okay, let's get this started with!";
+                        chatContainer.appendChild(botMessage);
+                        chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
+                    }
+                });
+            }
+            
+            function createPlaceBox(place) {
+                const placeBox = document.createElement('div');
+                placeBox.className = 'place-box';
+            
+                const img = document.createElement('img');
+                img.src = place.image || 'https://via.placeholder.com/150'; // Replace with actual image URL
+                img.alt = place.name;
+                placeBox.appendChild(img);
+            
+                const name = document.createElement('p');
+                name.textContent = place.name;
+                placeBox.appendChild(name);
+            
+                const button = document.createElement('button');
+                button.textContent = 'Interested?';
+                button.className = 'interest-button';
+                button.addEventListener('click', () => handlePlaceSelection(place.name, button));
+                placeBox.appendChild(button);
+            
+                return placeBox;
+            }
+        
+            // Function to get places based on destination and vacation type
+            function getPlacesForDestination(destination, vacationType) {
+                // Mock data based on destination and vacation type
+                const allPlaces = {
+                    "Mangalore": [
+                        { name: "Kadri Manjunath Temple", image: "https://via.placeholder.com/150", type: "pilgrimage" },
+                        { name: "Second Temple", image: "https://via.placeholder.com/150", type: "pilgrimage" },
+                        { name: "Panambur Beach", image: "https://via.placeholder.com/150", type: "casual" },
+                        { name: "Pilikula Nisargadhama", image: "https://via.placeholder.com/150", type: "adventure" }
+                    ],
+                    "Goa": [
+                        { name: "Baga Beach", image: "https://via.placeholder.com/150", type: "casual" },
+                        { name: "Basilica of Bom Jesus", image: "https://via.placeholder.com/150", type: "pilgrimage" },
+                        { name: "Dudhsagar Falls", image: "https://via.placeholder.com/150", type: "adventure" }
+                    ]
+                };
+            
+                // Log the fetched places
+                console.log(`Fetching places for ${destination} (${vacationType})`);
+                const places = allPlaces[destination] || [];
+            
+                // Filter places by vacation type
+                const filteredPlaces = places.filter(place => place.type === vacationType);
+            
+                // Sort places: primary vacation type first, followed by other types
+                const otherPlaces = places.filter(place => place.type !== vacationType);
+            
+                return [...filteredPlaces, ...otherPlaces];
+            }            
+                       
+        
+            function displayPlacesForDestination(destination, vacationType) {
+                const places = getPlacesForDestination(destination, vacationType);
+
+                const container = document.createElement('div');
+                container.innerHTML = `<hr><h2>${destination}</h2>`;
+
+                // Group places by type
+                const types = ['pilgrimage', 'casual', 'adventure'];
+                types.forEach(type => {
+                    const placesOfType = places.filter(place => place.type === type);
+                    if (placesOfType.length > 0) {
+                        const section = document.createElement('div');
+                        section.innerHTML = `<h3>${type.charAt(0).toUpperCase() + type.slice(1)}</h3>`;
+                        const grid = document.createElement('div');
+                        grid.className = 'grid-container';
+                        placesOfType.forEach(place => {
+                            // Create a grid-item container
+                            const item = document.createElement('div');
+                            item.className = 'grid-item';
+                        
+                            // Create the place-box container
+                            const placeBox = document.createElement('div');
+                            placeBox.className = 'place-box';
+                        
+                            // Add image
+                            const img = document.createElement('img');
+                            img.src = place.image;
+                            img.alt = place.name;
+                            placeBox.appendChild(img);
+                        
+                            // Add place name
+                            const name = document.createElement('p');
+                            name.textContent = place.name;
+                            placeBox.appendChild(name);
+                        
+                            // Create the button
+                            const button = document.createElement('button');
+                            button.textContent = 'Interested?';
+                            button.className = 'interest-button';
+                        
+                            // Attach event listener to the button
+                            button.addEventListener('click', () => handlePlaceSelection(place.name, button));
+                        
+                            // Append the button to the place-box
+                            placeBox.appendChild(button);
+                        
+                            // Append the place-box to the item (grid-item)
+                            item.appendChild(placeBox);
+                        
+                            // Finally, append the item to the grid
+                            grid.appendChild(item);
+                        });                        
+                        section.appendChild(grid);
+                        container.appendChild(section);
+                    }
+                });
+
+                // Append the container to the chat container or appropriate place
+                chatContainer.appendChild(container);
+            }
+            
+            function capitalizeFirstLetter(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }                
+            
+            function updateButtonState(placeName, interested) {
+                const buttons = document.querySelectorAll('.grid-item button');
+                buttons.forEach(button => {
+                    if (button.parentElement.querySelector('p').textContent === placeName) {
+                        if (interested) {
+                            button.textContent = '✔ Interested';
+                            button.style.backgroundColor = '#4CAF50'; // Green
+                        } else {
+                            button.textContent = 'Interested?';
+                            button.style.backgroundColor = '#f44336'; // Red
+                        }
+                    }
+                });
+            }            
+
+            function updateFinalizeButtonVisibility() {
+                let finalizeButton = document.getElementById('finalize-button');
+                if (!finalizeButton) {
+                    finalizeButton = document.createElement('button');
+                    finalizeButton.id = 'finalize-button';
+                    finalizeButton.textContent = 'Finalize';
+                    finalizeButton.addEventListener('click', finalizeSelection);
+                    chatContainer.appendChild(finalizeButton);
+                }
+                finalizeButton.style.display = interestedPlaces.length > 0 ? 'block' : 'none';
+            }            
+            
+            function handleFinalizeButtonClick() {
+                lockButtons();
+                // Add your finalize logic here
+            }
+            
+            function handleDefaultMessageButtonClick() {
+                lockButtons();
+                // Add your default message logic here
+            }
+
+            function lockButtons() {
+                // Lock the finalize and "I'm open to anything" buttons
+                document.getElementById('finalize-button').disabled = true;
+                document.getElementById('default-message-button').disabled = true;
+            
+                // Lock the interested buttons
+                document.querySelectorAll('.place-box button').forEach(button => {
+                    button.disabled = true;
+                });
+            }
+
+            // List to store interested places
+            let interestedPlaces = [];
+            function handlePlaceSelection(placeName, button) {
+                if (button.disabled) return; // Exit if button is disabled
+
+                // Determine the current state of the button
+                let isInterested = button.classList.contains('interested');
+            
+                if (isInterested) {
+                    // If interested, remove the place from the list and update the button
+                    interestedPlaces = interestedPlaces.filter(place => place !== placeName);
+                    button.textContent = 'Interested?';
+                    button.style.backgroundColor = '#f44336'; // Red or any other color
+                    button.classList.remove('interested');
+                } else {
+                    // If not interested, add the place to the list and update the button
+                    interestedPlaces.push(placeName);
+                    button.textContent = '✔ Interested';
+                    button.style.backgroundColor = '#4CAF50'; // Green or any other color
+                    button.classList.add('interested');
+                }
+            
+                // Update the finalize button visibility
+                updateFinalizeButtonVisibility();
+            }
+
+            function finalizeSelection() {
+                lockButtons();
+                if (interestedPlaces.length === 0) {
+                    // Handle case where no places are selected
+                    const messageBubble = document.createElement('div');
+                    messageBubble.className = 'message user-message fade-in';
+                    messageBubble.textContent = "I'm open to anything.";
+                    chatContainer.appendChild(messageBubble);
+                    chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to bottom
+            
+                    // Simulate backend response
+                    setTimeout(() => {
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'message bot-message fade-in';
+                        botMessage.textContent = "Okay, let's get this started with!";
+                        chatContainer.appendChild(botMessage);
+                        chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to bottom
+                    }, 1000);
+            
+                    return;
+                }
+            
+                fetch('/submit-interested-places/', {
+                    method: 'POST',
+                    body: JSON.stringify({ interestedPlaces }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'message bot-message fade-in';
+                        botMessage.textContent = "Thank you for finalizing your selections!";
+                        chatContainer.appendChild(botMessage);
+                        chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to bottom
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }                                                
+        
+            // Helper function to get CSRF token
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
                     }
                 }
+                return cookieValue;
             }
-            return cookieValue;
-        }        
-    </script>        
+        });        
+    </script>
 </body>
 </html>

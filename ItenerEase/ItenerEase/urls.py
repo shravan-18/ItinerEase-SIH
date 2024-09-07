@@ -31,4 +31,5 @@ urlpatterns = [
     path('create/', ItenerViews.start, name='start'),
     path('submit-itinerary/', ItenerViews.submit_itinerary, name='submit_itenary'),
     path('submit-dates/', ItenerViews.submit_dates, name='submit-dates'),
+    path('submit-interested-places/', ItenerViews.submit_interested_places, name='submit_interested_places'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
