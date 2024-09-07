@@ -13,8 +13,106 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="{% static 'css/signup-styles.css' %}" />
+    <!-- Inline CSS for Background Image and Styling -->
+    <style>
+        /* General styling for the body */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('{% static "img/mountains.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Container styling */
+        .container {
+            background-color: rgba(190, 216, 218, 0.85); /* Slightly transparent white */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            z-index: 3;
+        }
+
+        /* Heading styles */
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #0077B6;
+            margin-bottom: 10px;
+        }
+
+        /* Paragraph styles */
+        p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Form input fields */
+        input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+            font-size: 16px;
+            color: #000;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        /* Placeholder styling */
+        input::placeholder {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Password info styling */
+        .password-info {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Sign Up button styling */
+        button {
+            background-color: #0077B6;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #005f73;
+        }
+
+        /* Sign In link styling */
+        .sign-in-link {
+            margin-top: 20px;
+        }
+
+        .sign-in-link a {
+            color: #0077B6;
+            text-decoration: none;
+        }
+
+        .sign-in-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <div class="container">

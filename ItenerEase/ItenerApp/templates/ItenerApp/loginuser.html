@@ -1,4 +1,3 @@
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -15,7 +14,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="{% static 'css/login-styles.css' %}" />
+    <style>
+        /* Inline CSS for background image */
+        body {
+            background-image: url('{% static "img/Beach.png" %}');
+            background-size: cover; /* Cover the entire page */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container styling */
+        .container {
+            background-color: rgba(190, 216, 218, 0.85); /* Slightly transparent white */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        /* Style adjustments for form elements and text */
+        .group-16 {
+            margin-bottom: 20px;
+        }
+
+        .unlock-magic {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #007bff; /* Blue color for emphasis */
+        }
+
+        .sign-in-text {
+            font-size: 1.25rem;
+            color: #333;
+        }
+
+        .input, .input-1 {
+            margin-bottom: 20px;
+        }
+
+        .input input, .input-1 input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .sign-in {
+            background-color: #007bff; /* Blue button */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sign-in:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div class="desktop-5">
@@ -23,7 +86,7 @@
             <!-- Heading Section -->
             <div class="group-16">
                 <span class="unlock-magic">Unlock the Magic of India</span>
-                <p class="sign-in-text">Sign In to Design Your <br>Dream Getaway</p>
+                <p class="sign-in-text"><b> Sign In to Design Your <br>Dream Getaway </b></p>
             </div>
             
             <!-- Form Section -->
@@ -33,7 +96,7 @@
                 
                 <!-- Username Field -->
                 <div class="input">
-                    <input type="text" name="Email" class="top" placeholder="Enter username">
+                    <input type="text" name="Email" class="top" placeholder="Enter Email Id">
                 </div>
 
                 <!-- Password Field with Icon -->
