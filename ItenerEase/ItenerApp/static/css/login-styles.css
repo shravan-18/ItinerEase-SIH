@@ -1,0 +1,136 @@
+/* General styling for the body */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url("{ItenerEase\ItenerApp\static\img\beach.png}") no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Add a slightly blurred overlay but allow background to be visible */
+.desktop-5 {
+    backdrop-filter: blur(10px); /* Adjust blur radius to your preference */ 
+    background-color: rgba(255, 255, 255, 0.3); /* Slightly transparent white overlay */
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+/* Container for the form */
+.container {
+    background-color: rgba(116, 123, 140, 0.5); /* Slightly transparent background for the container */
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    z-index: 3;
+}
+
+/* Sign-in heading styles */
+.unlock-magic {
+    font-size: 28px;
+    font-weight: 600;
+    color: rgba(22, 143, 151, 0.75); /* Hex 168F97 with 75% opacity */
+    margin-bottom: 10px;
+}
+
+/* Subheading (Sign In to Design Your Dream Getaway) */
+.sign-in-link {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0077B6;
+    text-decoration: none;
+}
+
+.sign-in-link:hover {
+    text-decoration: underline;
+}
+
+/* Input fields */
+.input, .input-1 {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Light border color for contrast */
+    background-color: rgba(167, 38, 38, 0.5); /* Slightly transparent background */
+    font-size: 16px;
+    color: #000; /* Text color for visibility */
+    box-sizing: border-box;
+    outline: none;
+}
+
+/* Placeholder styling */
+input::placeholder {
+    color: #aaa; /* Light color for placeholders */
+    font-size: 14px;
+}
+
+/* Lock icon inside password field */
+.input-1 {
+    position: relative;
+}
+
+.input-1 input {
+    padding-right: 40px; /* Space for the icon */
+}
+
+.input-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}
+
+/* Button styling */
+.group-15 .sign-in {
+    background-color: #004c80; /* Button color */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.group-15 .sign-in:hover {
+    background-color: #006699;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .unlock-magic {
+        font-size: 24px;
+    }
+
+    .sign-in-link {
+        font-size: 16px;
+    }
+}
+
+
