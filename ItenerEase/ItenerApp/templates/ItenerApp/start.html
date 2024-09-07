@@ -166,7 +166,6 @@
             margin-bottom: 20px;
         }
         
-        /* Grid items */
         .grid-item {
             flex: 1 1 auto;
             border: 1px solid #ccc;
@@ -175,11 +174,14 @@
             border-radius: 8px;
             overflow: hidden;
             position: relative;
+            transition: transform 0.3s ease;
         }
         
         .grid-item img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the entire container */
+            aspect-ratio: 1 / 1; /* Forces the aspect ratio to be 1:1 (square) */
         }
         
         .grid-item:hover {
@@ -201,11 +203,19 @@
         }
         
         .grid-item button.interested {
-            background-color: #4CAF50; /* Green when interested */
+            background-color: #4CAF50; /* Green when interested */  
         }
         
         .grid-item button:hover {
             transform: scale(1.05);
+        }
+        
+        .interest-button {
+            transition: transform 0.3s ease;
+        }
+
+        .interest-button:hover {
+            transition: transform 0.3s ease,
         }
         
         .place-box {
@@ -213,10 +223,12 @@
             padding-bottom: 40px; /* Space for the button */
             text-align: center;
         }
-        
+
         .place-box img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the entire container */
+            aspect-ratio: 1 / 1; /* Forces the aspect ratio to be 1:1 (square) */
         }
         
         .place-box p {
@@ -257,7 +269,115 @@
         
         #default-message-button:hover {
             background-color: #d32f2f;
-        }        
+        }     
+
+        .stay-options-container {
+            display: block;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            margin-bottom: 20px;
+        }
+        
+        .stay-option-button {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .stay-option-button:hover {
+            background-color: #0056b3;
+        }
+        
+        .stay-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .stay-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 250px; /* Adjust width as needed */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stay-box img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .stay-box p {
+            margin: 10px 0;
+        }
+        
+        .choose-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .choose-button:hover {
+            background-color: #0056b3;
+        }
+        
+        .stay-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .sort-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .sort-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .sort-buttons button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .sort-buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .destination-heading {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        hr {
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+           
     </style>
 </head>
 <body>
@@ -527,9 +647,15 @@
                         botMessage.textContent = "Okay, let's get this started with!";
                         chatContainer.appendChild(botMessage);
                         chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
+            
+                        // Simulate delay before showing stay options
+                        setTimeout(() => {
+                            console.log("Showing stay options...");
+                            showStayOptions(); // Show stay options after delay
+                        }, 1000); // Adjust delay as needed
                     }
                 });
-            }
+            }            
             
             function createPlaceBox(place) {
                 const placeBox = document.createElement('div');
@@ -556,18 +682,136 @@
             // Function to get places based on destination and vacation type
             function getPlacesForDestination(destination, vacationType) {
                 // Mock data based on destination and vacation type
-                const allPlaces = {
-                    "Mangalore": [
-                        { name: "Kadri Manjunath Temple", image: "https://via.placeholder.com/150", type: "pilgrimage" },
-                        { name: "Second Temple", image: "https://via.placeholder.com/150", type: "pilgrimage" },
-                        { name: "Panambur Beach", image: "https://via.placeholder.com/150", type: "casual" },
-                        { name: "Pilikula Nisargadhama", image: "https://via.placeholder.com/150", type: "adventure" }
+                const allPlaces= {
+                    "Jaipur":
+                    [
+                    
+                            { name: "Govind Devji Temple", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaXbgjOuhajSRe7iBKH54NFJtY-VRlDy3Z-A&s", type: "pilgrimage" },
+                            { name: "Birla Mandir", image: "https://www.trawell.in/admin/images/upload/151648860Jaipur_Birla_Temple_Main.jpg", type: "pilgrimage" },
+                            { name: "Moti Dungri Ganesh Temple", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Sri_Moti_Ganesh_Ji_Mandir_Dungri.jpg/1200px-Sri_Moti_Ganesh_Ji_Mandir_Dungri.jpg", type: "pilgrimage" },
+                            { name: "Akshardham Temple", image: "https://myholidayhappiness.com/uploads/akshardham-temple-jaipur-3025.jpg", type: "pilgrimage" },
+                            { name: "Shila Devi Temple (Amber Fort)", image: "https://images.nativeplanet.com/img/2016/07/amer-fort-entrance-01-1467353170.jpg", type: "pilgrimage" },
+                            { name: "Hot Air Balloon Ride over Jaipur", image: "https://www.oyorooms.com/travel-guide/wp-content/uploads/2022/03/Hot-air-balloon-rides-in-Jaipur-an-exhilarating-experience.jpg", type: "adventure" },
+                            { name: "Trekking to Nahargarh Fort", image: "https://media1.thrillophilia.com/filestore/7kdxxckc98ndlmp9rd73z6l733g2_IMG_0715.JPG", type: "adventure" },
+                            { name: "Ziplining at Neemrana Fort", image: "https://media1.thrillophilia.com/filestore/sq37wnh2lzo7b0nincrp6fyjwnhv_Neemrana.jpg?w=576&h=650", type: "adventure" },
+                            { name: "Cycling tours around the city", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO-nN_5FR5go3AUNk_fQnJs9lkFPykMacVfw&s", type: "adventure" },
+                            { name: "Wildlife Safari at Nahargarh Biological Park", image: "https://static.toiimg.com/photo/65320810.cms", type: "adventure" },
+                            { name: "Amber Fort light and sound show", image: "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/0a/66/3e/1f.jpg", type: "casual" },
+                            { name: "Hawa Mahal", image: "https://www.holidify.com/images/cmsuploads/compressed/h4_20170822181427.PNG", type: "casual" },
+                            { name: "Jantar Mantar", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnOwAiPvG5V3Gqh5jRLn6GVqS5vXWexjShFA&s", type: "casual" },
+                            { name: "Albert Hall Museum", image: "https://jaipurtourism.co.in/images/places-to-visit/header/albert-hall-museum-jaipur-entry-fee-timings-holidays-reviews-header.jpg", type: "casual" },
+                            { name: "Shopping at Johari Bazaar", image: "https://yometro.com/images/places/johari-bazaar.jpg", type: "casual" }
                     ],
-                    "Goa": [
-                        { name: "Baga Beach", image: "https://via.placeholder.com/150", type: "casual" },
-                        { name: "Basilica of Bom Jesus", image: "https://via.placeholder.com/150", type: "pilgrimage" },
-                        { name: "Dudhsagar Falls", image: "https://via.placeholder.com/150", type: "adventure" }
+                    "Ladakh": 
+                    [
+                            { name: "Hemis Monastery", image: "https://vargiskhan.com/log/wp-content/uploads/2023/05/hemis-monastery-9.jpg", type: "pilgrimage" },
+                            { name: "Thiksey Monastery", image: "https://static.toiimg.com/photo/49409286.cms", type: "pilgrimage" },
+                            { name: "Shanti Stupa", image: "https://media1.thrillophilia.com/filestore/incr8e1ls7vwnw6hmzee2d76safs_shutterstock_28393609.jpg", type: "pilgrimage" },
+                            { name: "Diskit Monastery", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpwG_xQJV-Art5PSCshP4TH9WWmZ5ufOWnDg&s", type: "pilgrimage" },
+                            { name: "Likir Monastery", image: "https://media1.thrillophilia.com/filestore/r5wp3l5tytmvjsy1ys73dy6lvm3s_1488817094_H-L-likir-gompa.jpg?w=400&dpr=2", type: "pilgrimage" },
+                            { name: "Trekking in Markha Valley", image: "https://imgcld.yatra.com/ytimages/image/upload/v1517482421/AdvNation/ANN_TRP252/Markha-Valley-Trek_1465363166_3a1FHb.jpg", type: "adventure" },
+                            { name: "Motorbiking on Khardung La", image: "https://images.hindustantimes.com/rf/image_size_630x354/HT/p2/2018/07/05/Pictures/_760868a8-806f-11e8-bd7f-aad8d1b78451.JPG", type: "adventure" },
+                            { name: "Rafting on Zanskar River", image: "https://aquaterra.in/wp-content/uploads/2019/10/Zanskar-Ladakh-Leh-River-Rafting-28.jpg", type: "adventure" },
+                            { name: "Biking to Pangong Lake", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHzWsFayVmxRAKPgQK-IC3sJVFz-1Od3ir1A&s", type: "adventure" },
+                            { name: "Camel Safari in Nubra Valley", image: "https://www.tourmyindia.com/states/ladakh/imagess/camel-adventure.jpg", type: "adventure" },
+                            { name: "Explore Leh Market", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/53/db/4b/getlstd-property-photo.jpg?w=1200&h=-1&s=1", type: "casual" },
+                            { name: "Stok Palace Museum", image: "https://discoverlehladakh.in/wp-content/uploads/2020/11/Stok-Palace-Gompa-Leh.jpg", type: "casual" },
+                            { name: "Walk around Magnetic Hill", image: "https://static.toiimg.com/thumb/msid-107033508,width-1280,height-720,resizemode-4/107033508.jpg", type: "casual" },
+                            { name: "Enjoy local cuisine at cafes in Leh", image: "https://assets.architecturaldigest.in/photos/6368d7baf85b39e2ca26f432/16:9/w_1615,h_908,c_limit/Zasgyath%20at%20The%20Grand%20Dragon%20comes%20with%20the%20most%20majestic%20view%20of%20the%20Stok%20Kangri%20range.%20.png", type: "casual" },
+                            { name: "Tso Moriri Lake", image: "https://media1.thrillophilia.com/filestore/jyl7pmku807wsg7122r8b8jb63jp_1557384428_shutterstock_754201888.jpg?w=400&dpr=2", type: "casual" }
+                    ],
+                    "Varanasi":
+                    [
+                            { name: "Kashi Vishwanath Temple", image: "https://images.indianexpress.com/2021/12/29-2.jpg?resize=728,405", type: "pilgrimage" },
+                            { name: "Sankat Mochan Hanuman Temple", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/b8/f6/91/sankat-mochan-hanuman.jpg?w=1200&h=1200&s=1", type: "pilgrimage" },
+                            { name: "Durga Temple", image: "https://static.toiimg.com/photo/35112422.cms", type: "pilgrimage" },
+                            { name: "Tulsi Manas Temple", image: "https://www.tourmyindia.com/states/uttarpradesh/images/tulsi-manas-temple-varanasi.jpg", type: "pilgrimage" },
+                            { name: "Bharat Mata Mandir", image: "https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2024/01/05/ae4be49d26e5f17fff4472e7b75f2c2b_1000x1000.jpg", type: "pilgrimage" },
+                            { name: "Boat rides on River Ganga", image: "https://media.tacdn.com/media/attractions-splice-spp-674x446/07/72/68/de.jpg", type: "adventure" },
+                            { name: "Sunrise at Assi Ghat", image: "https://www.myvaranasi.com/wp-content/uploads/2019/06/Assi-Ghat-morning-240x300.jpg", type: "adventure" },
+                            { name: "Walking tours of ancient lanes", image: "https://res.klook.com/image/upload/c_fill,w_750,h_560/q_80/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/jgkl0tsjnsxc67rw6xrv.jpg", type: "adventure" },
+                            { name: "Trek to Chunar Fort", image: "https://static.toiimg.com/photo/35113094.cms", type: "adventure" },
+                            { name: "Exploring Sarnath Archaeological Site", image: "https://static.toiimg.com/photo/68814312.cms", type: "adventure" },
+                            { name: "Assi Ghat evening Aarti", image: "https://kashiyatra.in/wp-content/uploads/2023/10/assi-ghat-ganga-aarti.jpeg", type: "casual" },
+                            { name: "Ramnagar Fort", image: "https://upload.wikimedia.org/wikipedia/commons/8/89/Entrance_area_of_Ramnagar_Fort.jpg", type: "casual" },
+                            { name: "Banaras Hindu University (BHU) campus walk", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBfGFWmJlm0HoCMLfb2QwzmBexs5yhmpMgkA&s", type: "casual" },
+                            { name: "Varanasi Silk Market", image: "https://i0.wp.com/www.tusktravel.com/blog/wp-content/uploads/2023/03/Gyanvapi-Market-Varanasi.jpg?resize=1200%2C900&ssl=1", type: "casual" },
+                            { name: "Weavers’ Village", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbH884JcfyWbbWTtN1BfcxPjyVUrAZZyDrRw&s", type: "casual" }
+                    ],
+                    "Rishikesh":
+                    [
+                            { name: "Triveni Ghat", image: "https://media2.thrillophilia.com/images/photos/000/085/285/original/1584390072_shutterstock_1005613216.jpg?", type: "pilgrimage" },
+                            { name: "Parmarth Niketan Ashram", image: "https://wandersky.in/wp-content/uploads/2023/03/parmath-niketan-rishikesh.jpg", type: "pilgrimage" },
+                            { name: "Neelkanth Mahadev Temple", image: "https://wandersky.in/wp-content/uploads/2023/08/Neelkanth-Mahadev-Temple-Rishikesh.jpg", type: "pilgrimage" },
+                            { name: "Bharat Mandir", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/46/21/57/bongblogger-shri-bharat.jpg?w=1200&h=-1&s=1", type: "pilgrimage" },
+                            { name: "Gita Bhavan", image: "https://rishikesh.app/te/_thumb/attractions/geeta-bhavan-banner.jpg", type: "pilgrimage" },
+                            { name: "White Water Rafting", image: "https://ataliganga.com/wp-content/uploads/2022/09/About-02.jpg", type: "adventure" },
+                            { name: "Bungee Jumping", image: "https://www.seawatersports.com/img/newimage/activies/slide/bungee-jumping-in-delhi-a-girl-bungee-jumping.jpeg", type: "adventure" },
+                            { name: "Cliff Jumping", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXLNUlxA-WO4bY9LiqOz-lyF1vLAR5s7B75w&s", type: "adventure" },
+                            { name: "Kayaking on the Ganges", image: "https://rishikesh.app/_vercel/image?url=%2Fte%2Fevents%2Fganga-kayak-fest.jpg&w=1280&q=100", type: "adventure" },
+                            { name: "Trek to Neer Garh Waterfall", image: "https://rishikeshdaytour.com/blog/wp-content/uploads/2019/10/Neer-Waterfalls-in-Rishikesh-Uttarakhand.jpg", type: "adventure" },
+                            { name: "Beatles Ashram", image: "https://www.junglesafarirajajinationalpark.com/assets/images/beatles-ashram-in-rishikesh.jpg", type: "casual" },
+                            { name: "Laxman Jhula Bridge", image: "https://uttarakhandtriptrek.com/wp-content/uploads/2019/02/Ram-Jhula-Rishikesh-Uttarakhand.jpg", type: "casual" },
+                            { name: "Café hopping along the Ganges", image: "https://www.myyellowplate.com/wp-content/uploads/2021/03/Shanti-Shanti-Cafe-in-Rishikesh.png", type: "casual" },
+                            { name: "Rishikesh Market", image: "https://res.cloudinary.com/purnesh/image/upload/w_540,f_auto,q_auto:eco,c_limit/lakshmanjhulamarket-fotor.jpg", type: "casual" },
+                            { name: "Shivpuri", image: "https://r1imghtlak.ibcdn.com/e8712c86931211ec952d0a58a9feac02.jpeg?downsize=634:357", type: "casual" }
+                    ],
+                    "Udaipur":
+                    [
+                            { name: "Jagdish Temple", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/JagdishTemple-Udaipur-Rajasthan_JM34.jpg/1200px-JagdishTemple-Udaipur-Rajasthan_JM34.jpg", type: "pilgrimage" },
+                            { name: "Eklingji Temple", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/d4/5c/be/eklingji-temple.jpg?w=1200&h=1200&s=1", type: "pilgrimage" },
+                            { name: "Nathdwara Temple", image: "https://www.rajasthandirect.com/wp-content/uploads/2012/11/Shree-Nathji-Temple-Nathdwara-Udaipur.jpg", type: "pilgrimage" },
+                            { name: "Neemach Mata Temple", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHtiDOnpViE8WErMNug2QVdyBJ0uqtdaPVsw&s", type: "pilgrimage" },
+                            { name: "Karni Mata Temple", image: "https://www.abhibus.com/blog/wp-content/uploads/2023/12/Karni-Mata-Temple-Udaipur-History-Timings-How-to-Reach.jpg", type: "pilgrimage" },
+                            { name: "Trekking to Sajjangarh (Monsoon Palace)", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCVAcOroRX82HTlNxvuEEO5recQYhv5JU_Jg&s", type: "adventure" },
+                            { name: "Boating at Fateh Sagar Lake", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcjtwe9_k5r2BBv_Q5RtK3qMvKrB0vZLsnBg&s", type: "adventure" },
+                            { name: "Ziplining at Kumbhalgarh Fort", image: "https://www.adventurush.com/wp-content/uploads/2022/08/Copy-of-Copy-of-DSC_7495.jpg", type: "adventurous places" },
+                            { name: "Cycling around Udaipur’s countryside", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTy8LWEZmy6gpihjE8esjc_a1kgkbCsWUu9BQ&s", type: "adventure" },
+                            { name: "Camel safari around the Aravalli hills", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFaU5W5UPBLNOhrpfSA8eJmqm76oj0wayVig&s", type: "adventure" },
+                            { name: "City Palace", image: "https://map.sahapedia.org/admin/assets/images/2021033013400727799_Banner.jpg?__imr__=bannerMuseum", type: "casual" },
+                            { name: "Lake Pichola boat ride", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/26/33/75/c5/caption.jpg?w=1200&h=-1&s=1", type: "casual" },
+                            { name: "Saheliyon Ki Bari garden", image: "https://udaipurdosti.com/wp-content/uploads/2023/04/Saheliyon-ki-Bari-UDAIPUR-1024x560.webp", type: "casual" },
+                            { name: "Jag Mandir Palace", image: "https://udaipurblog.com/wp-content/uploads/2018/03/fi.jpg", type: "casual" },
+                            { name: "Shilpgram Arts & Crafts Village", image: "https://i0.wp.com/theudaipurstore.com/wp-content/uploads/2021/08/Shilpgram-3.jpg?fit=869%2C489&ssl=1", type: "casual" }
+                    ],
+                    "Amritsar":
+                    [
+                            { name: "Golden Temple (Harmandir Sahib)", image: "https://www.holidify.com/images/cmsuploads/compressed/shutterstock_479585620_20191024174904_20200407155734.jpg", type: "pilgrimage" },
+                            { name: "Durgiana Temple", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOopcU85liykGyVOhaODcp8s8hDlRze225mA&s", type: "pilgrimage" },
+                            { name: "Tarn Taran Sahib", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCRq3WfLXtHhicF02K3FsGacqyqf6RPGxRJw&s", type: "pilgrimage" },
+                            { name: "Ram Tirath Temple", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHv-_qD7NFyK38QwYwSmu9XdamAmep7lFlnw&s", type: "pilgrimage" },
+                            { name: "Akal Takht", image: "https://c8.alamy.com/comp/D5KCN1/the-akal-takht-amritsar-india-D5KCN1.jpg", type: "pilgrimage" },
+                            { name: "Walking tour of the Old City", image: "https://i0.wp.com/www.tusktravel.com/blog/wp-content/uploads/2023/04/amritsar-amritsar-heritage-walk-10-min.jpg?fit=1920%2C1280&ssl=1", type: "adventure" },
+                            { name: "Paintball in Amritsar", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgKBdiysyo_DtIXrbqD08O-Ux39jC_UPfh0Q&s", type: "adventure" },
+                            { name: "Amritsar biking tours", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLxVuoAStmDZIunV4NChPB0sJEWqY6eBoOsg&s", type: "adventure" },
+                            { name: "Attari-Wagah Border Ceremony", image: "https://images.squarespace-cdn.com/content/v1/5940f2725016e1c79e469470/1523379170441-PTHPFWDLU6XJFTTKZP30/wagah+border+parade.jpg", type: "adventure" },
+                            { name: "Heritage walk", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEnvev32UGt2qt6Gzw9a4KEYd7eZkDubzTgg&s", type: "adventure" },
+                            { name: "Amritsari food street exploration", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/9e/a6/26/20190301-140002-largejpg.jpg?w=1000&h=-1&s=1", type: "casual" },
+                            { name: "Partition Museum", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGEjiD8VBHGdmNVGBpqO_m_vE-owqNWgeHMA&s", type: "casual" },
+                            { name: "Summer Palace of Maharaja Ranjit Singh", image: "https://upload.wikimedia.org/wikipedia/commons/a/ac/Summer_Palace_of_Maharaja_Ranjit_Singh%2C_Amritsar%2C_Punjab%2CIndia.jpg", type: "casual" },
+                            { name: "Shopping at Hall Bazaar", image: "https://cdn.shopify.com/s/files/1/0596/2819/1910/files/peter-chirkov-pntdBK6aGqw-unsplash_480x480.jpg?v=1676734340", type: "casual" },
+                            { name: "Evening stroll around Golden Temple Sarovar", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHuU7zfuweq47IZ3MgrsSgaYH-a_txt34Zw&s", type: "casual" }
+                    ],
+                    
+                    "Mysore":
+                    [
+                            { name: "Chamundeshwari Temple", image: "https://lightuptemples.com/wp-content/uploads/2022/11/1-75.jpg", type: "pilgrimage" },
+                            { name: "St. Philomena’s Church", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR87tWVWEMJeYdWJbdmlKJrLE_FWa7BrB1RhQ&s", type: "pilgrimage" },
+                            { name: "Sri Nandi Temple", image: "https://mysore.ind.in/wp-content/uploads/2010/11/Nandi-Shrine-at-Night.jpg", type: "pilgrimage" },
+                            { name: "Gayatri Temple", image: "https://srigayathridevi.com/img/banner_temple.jpg", type: "pilgrimage" },
+                            { name: "Sri Lakshmiramana Swamy Temple", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_iGnlPl_qVtg4AweYbveDLBIeBhS-MyuQlA&s", type: "pilgrimage" },
+                            { name: "Trekking at Chamundi Hill", image: "https://baarchana.wordpress.com/wp-content/uploads/2009/07/img_0922.jpg", type: "adventure" },
+                            { name: "Wildlife Safari at Bandipur National Park", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiN1JATYgcRxe6G68FbOAkpdiXlLeeqh9pYg&s", type: "adventure" },
+                            { name: "Cycling around Karanji Lake", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/0a/fa/99/mycycle-mysore-cycle.jpg?w=1200&h=1200&s=1", type: "adventure" },
+                            { name: "Boating at Ranganathittu Bird Sanctuary", image: "https://jlrexplore.com/wp-content/uploads/2017/06/06-1.jpg", type: "adventure" },
+                            { name: "Skydiving at Mysore Airport", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrOQOCmxhss2sIU1pyV3WaBkoZWMbFyWUtFg&s", type: "adventure" },
+                            { name: "Mysore Palace", image: "https://cdn.britannica.com/27/242227-050-48358A10/Mysore-Palace-Mysuru-Karnataka-India.jpg", type: "casual" },
+                            { name: "Brindavan Gardens", image: "https://www.makemytrip.com/travel-guide/media/dg_image/mysore/Brindavan-Gardens-Mysore.jpg", type: "casual" },
+                            { name: "Mysore Zoo", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl6JjgZI2oEW1JZrbdMFeVAhkFa3vXXCLzrQ&s", type: "casual" },
+                            { name: "Stroll at Devaraja Market", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/87/74/0f/caption.jpg?w=300&h=300&s=1", type: "casual" },
+                            { name: "Coffee tasting in local cafés", image: "https://content.jdmagicbox.com/comp/mysore/a5/0821px821.x821.230913215703.b7a5/catalogue/wodeyars-coffee-mysore-coffee-shops-j5tj9vqi4b.jpg", type: "casual" }
                     ]
+                        
                 };
             
                 // Log the fetched places
@@ -643,11 +887,7 @@
 
                 // Append the container to the chat container or appropriate place
                 chatContainer.appendChild(container);
-            }
-            
-            function capitalizeFirstLetter(string) {
-                return string.charAt(0).toUpperCase() + string.slice(1);
-            }                
+            }            
             
             function updateButtonState(placeName, interested) {
                 const buttons = document.querySelectorAll('.grid-item button');
@@ -741,8 +981,9 @@
                         chatContainer.appendChild(botMessage);
                         chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to bottom
                     }, 1000);
-            
-                    return;
+                    
+                    console.log("Showing stay options...");
+                    showStayOptions(); // Show stay options after finalizing selection
                 }
             
                 fetch('/submit-interested-places/', {
@@ -761,12 +1002,369 @@
                         botMessage.textContent = "Thank you for finalizing your selections!";
                         chatContainer.appendChild(botMessage);
                         chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to bottom
+                        setTimeout(() => {
+                            showStayOptions();
+                        }, 1000);
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
-            }                                                
+            }     
+
+            function showStayOptions() {
+                // Show the message
+                const stayMessage = document.createElement('div');
+                stayMessage.className = 'message bot-message fade-in';
+                stayMessage.textContent = "Let's decide the stay next.";
+                chatContainer.appendChild(stayMessage);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+                // Create and append stay type buttons
+                const stayTypes = ['Hotels', 'Villas', 'Airbnbs'];
+                
+                // Create a container for stay type buttons
+                const stayOptionsContainer = document.createElement('div');
+                stayOptionsContainer.className = 'stay-options-container';
+
+                // Create a container for stay details
+                const stayDetailsContainer = document.createElement('div');
+                stayDetailsContainer.className = 'stay-details-container';
+
+                storedDestinations.forEach(destination => {
+                    // Create and append destination heading
+                    const destinationContainer = document.createElement('div');
+                    destinationContainer.className = 'destination-container';
+
+                    const destinationHeading = document.createElement('h3');
+                    destinationHeading.className = 'destination-heading';
+                    destinationHeading.textContent = destination;
+                    destinationContainer.appendChild(destinationHeading);
+
+                    // Create and append destination container to chat container first
+                    chatContainer.appendChild(destinationContainer);
+
+                    // Create and append stay type buttons to stayOptionsContainer
+                    stayTypes.forEach(type => {
+
+                        // Create and append stay option elements to stayDetailsContainer
+                        createStayOptionElement(type, destination);
+
+                        const button = document.createElement('button');
+                        button.textContent = type;
+                        button.className = 'stay-option-button';
+                        button.addEventListener('click', () => toggleStayData(type, destination));
+                        stayOptionsContainer.appendChild(button);
+
+                    });
+
+                    // Append stay options container to chat container after destination content
+                    chatContainer.appendChild(stayOptionsContainer);
+
+                    // Append stay details container to chat container after stay options
+                    chatContainer.appendChild(stayDetailsContainer);
+
+                    // Add horizontal rule for separation after destination
+                    createDestinationSeparator(destination);
+                });
+
+                // Ensure the chat container scrolls to the bottom
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            // Create a separator for each destination when adding destinations
+            function createDestinationSeparator(destination) {
+                const separator = document.createElement('hr');
+                separator.className = 'destination-separator';
+                separator.setAttribute('data-destination', destination);
+                chatContainer.appendChild(separator);
+            }
+
+            // Function to create stay option elements (make sure this is defined before use)
+            function createStayOptionElement(type, destination) {
+                // Create stay container
+                const stayContainer = document.createElement('div');
+                stayContainer.className = 'stay-container';
+                stayContainer.setAttribute('data-destination', destination);
+                stayContainer.setAttribute('data-type', type);
+                stayContainer.style.display = 'none';  // Initially hidden
+
+                // Create sort buttons
+                const sortButtons = document.createElement('div');
+                sortButtons.className = 'sort-buttons';
+                sortButtons.setAttribute('data-destination', destination);
+                sortButtons.setAttribute('data-type', type);
+                sortButtons.style.display = 'none';  // Initially hidden
+
+                // Add your sort buttons logic here
+                const sortButtonLowToHigh = document.createElement('button');
+                sortButtonLowToHigh.textContent = 'Price: Low to High';
+                sortButtons.appendChild(sortButtonLowToHigh);
+
+                const sortButtonHighToLow = document.createElement('button');
+                sortButtonHighToLow.textContent = 'Price: High to Low';
+                sortButtons.appendChild(sortButtonHighToLow);
+
+                // Append sort buttons and stay container to the DOM
+                stayContainer.appendChild(sortButtons);
+                chatContainer.appendChild(stayContainer);
+            }
+
+            let currentStayType = {}; // Keep track of the current stay type for each destination
+            function toggleStayData(type, destination) {
+                const stayContainer = document.querySelector(`.stay-container[data-destination="${destination}"][data-type="${type}"]`);
+                const sortButtons = stayContainer.querySelector('.sort-buttons');
+            
+                // Hide all other stay containers and sorting buttons
+                document.querySelectorAll(`.stay-container[data-destination="${destination}"]`).forEach(container => {
+                    if (container !== stayContainer) container.style.display = 'none';
+                });
+            
+                document.querySelectorAll(`.sort-buttons[data-destination="${destination}"]`).forEach(buttons => {
+                    if (buttons !== sortButtons) buttons.style.display = 'none';
+                });
+            
+                // Toggle visibility for the current stay container
+                const isVisible = stayContainer.style.display === 'block';
+                stayContainer.style.display = isVisible ? 'none' : 'block';
+                sortButtons.style.display = isVisible ? 'none' : 'block';
+            
+                // If the container is now visible, invoke showStayData to display the stay data
+                if (!isVisible) {
+                    showStayData(type, destination);
+                }
+            }            
+            
+            // Example stay data (replace with your actual data)
+            const stayData = {
+                "Jaipur": {
+                    "Hotels": [
+                        { name: "Royal Palace Hotel", image: "https://via.placeholder.com/150", price: 200 },
+                        { name: "Budget Heritage Hotel", image: "https://via.placeholder.com/150", price: 100 }
+                    ],
+                    "Villas": [
+                        { name: "City View Villa", image: "https://via.placeholder.com/150", price: 220 },
+                        { name: "Fort Villa", image: "https://via.placeholder.com/150", price: 180 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Cultural Airbnb", image: "https://via.placeholder.com/150", price: 120 },
+                        { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                    ]
+                },
+                "Ladakh": {
+                    "Hotels": [
+                        { name: "Mountain Retreat Hotel", image: "https://via.placeholder.com/150", price: 250 },
+                        { name: "Budget Guest House", image: "https://via.placeholder.com/150", price: 80 }
+                    ],
+                    "Villas": [
+                        { name: "Scenic Villa", image: "https://via.placeholder.com/150", price: 300 },
+                        { name: "Lakeside Villa", image: "https://via.placeholder.com/150", price: 200 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 140 },
+                        { name: "Mountain Airbnb", image: "https://via.placeholder.com/150", price: 120 }
+                    ]
+                },
+                "Varanasi": {
+                    "Hotels": [
+                        { name: "Ganges View Hotel", image: "https://via.placeholder.com/150", price: 180 },
+                        { name: "Budget Holy Stay", image: "https://via.placeholder.com/150", price: 90 }
+                    ],
+                    "Villas": [
+                        { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 220 },
+                        { name: "Ghat Side Villa", image: "https://via.placeholder.com/150", price: 180 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Holy Airbnb", image: "https://via.placeholder.com/150", price: 110 },
+                        { name: "Traditional Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                    ]
+                },
+                "Rishikesh": {
+                    "Hotels": [
+                        { name: "Yoga Retreat Hotel", image: "https://via.placeholder.com/150", price: 200 },
+                        { name: "Budget Meditation Stay", image: "https://via.placeholder.com/150", price: 85 }
+                    ],
+                    "Villas": [
+                        { name: "Riverfront Villa", image: "https://via.placeholder.com/150", price: 230 },
+                        { name: "Mountain View Villa", image: "https://via.placeholder.com/150", price: 150 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Eco-friendly Airbnb", image: "https://via.placeholder.com/150", price: 120 },
+                        { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 110 }
+                    ]
+                },
+                "Udaipur": {
+                    "Hotels": [
+                        { name: "Lake Palace Hotel", image: "https://via.placeholder.com/150", price: 250 },
+                        { name: "Budget Lake View Hotel", image: "https://via.placeholder.com/150", price: 95 }
+                    ],
+                    "Villas": [
+                        { name: "Luxury Villa", image: "https://via.placeholder.com/150", price: 270 },
+                        { name: "Hilltop Villa", image: "https://via.placeholder.com/150", price: 190 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Palatial Airbnb", image: "https://via.placeholder.com/150", price: 150 },
+                        { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130 }
+                    ]
+                },
+                "Amritsar": {
+                    "Hotels": [
+                        { name: "Golden Temple View Hotel", image: "https://via.placeholder.com/150", price: 210 },
+                        { name: "Budget Pilgrim Stay", image: "https://via.placeholder.com/150", price: 85 }
+                    ],
+                    "Villas": [
+                        { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 240 },
+                        { name: "Countryside Villa", image: "https://via.placeholder.com/150", price: 160 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Pilgrim Airbnb", image: "https://via.placeholder.com/150", price: 120 },
+                        { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                    ]
+                },
+                "Mysore": {
+                    "Hotels": [
+                        { name: "Palace View Hotel", image: "https://via.placeholder.com/150", price: 180 },
+                        { name: "Budget Stay", image: "https://via.placeholder.com/150", price: 70 }
+                    ],
+                    "Villas": [
+                        { name: "Royal Villa", image: "https://via.placeholder.com/150", price: 210 },
+                        { name: "Nature Villa", image: "https://via.placeholder.com/150", price: 160 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130 },
+                        { name: "Cozy Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                    ]
+                }
+                // Add other destinations here
+            };            
+            
+            function showStayData(stayType, currentDestination) {
+                const existingStayContainer = document.querySelector(`.stay-container[data-destination="${currentDestination}"][data-type="${stayType}"]`);
+            
+                const data = stayData[currentDestination][stayType];
+                if (!existingStayContainer || !data) {
+                    console.error("Stay container or data not found.");
+                    return;
+                }
+            
+                existingStayContainer.innerHTML = ''; // Clear the container for re-rendering
+                data.forEach(stay => {
+                    const stayBox = document.createElement('div');
+                    stayBox.className = 'stay-box';
+            
+                    const img = document.createElement('img');
+                    img.src = stay.image;
+                    img.alt = stay.name;
+                    stayBox.appendChild(img);
+            
+                    const name = document.createElement('p');
+                    name.textContent = stay.name;
+                    stayBox.appendChild(name);
+            
+                    const price = document.createElement('p');
+                    price.textContent = `$${stay.price} per night`;
+                    stayBox.appendChild(price);
+            
+                    const chooseButton = document.createElement('button');
+                    chooseButton.textContent = 'Choose';
+                    chooseButton.className = 'choose-button';
+                    chooseButton.addEventListener('click', () => chooseStay(stay, currentDestination));
+                    stayBox.appendChild(chooseButton);
+            
+                    existingStayContainer.appendChild(stayBox);
+                });
+            
+                // Render sort buttons
+                renderSortButtons(currentDestination, stayType);
+            }
+            
+            function renderSortButtons(currentDestination, stayType) {
+                const existingSortContainer = document.querySelector(`.sort-container[data-destination="${currentDestination}"][data-type="${stayType}"]`);
+                if (!existingSortContainer) {
+                    const sortContainer = document.createElement('div');
+                    sortContainer.className = 'sort-container';
+                    sortContainer.setAttribute('data-destination', currentDestination);
+                    sortContainer.setAttribute('data-type', stayType);
+            
+                    const lowToHigh = document.createElement('button');
+                    lowToHigh.textContent = 'Price: Low to High';
+                    lowToHigh.addEventListener('click', () => sortStayData('asc', currentDestination, stayType));
+                    sortContainer.appendChild(lowToHigh);
+            
+                    const highToLow = document.createElement('button');
+                    highToLow.textContent = 'Price: High to Low';
+                    highToLow.addEventListener('click', () => sortStayData('desc', currentDestination, stayType));
+                    sortContainer.appendChild(highToLow);
+            
+                    document.querySelector(`.stay-container[data-destination="${currentDestination}"][data-type="${stayType}"]`).appendChild(sortContainer);
+                }
+            }
+            
+            
+            
+            function hideStayData(currentDestination) {
+                const stayContainer = document.querySelector(`.stay-container[data-destination="${currentDestination}"]`);
+                if (stayContainer) stayContainer.remove();
+            
+                const sortContainer = document.querySelector(`.sort-container[data-destination="${currentDestination}"]`);
+                if (sortContainer) sortContainer.remove();
+            }
+            
+            
+            function chooseStay(stay, currentDestination) {
+                fetch('/choose-stay/', {
+                    method: 'POST',
+                    body: JSON.stringify(stay),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Stay chosen:', stay);
+                        const confirmationMessage = document.createElement('div');
+                        confirmationMessage.className = 'message bot-message fade-in';
+                        confirmationMessage.textContent = `You have chosen ${stay.name} in ${currentDestination}.`;
+                        chatContainer.appendChild(confirmationMessage);
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                        hideStayData(currentDestination); // Optionally hide data after choosing
+            
+                        // Disable stay option buttons only for the current destination
+                        const stayOptionButtons = document.querySelectorAll(`.destination-container[data-destination="${currentDestination}"] .stay-option-button`);
+                        console.log(stayOptionButtons);
+                        stayOptionButtons.forEach(button => {
+                            button.disabled = true;
+                        });
+            
+                    } else {
+                        console.error('Error choosing stay:', data.error);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+            
+            
+            function sortStayData(order, currentDestination, stayType) {
+                const stayContainer = document.querySelector(`.stay-container[data-destination="${currentDestination}"][data-type="${stayType}"]`);
+                if (!stayContainer) {
+                    console.error("Stay container not found for sorting.");
+                    return;
+                }
+
+                const stayBoxes = Array.from(stayContainer.querySelectorAll('.stay-box'));
+
+                stayBoxes.sort((a, b) => {
+                    const priceA = parseFloat(a.querySelector('p:nth-of-type(2)').textContent.replace('$', '').replace(' per night', ''));
+                    const priceB = parseFloat(b.querySelector('p:nth-of-type(2)').textContent.replace('$', '').replace(' per night', ''));
+
+                    return order === 'asc' ? priceA - priceB : priceB - priceA;
+                });
+
+                stayBoxes.forEach(box => stayContainer.appendChild(box));
+            }                         
+
         
             // Helper function to get CSRF token
             function getCookie(name) {

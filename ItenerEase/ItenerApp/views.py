@@ -151,3 +151,30 @@ def submit_interested_places(request):
         # Handle data here
         return JsonResponse({'success': True})
     return JsonResponse({'success': False}, status=404)
+
+
+def choose_stay(request):
+    if request.method == 'POST':
+        # Get the data from the request
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            stay_name = data.get('name')
+            print(stay_name)
+            
+            # Process the data (e.g., save it to the database)
+            # Here you would handle the chosen stay item as needed
+
+            response = {
+                'success': True,
+                'message': f'Stay item {stay_name} selected successfully!'
+            }
+        except json.JSONDecodeError:
+            response = {
+                'success': False,
+                'message': 'Invalid data format.'
+            }
+        
+        return JsonResponse(response)
+    else:
+        return JsonResponse({'success': False, 'message': 'Invalid request method.'})
+    
