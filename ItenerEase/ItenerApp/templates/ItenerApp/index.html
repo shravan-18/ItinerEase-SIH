@@ -16,7 +16,11 @@
     <style>
         /* Custom Styles */
         body {
-            background-color: #f0f4f8; /* A light, pastel blue background */
+            background-image: url("{% static 'img/seaview.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: #333;
             font-family: 'Arial', sans-serif;
         }
@@ -42,7 +46,7 @@
             font-weight: bold;
         }
         .motto span {
-            color: #754030; /* Highlighted text color */
+            color: #4a2a20; /* Highlighted text color */
         }
         .btn-primary {
             background-color: #007bff;
@@ -64,7 +68,7 @@
         <h1>Welcome to ItinerEase</h1>
 
         <p class="motto">
-            <span>ItinerEase:</span> AI to Please, Travel in Peace
+            <span>ItinerEase:<b> AI to Please, Travel in Peace </b> </span>
         </p>
 
         <a class="btn btn-primary" href="{% url 'signupuser' %}">Sign up</a>

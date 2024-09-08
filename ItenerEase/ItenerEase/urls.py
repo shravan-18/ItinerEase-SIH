@@ -19,10 +19,11 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from ItenerApp import views as ItenerViews
+from ItenerApp import views as ItenerViews  # Correct import
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('trips/', ItenerViews.trips, name='trips'),  # Corrected reference
     path('', ItenerViews.home, name='home'),
     path('login/', ItenerViews.loginuser, name='loginuser'),
     path('logout/', ItenerViews.logoutuser, name='logoutuser'),
@@ -33,3 +34,4 @@ urlpatterns = [
     path('submit-dates/', ItenerViews.submit_dates, name='submit-dates'),
     path('submit-interested-places/', ItenerViews.submit_interested_places, name='submit_interested_places'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

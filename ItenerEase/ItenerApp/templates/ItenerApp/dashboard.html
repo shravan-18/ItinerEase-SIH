@@ -1,36 +1,343 @@
 {% load static %}
 
-<html>
+<html lang="en">
 <head>
-    <title>Endobuddy</title>
+    <title>ItenerEase Dashboard</title>
 
     <!-- Bootstrap CSS File -->
-   <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-    <!-- Main Stylesheet File -->
-   <link href="{% static 'css/dashboard-styles.css' %}" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link href="{% static 'css/dashboard-styles.css' %}" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #FFFFFF;
+        }
+
+        /* Updated Navbar Styles */
+        .navbar {
+            background: rgba(217, 217, 217, 0); /* Transparent background */
+            height: 80px;
+            width: 100%;
+            position: absolute; /* Makes it overlap with the hero section */
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px; /* Padding for spacing on both sides */
+        }
+
+        .navbar h1 {
+            color: #FFFFFF;
+            font-family: 'Inria Sans', sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px; /* Adds spacing between the links */
+        }
+
+        .profile-box {
+          background: rgba(32, 46, 83, 0.85);
+          padding: 12px 26px;
+          display: flex;
+          align-items: center;
+          border-radius: 21px;
+          box-shadow: 2px 4px 3.2px rgba(0, 0, 0, 0.25);
+          width: 250px; /* Adjust width as needed */
+          position: relative;
+        }
+
+        .profile-box img {
+          width: 49px;
+          height: 49px;
+          border-radius: 50%;
+          margin-right: 16px; /* Space between the image and text */
+        }
+
+        .profile-info {
+          flex: 1; /* Takes up remaining space between image and dropdown arrow */
+          color: #FFFFFF;
+        }
+
+        .profile-info .profile-name {
+          display: block;
+          font-weight: bold;
+        }
+
+        .profile-info .profile-role {
+          display: block;
+          font-size: 0.9em;
+        }
+
+        .dropdown {
+          position: relative;
+        }
+
+        .dropdown-arrow {
+          width: 14px;
+          height: 7px;
+          cursor: pointer;
+          fill: #FFFFFF; /* Color of the arrow */
+        }
+
+        .dropdown-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background: rgba(32, 46, 83, 0.85);
+          border-radius: 8px;
+          box-shadow: 2px 4px 3.2px rgba(0, 0, 0, 0.25);
+          min-width: 160px;
+          z-index: 1000;
+        }
+
+        .dropdown-menu .dropdown-item {
+          display: block;
+          padding: 8px 16px;
+          color: #FFFFFF;
+          text-decoration: none;
+        }
+
+        .dropdown-menu .dropdown-item:hover {
+          background: rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown:hover .dropdown-menu {
+          display: block;
+        }
+
+        /* Updated Hero Section with Image */
+
+        /* New styles for the hero-box */
+        .hero-box {
+            background-color: white; /* White background */
+            padding: 30px;           /* Padding around the content */
+            border-radius: 20px;     /* Rounded corners */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            text-align: center;
+        }
+
+        .hero-box h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 36px;
+            color: #202E53;
+            margin-bottom: 20px;  /* Space between heading and button */
+        }
+
+        .hero-box .btn-next {
+            background-color: #202E53;
+            color: #EFF2F1;
+            font-family: 'Inria Sans', sans-serif;
+            font-size: 23px;
+            border-radius: 21px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero-section {
+            background-image: url("{% static 'img/dashboard top section.png' %}"); /* Updated Image Path */
+            background-size: cover;
+            height: 695px;
+            position: relative;
+            background-position: center;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .hero-content h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 36px;
+            color: #202E53;
+        }
+
+        .btn-next {
+            margin-top: 30px;
+            background-color: #202E53;
+            color: #EFF2F1;
+            font-family: 'Inria Sans', sans-serif;
+            font-size: 23px;
+            border-radius: 21px;
+            padding: 10px 20px;
+            border: none;
+        }
+
+        .explore-section {
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .explore-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 48px;
+            color: #202E53;
+        }
+
+        .explore-section .cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .explore-section .card {
+            width: 381px;
+            height: 363px;
+            background-color: #FFE0E0;
+            border-radius: 49px;
+        }
+
+        .features-section {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .features-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 48px;
+            color: #202E53;
+        }
+
+        .features-section .features {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 30px;
+        }
+
+        .feature-box {
+            width: 327px;
+            height: 549px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .feature-box img {
+            width: 316px;
+            height: 387px;
+            border-radius: 30px;
+        }
+
+        .feature-box h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            color: #202E53;
+        }
+
+        .feature-box p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 23px;
+            color: #000000;
+            text-align: center;
+        }
+
+    </style>
 </head>
 <body>
+
+  <!-- Navigation Bar -->
   <nav class="navbar">
-    <div class="navcontainer">
-      <div class="leftNav">
-        <a href="{% url 'dashboard' %}" class="no-underline-hover">
-          <h1 class="navs">ItenerEase Dashboard</h1>
-        </a>
+    <div class="nav-links">
+      <a href="{% url 'dashboard' %}">
+        <h1>Create Your Ideal Trip</h1>
+      </a>
+      <a href="{% url 'trips' %}">
+        <h1>Review Your Prior Trips</h1>
+      </a>
+    </div>
+    <div class="profile-box">
+      <img src="{% static 'img/blank-profile-picture-973460_640.png' %}" alt="Profile">
+      <div class="profile-info">
+        <span class="profile-name">Prometheus</span>
       </div>
-      <div class="rightNav">
-        <ul class="nav-list">
-          <li>
-            <form id="logoutForm" action="{% url 'logoutuser' %}" method="POST">
-              {% csrf_token %}
-            </form>
-            <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;" class="btn btn-blank">Logout</a>
-          </li>
-        </ul>
+      <svg class="dropdown-arrow" viewBox="0 0 14 7">
+        <path stroke="#FFFFFF" stroke-width="1.5" d="M1 1L7 6L13 1"></path>
+      </svg>
+      <div class="dropdown-menu">
+        <a href="http://127.0.0.1:8000/login/" class="dropdown-item">Logout</a>
       </div>
     </div>
   </nav>
 
-  <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+  <script>
+    document.querySelector('.dropdown-arrow').addEventListener('click', function() {
+      const menu = document.querySelector('.dropdown-menu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    });
+  
+    // Optionally, prevent the default behavior of the dummy link
+    document.querySelector('.dropdown-item[href="#"]').addEventListener('click', function(event) {
+      event.preventDefault();
+    });
+  </script>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <!-- New container for white background -->
+      <div class="hero-box">
+        <h2>Get Ready for the Magic to Unfold</h2>
+        <button class="btn-next">Next</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Explore Section -->
+  <section class="explore-section">
+    <h2>Explore Our Itineraries</h2>
+    <div class="cards">
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <h2>Our Features</h2>
+    <div class="features">
+      <div class="feature-box">
+        <img src="{% static 'img\Itinerary Adjustment.png' %}" alt="Itinerary Adjustment">
+        <h3>Itinerary Adjustment</h3>
+        <p>Modify your plans on the go and our AI will refine the itinerary to fit your needs.</p>
+      </div>
+      <div class="feature-box">
+        <img src="{% static 'img\Real-Time Updates.png' %}" alt="Real-Time Updates">
+        <h3>Real-Time Updates</h3>
+        <p>Stay updated with the latest weather, local events, and crowd information to make the most of your trip.</p>
+      </div>
+      <div class="feature-box">
+        <img src="{% static 'img\Personalied Itineraries.png' %}" alt="Personalized Itineraries">
+        <h3>Personalized Itineraries</h3>
+        <p>Get custom travel plans tailored to your preferences, budget, and destination choices.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bootstrap JavaScript -->
+  <script src="{% static 'lib/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
