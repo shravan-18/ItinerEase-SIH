@@ -377,6 +377,20 @@
             border: 1px solid #ccc;
             margin: 20px 0;
         }
+
+        .get-itinerary-button {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        
+        .get-itinerary-button.show {
+            display: inline-block;
+            opacity: 1;
+            transform: translateY(0);
+            margin-top: 20px; /* Add some spacing above */
+        }        
            
     </style>
 </head>
@@ -1139,100 +1153,100 @@
             const stayData = {
                 "Jaipur": {
                     "Hotels": [
-                        { name: "Royal Palace Hotel", image: "https://via.placeholder.com/150", price: 200 },
-                        { name: "Budget Heritage Hotel", image: "https://via.placeholder.com/150", price: 100 }
+                        { name: "Royal Palace Hotel", image: "https://via.placeholder.com/150", price: 200, place: "Jaipur" },
+                        { name: "Budget Heritage Hotel", image: "https://via.placeholder.com/150", price: 100, place: "Jaipur" }
                     ],
                     "Villas": [
-                        { name: "City View Villa", image: "https://via.placeholder.com/150", price: 220 },
-                        { name: "Fort Villa", image: "https://via.placeholder.com/150", price: 180 }
+                        { name: "City View Villa", image: "https://via.placeholder.com/150", price: 220, place: "Jaipur" },
+                        { name: "Fort Villa", image: "https://via.placeholder.com/150", price: 180, place: "Jaipur" }
                     ],
                     "Airbnbs": [
-                        { name: "Cultural Airbnb", image: "https://via.placeholder.com/150", price: 120 },
-                        { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                        { name: "Cultural Airbnb", image: "https://via.placeholder.com/150", price: 120, place: "Jaipur" },
+                        { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100, place: "Jaipur" }
                     ]
                 },
                 "Ladakh": {
                     "Hotels": [
-                        { name: "Mountain Retreat Hotel", image: "https://via.placeholder.com/150", price: 250 },
-                        { name: "Budget Guest House", image: "https://via.placeholder.com/150", price: 80 }
+                        { name: "Mountain Retreat Hotel", image: "https://via.placeholder.com/150", price: 250, place: "Ladakh" },
+                        { name: "Budget Guest House", image: "https://via.placeholder.com/150", price: 80, place: "Ladakh" }
                     ],
                     "Villas": [
-                        { name: "Scenic Villa", image: "https://via.placeholder.com/150", price: 300 },
-                        { name: "Lakeside Villa", image: "https://via.placeholder.com/150", price: 200 }
+                        { name: "Scenic Villa", image: "https://via.placeholder.com/150", price: 300, place: "Ladakh" },
+                        { name: "Lakeside Villa", image: "https://via.placeholder.com/150", price: 200, place: "Ladakh" }
                     ],
                     "Airbnbs": [
-                        { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 140 },
-                        { name: "Mountain Airbnb", image: "https://via.placeholder.com/150", price: 120 }
+                        { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 140, place: "Ladakh" },
+                        { name: "Mountain Airbnb", image: "https://via.placeholder.com/150", price: 120, place: "Ladakh" }
                     ]
                 },
                 "Varanasi": {
                     "Hotels": [
-                        { name: "Ganges View Hotel", image: "https://via.placeholder.com/150", price: 180 },
-                        { name: "Budget Holy Stay", image: "https://via.placeholder.com/150", price: 90 }
+                        { name: "Ganges View Hotel", image: "https://via.placeholder.com/150", price: 180, place: "Varanasi" },
+                        { name: "Budget Holy Stay", image: "https://via.placeholder.com/150", price: 90, place: "Varanasi" }
                     ],
                     "Villas": [
-                        { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 220 },
-                        { name: "Ghat Side Villa", image: "https://via.placeholder.com/150", price: 180 }
+                        { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 220, place: "Varanasi" },
+                        { name: "Ghat Side Villa", image: "https://via.placeholder.com/150", price: 180, place: "Varanasi" }
                     ],
                     "Airbnbs": [
-                        { name: "Holy Airbnb", image: "https://via.placeholder.com/150", price: 110 },
-                        { name: "Traditional Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                        { name: "Holy Airbnb", image: "https://via.placeholder.com/150", price: 110, place: "Varanasi" },
+                        { name: "Traditional Airbnb", image: "https://via.placeholder.com/150", price: 100, place: "Varanasi" }
                     ]
                 },
                 "Rishikesh": {
                     "Hotels": [
-                        { name: "Yoga Retreat Hotel", image: "https://via.placeholder.com/150", price: 200 },
-                        { name: "Budget Meditation Stay", image: "https://via.placeholder.com/150", price: 85 }
+                        { name: "Yoga Retreat Hotel", image: "https://via.placeholder.com/150", price: 200, place: "Rishikesh" },
+                        { name: "Budget Meditation Stay", image: "https://via.placeholder.com/150", price: 85, place: "Rishikesh" }
                     ],
                     "Villas": [
-                        { name: "Riverfront Villa", image: "https://via.placeholder.com/150", price: 230 },
-                        { name: "Mountain View Villa", image: "https://via.placeholder.com/150", price: 150 }
+                        { name: "Riverfront Villa", image: "https://via.placeholder.com/150", price: 230, place: "Rishikesh" },
+                        { name: "Mountain View Villa", image: "https://via.placeholder.com/150", price: 150, place: "Rishikesh" }
                     ],
                     "Airbnbs": [
-                        { name: "Eco-friendly Airbnb", image: "https://via.placeholder.com/150", price: 120 },
-                        { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 110 }
+                        { name: "Eco-friendly Airbnb", image: "https://via.placeholder.com/150", price: 120, place: "Rishikesh" },
+                        { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 110, place: "Rishikesh" }
                     ]
                 },
                 "Udaipur": {
                     "Hotels": [
-                        { name: "Lake Palace Hotel", image: "https://via.placeholder.com/150", price: 250 },
-                        { name: "Budget Lake View Hotel", image: "https://via.placeholder.com/150", price: 95 }
+                        { name: "Lake Palace Hotel", image: "https://via.placeholder.com/150", price: 250, place: "Udaipur" },
+                        { name: "Budget Lake View Hotel", image: "https://via.placeholder.com/150", price: 95, place: "Udaipur" }
                     ],
                     "Villas": [
-                        { name: "Luxury Villa", image: "https://via.placeholder.com/150", price: 270 },
-                        { name: "Hilltop Villa", image: "https://via.placeholder.com/150", price: 190 }
+                        { name: "Luxury Villa", image: "https://via.placeholder.com/150", price: 270, place: "Udaipur" },
+                        { name: "Hilltop Villa", image: "https://via.placeholder.com/150", price: 190, place: "Udaipur" }
                     ],
                     "Airbnbs": [
-                        { name: "Palatial Airbnb", image: "https://via.placeholder.com/150", price: 150 },
-                        { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130 }
+                        { name: "Palatial Airbnb", image: "https://via.placeholder.com/150", price: 150, place: "Udaipur" },
+                        { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130, place: "Udaipur" }
                     ]
                 },
                 "Amritsar": {
                     "Hotels": [
-                        { name: "Golden Temple View Hotel", image: "https://via.placeholder.com/150", price: 210 },
-                        { name: "Budget Pilgrim Stay", image: "https://via.placeholder.com/150", price: 85 }
+                        { name: "Golden Temple View Hotel", image: "https://via.placeholder.com/150", price: 210, place: "Amritsar" },
+                        { name: "Budget Pilgrim Stay", image: "https://via.placeholder.com/150", price: 85, place: "Amritsar" }
                     ],
                     "Villas": [
-                        { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 240 },
-                        { name: "Countryside Villa", image: "https://via.placeholder.com/150", price: 160 }
+                        { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 240, place: "Amritsar" },
+                        { name: "Countryside Villa", image: "https://via.placeholder.com/150", price: 160, place: "Amritsar" }
                     ],
                     "Airbnbs": [
-                        { name: "Pilgrim Airbnb", image: "https://via.placeholder.com/150", price: 120 },
-                        { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                        { name: "Pilgrim Airbnb", image: "https://via.placeholder.com/150", price: 120, place: "Amritsar" },
+                        { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100, place: "Amritsar" }
                     ]
                 },
                 "Mysore": {
                     "Hotels": [
-                        { name: "Palace View Hotel", image: "https://via.placeholder.com/150", price: 180 },
-                        { name: "Budget Stay", image: "https://via.placeholder.com/150", price: 70 }
+                        { name: "Palace View Hotel", image: "https://via.placeholder.com/150", price: 180, place: "Mysore" },
+                        { name: "Budget Stay", image: "https://via.placeholder.com/150", price: 70, place: "Mysore" }
                     ],
                     "Villas": [
-                        { name: "Royal Villa", image: "https://via.placeholder.com/150", price: 210 },
-                        { name: "Nature Villa", image: "https://via.placeholder.com/150", price: 160 }
+                        { name: "Royal Villa", image: "https://via.placeholder.com/150", price: 210, place: "Mysore" },
+                        { name: "Nature Villa", image: "https://via.placeholder.com/150", price: 160, place: "Mysore" }
                     ],
                     "Airbnbs": [
-                        { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130 },
-                        { name: "Cozy Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                        { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130, place: "Mysore" },
+                        { name: "Cozy Airbnb", image: "https://via.placeholder.com/150", price: 100, place: "Mysore" }
                     ]
                 }
                 // Add other destinations here
@@ -1333,17 +1347,34 @@
             
                         // Disable stay option buttons only for the current destination
                         const stayOptionButtons = document.querySelectorAll(`.destination-container[data-destination="${currentDestination}"] .stay-option-button`);
-                        console.log(stayOptionButtons);
                         stayOptionButtons.forEach(button => {
                             button.disabled = true;
                         });
+            
+                        // Create and show the "Get Itinerary" button
+                        const getItineraryButton = document.createElement('button');
+                        getItineraryButton.className = 'get-itinerary-button';
+                        getItineraryButton.textContent = 'Get Itinerary';
+                        getItineraryButton.addEventListener('click', () => {
+                            window.location.href = '/finalize-itinerary/';
+                        });
+            
+                        // Append button to the chat container and make it appear smoothly
+                        chatContainer.appendChild(getItineraryButton);
+            
+                        // Delay adding the 'show' class for smooth animation
+                        setTimeout(() => {
+                            getItineraryButton.classList.add('show');
+                        }, 100); // Delay to allow CSS transition to take effect
+            
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
             
                     } else {
                         console.error('Error choosing stay:', data.error);
                     }
                 })
                 .catch(error => console.error('Error:', error));
-            }
+            }            
             
             
             function sortStayData(order, currentDestination, stayType) {
