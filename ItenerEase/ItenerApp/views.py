@@ -193,14 +193,7 @@ def choose_stay(request):
         return JsonResponse({'success': False, 'message': 'Invalid request method.'})
     
 
-
-
-
-
-
-
-
-# Helper function to interact with the OpenAI API
+'''Helper function for generating itinerary from scratch'''
 def generate_itinerary(itinerary_context, user_message=None):
     # Define the prompt template
     demo_template = """
@@ -241,6 +234,7 @@ def generate_itinerary(itinerary_context, user_message=None):
         interested_places=', '.join(itinerary_context['interested_places']['interestedPlaces']),
         stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')])
     )
+    print(formatted_prompt)
 
     client = OpenAI(api_key=config('OPENAI_API_KEY'))
 
@@ -256,7 +250,7 @@ def generate_itinerary(itinerary_context, user_message=None):
     return response.choices[0].message.content.replace('```', '').replace('html', '')
 
 
-# Helper function to interact with the OpenAI API
+'''Helper function for generating itinerary from user updates'''
 def generate_itinerary_updated(existing_itinerary, itinerary_context, user_message=None):
     # Define the prompt template
     demo_template = """
@@ -305,8 +299,6 @@ def generate_itinerary_updated(existing_itinerary, itinerary_context, user_messa
         interested_places=', '.join(itinerary_context['interested_places']['interestedPlaces']),
         stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')])
     )
-
-
     print(formatted_prompt)
 
     client = OpenAI(api_key=config('OPENAI_API_KEY'))
@@ -322,7 +314,9 @@ def generate_itinerary_updated(existing_itinerary, itinerary_context, user_messa
     # Extract and return the AI's response
     return response.choices[0].message.content.replace('```', '').replace('html', '')
 
-# View for rendering the itinerary showing page
+
+
+'''View for rendering itinerary and updating it otg using a chat mechanism'''
 def finalize_itinerary(request):
     itinerary_context = {
         'num_people': request.session.get('num_people'),
@@ -340,6 +334,7 @@ def finalize_itinerary(request):
             itinerary_context[key] = value
 
     if request.method == 'GET':
+        print("Crafting initial itinerary...")
         generated_itinerary = generate_itinerary(itinerary_context)
         print(generated_itinerary)
         request.session['itinerary'] = generated_itinerary
@@ -355,6 +350,7 @@ def finalize_itinerary(request):
     print(user_message)
     
     # Modify the existing itinerary based on user input
+    print("Updating itinerary...")
     modified_itinerary = generate_itinerary_updated(request.session['itinerary'], itinerary_context, user_message)
     request.session['itinerary'] = modified_itinerary
     print(modified_itinerary)
