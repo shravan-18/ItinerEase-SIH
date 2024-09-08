@@ -175,12 +175,14 @@ def choose_stay(request):
         # Get the data from the request
         try:
             data = json.loads(request.body.decode('utf-8'))
-            stay_name = data.get('name')
-            stay_place = data.get('place')
+            stay_name = data.get('optionName')
+            stay_place = data.get('destination')
+            # Add price details here for the stay
             
             # Save stay details to request session data
             request.session[f'stay_place_at_{stay_place}'] = stay_name
 
+            print("Stay place received successfully. Sending 'success' json response")
             response = {
                 'success': True,
                 'message': f'Stay item {stay_name} selected successfully!'

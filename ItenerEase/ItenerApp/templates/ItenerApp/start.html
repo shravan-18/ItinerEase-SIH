@@ -1425,43 +1425,92 @@
 
                     // Append the grid container to the display container
                     displayContainer.appendChild(stayOptionsGrid);
-                }
+            }
 
-                function chooseStayOption(destination, optionName) {
-                    // Find the selected option's details
-                    const selectedOption = Object.values(stayData[destination]).flat().find(option => option.name === optionName);
+            function chooseStayOption(destination, optionName) {
+                // Find the selected option's details
+                const selectedOption = Object.values(stayData[destination]).flat().find(option => option.name === optionName);
+            
+                // Create a chat bubble with the chosen option's details
+                const chosenMessage = document.createElement('div');
+                chosenMessage.className = 'message bot-message fade-in left-bubble'; // Add left-bubble class for styling
+            
+                // Add image, name, and price to the message bubble
+                const optionImage = document.createElement('img');
+                optionImage.src = selectedOption.image;
+                optionImage.className = 'bubble-image'; // Add class for styling
+            
+                const optionDetails = document.createElement('div');
+                optionDetails.className = 'bubble-details'; // Add class for styling
+                optionDetails.innerHTML = `
+                    <strong>${optionName} - ${destination}</strong><br>
+                    Price: $${selectedOption.price}
+                `;
+            
+                chosenMessage.appendChild(optionImage);
+                chosenMessage.appendChild(optionDetails);
+            
+                chatContainer.appendChild(chosenMessage);
+            
+                // Disable all stay option buttons for this destination
+                const destinationContainer = document.querySelector(`#${destination}-stay-display`).parentElement;
+                const buttons = destinationContainer.querySelectorAll('.stay-option-button');
+                buttons.forEach(button => button.disabled = true);
+            
+                // Hide the entire destination container after selection
+                destinationContainer.style.display = 'none';
+            
+                // Send the chosen option to the Django backend
+                const postData = {
+                    destination: destination,
+                    optionName: optionName,
+                    price: selectedOption.price,
+                };
+                
+                console.log('Initiating POST request to /choose-stay/ with data:', postData);
+                setTimeout(() => {
+                    fetch('/choose-stay/', { // Replace with your Django endpoint
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken') // Include CSRF token for security
+                        },
+                        body: JSON.stringify(postData)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error('Network response was not ok');
+                        }
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Stay chosen:', postData.optionName);
 
-                    // Create a chat bubble with the chosen option's details
-                    const chosenMessage = document.createElement('div');
-                    chosenMessage.className = 'message bot-message fade-in left-bubble'; // Add left-bubble class for styling
+                            // Create and show the "Get Itinerary" button
+                            const getItineraryButton = document.createElement('button');
+                            getItineraryButton.className = 'get-itinerary-button';
+                            getItineraryButton.textContent = 'Get Itinerary';
+                            getItineraryButton.addEventListener('click', () => {
+                                window.location.href = '/finalize-itinerary/';
+                            });
 
-                    // Add image, name, and price to the message bubble
-                    const optionImage = document.createElement('img');
-                    optionImage.src = selectedOption.image;
-                    optionImage.className = 'bubble-image'; // Add class for styling
+                            // Append button to the chat container and make it appear smoothly
+                            chatContainer.appendChild(getItineraryButton);
 
-                    const optionDetails = document.createElement('div');
-                    optionDetails.className = 'bubble-details'; // Add class for styling
-                    optionDetails.innerHTML = `
-                        <strong>${optionName}-${destination}</strong><br>
-                        Price: $${selectedOption.price}
-                    `;
+                            // Delay adding the 'show' class for smooth animation
+                            setTimeout(() => {
+                                getItineraryButton.classList.add('show');
+                            }, 100); // Delay to allow CSS transition to take effect
 
-                    chosenMessage.appendChild(optionImage);
-                    chosenMessage.appendChild(optionDetails);
-
-                    chatContainer.appendChild(chosenMessage);
-
-                    // Disable all stay option buttons for this destination
-                    const destinationContainer = document.querySelector(`#${destination}-stay-display`).parentElement;
-                    const buttons = destinationContainer.querySelectorAll('.stay-option-button');
-                    buttons.forEach(button => button.disabled = true);
-
-                    // Hide the entire destination container after selection
-                    destinationContainer.style.display = 'none';
-
-                    chatContainer.scrollTop = chatContainer.scrollHeight;
-                }
+                            chatContainer.scrollTop = chatContainer.scrollHeight;
+                        } else {
+                            console.error('Error:', data.message);
+                        }
+                    })
+                }, 2000);  // Delay for 2 seconds
+            }
 
             // Helper function to get CSRF token
             function getCookie(name) {
