@@ -20,6 +20,9 @@ import base64
 '''Global Variables'''
 camera_instance = None
 
+def trips(request):
+    # Add your logic for the 'trips' page
+    return render(request, 'ItenerApp/trips.html')
 
 '''Function to fully delete all session variables from latest session'''
 def clear_session_variables(request):
