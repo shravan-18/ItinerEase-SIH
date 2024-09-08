@@ -377,21 +377,100 @@
             border: 1px solid #ccc;
             margin: 20px 0;
         }
-
-        .get-itinerary-button {
-            display: none;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
         
-        .get-itinerary-button.show {
-            display: inline-block;
-            opacity: 1;
-            transform: translateY(0);
-            margin-top: 20px; /* Add some spacing above */
-        }        
-           
+        /* Style for the chat bubble */
+        .message.left-bubble {
+            background-color:  #f1f1f1;; /* Change background color to white */
+            color: black; /* Change text color to black */
+            float: left; /* Align bubble to the left */
+            margin: 10px 0; /* Add some margin */
+            padding: 10px;
+            border-radius: 10px; /* Add rounded corners */
+            width: 500px;
+            max-width: 80%; /* Limit the width */
+            display: flex; /* Flexbox for aligning image and details */
+            align-items: center;
+        }
+
+        /* Style for the image inside the bubble */
+        .bubble-image {
+            width: 200px; /* Adjust the width as needed */
+            height: 200px; /* Adjust the height as needed */
+            margin-right: 10px; /* Add some space between image and details */
+            border-radius: 5px; /* Add rounded corners to the image */
+        }
+
+        /* Style for the details inside the bubble */
+        .bubble-details {
+            flex-grow: 1;
+        }
+
+        /* Container for the grid of stay options */
+        .stay-options-grid {
+            display: grid; /* Use CSS Grid */
+            grid-template-columns: repeat(3, 1fr); /* Create 3 equal-width columns */
+            gap: 15px; /* Space between grid items */
+            margin-top: 20px; /* Space above the grid */
+            justify-items: center; /* Center the items in their grid cells */
+        }
+
+        /* Each option box inside the grid */
+        .option-box {
+            width: 90%; /* Adjust the width of each box */
+            max-width: 280px; /* Ensure the box doesn't get too wide */
+            border: 2px solid #ccc; /* Border color */
+            border-radius: 10px; /* Rounded corners */
+            padding: 15px; /* Padding inside the box */
+            text-align: center; /* Center align content */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            background-color: #f9f9f9; /* Background color of the box */
+        }
+
+        /* Hover effect for the option box */
+        .option-box:hover {
+            transform: translateY(-5px); /* Slightly move the box up on hover */
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover */
+            background-color: #fff; /* Change background color on hover */
+        }
+
+        /* Style for the image inside the option box */
+        .option-image {
+            width: 100%; /* Make sure the image fits inside the box */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 5px; /* Rounded corners for the image */
+            margin-bottom: 10px; /* Space between image and text */
+        }
+
+        /* Style for the option name */
+        .option-box h4 {
+            margin: 10px 0; /* Space above and below the name */
+            font-size: 1.2em; /* Slightly larger font size */
+            color: #333; /* Text color */
+        }
+
+        /* Style for the price */
+        .option-box p {
+            margin: 5px 0 15px; /* Space above the price and below the button */
+            font-size: 1em; /* Normal font size */
+            color: #777; /* Subtle text color */
+        }
+
+        /* Style for the "Choose" button */
+        .choose-button {
+            padding: 10px 20px; /* Padding for the button */
+            border: none; /* Remove default border */
+            border-radius: 5px; /* Rounded corners */
+            background-color: #007bff; /* Button background color */
+            color: #fff; /* Button text color */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+        /* Hover effect for the "Choose" button */
+        .choose-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
     </style>
 </head>
 <body>
@@ -607,7 +686,7 @@
                     chatContainer.appendChild(interestMessage);
                     chatContainer.scrollTop = chatContainer.scrollHeight;
             
-                    // Display places for each destination
+                    // Display places for each destination   
                     destinations.forEach(destination => {
                         displayPlacesForDestination(destination, vacationType);
                     });
@@ -1033,13 +1112,9 @@
                 stayMessage.textContent = "Let's decide the stay next.";
                 chatContainer.appendChild(stayMessage);
                 chatContainer.scrollTop = chatContainer.scrollHeight;
-            
-                // Create and append stay type buttons
-                const stayTypes = ['Hotels', 'Villas', 'Airbnbs'];
                 
-                // Create a container for stay type buttons
-                const stayOptionsContainer = document.createElement('div');
-                stayOptionsContainer.className = 'stay-options-container';
+		        // Create and append stay type buttons
+                const stayTypes = ['Hotels', 'Villas', 'Airbnbs'];
 
                 // Create a container for stay details
                 const stayDetailsContainer = document.createElement('div');
@@ -1055,28 +1130,24 @@
                     destinationHeading.textContent = destination;
                     destinationContainer.appendChild(destinationHeading);
 
-                    // Create and append destination container to chat container first
-                    chatContainer.appendChild(destinationContainer);
+                    // Create a container for stay type buttons
+                    const stayOptionsContainer = document.createElement('div');
+                    stayOptionsContainer.className = 'stay-options-container';
 
                     // Create and append stay type buttons to stayOptionsContainer
                     stayTypes.forEach(type => {
-
-                        // Create and append stay option elements to stayDetailsContainer
-                        createStayOptionElement(type, destination);
-
                         const button = document.createElement('button');
                         button.textContent = type;
                         button.className = 'stay-option-button';
                         button.addEventListener('click', () => toggleStayData(type, destination));
                         stayOptionsContainer.appendChild(button);
-
                     });
 
-                    // Append stay options container to chat container after destination content
-                    chatContainer.appendChild(stayOptionsContainer);
+                    // Append stayOptionsContainer to destinationContainer
+                    destinationContainer.appendChild(stayOptionsContainer);
 
-                    // Append stay details container to chat container after stay options
-                    chatContainer.appendChild(stayDetailsContainer);
+                    // Append destinationContainer to chatContainer
+                    chatContainer.appendChild(destinationContainer);
 
                     // Add horizontal rule for separation after destination
                     createDestinationSeparator(destination);
@@ -1085,7 +1156,7 @@
                 // Ensure the chat container scrolls to the bottom
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
-            
+
             // Create a separator for each destination when adding destinations
             function createDestinationSeparator(destination) {
                 const separator = document.createElement('hr');
@@ -1093,310 +1164,305 @@
                 separator.setAttribute('data-destination', destination);
                 chatContainer.appendChild(separator);
             }
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            // Function to create stay option elements (make sure this is defined before use)
-            function createStayOptionElement(type, destination) {
-                // Create stay container
-                const stayContainer = document.createElement('div');
-                stayContainer.className = 'stay-container';
-                stayContainer.setAttribute('data-destination', destination);
-                stayContainer.setAttribute('data-type', type);
-                stayContainer.style.display = 'none';  // Initially hidden
-
-                // Create sort buttons
-                const sortButtons = document.createElement('div');
-                sortButtons.className = 'sort-buttons';
-                sortButtons.setAttribute('data-destination', destination);
-                sortButtons.setAttribute('data-type', type);
-                sortButtons.style.display = 'none';  // Initially hidden
-
-                // Add your sort buttons logic here
-                const sortButtonLowToHigh = document.createElement('button');
-                sortButtonLowToHigh.textContent = 'Price: Low to High';
-                sortButtons.appendChild(sortButtonLowToHigh);
-
-                const sortButtonHighToLow = document.createElement('button');
-                sortButtonHighToLow.textContent = 'Price: High to Low';
-                sortButtons.appendChild(sortButtonHighToLow);
-
-                // Append sort buttons and stay container to the DOM
-                stayContainer.appendChild(sortButtons);
-                chatContainer.appendChild(stayContainer);
-            }
-
-            let currentStayType = {}; // Keep track of the current stay type for each destination
-            function toggleStayData(type, destination) {
-                const stayContainer = document.querySelector(`.stay-container[data-destination="${destination}"][data-type="${type}"]`);
-                const sortButtons = stayContainer.querySelector('.sort-buttons');
-            
-                // Hide all other stay containers and sorting buttons
-                document.querySelectorAll(`.stay-container[data-destination="${destination}"]`).forEach(container => {
-                    if (container !== stayContainer) container.style.display = 'none';
-                });
-            
-                document.querySelectorAll(`.sort-buttons[data-destination="${destination}"]`).forEach(buttons => {
-                    if (buttons !== sortButtons) buttons.style.display = 'none';
-                });
-            
-                // Toggle visibility for the current stay container
-                const isVisible = stayContainer.style.display === 'block';
-                stayContainer.style.display = isVisible ? 'none' : 'block';
-                sortButtons.style.display = isVisible ? 'none' : 'block';
-            
-                // If the container is now visible, invoke showStayData to display the stay data
-                if (!isVisible) {
-                    showStayData(type, destination);
-                }
-            }            
-            
             // Example stay data (replace with your actual data)
             const stayData = {
-                "Jaipur": {
-                    "Hotels": [
-                        { name: "Royal Palace Hotel", image: "https://via.placeholder.com/150", price: 200, place: "Jaipur" },
-                        { name: "Budget Heritage Hotel", image: "https://via.placeholder.com/150", price: 100, place: "Jaipur" }
-                    ],
-                    "Villas": [
-                        { name: "City View Villa", image: "https://via.placeholder.com/150", price: 220, place: "Jaipur" },
-                        { name: "Fort Villa", image: "https://via.placeholder.com/150", price: 180, place: "Jaipur" }
-                    ],
-                    "Airbnbs": [
-                        { name: "Cultural Airbnb", image: "https://via.placeholder.com/150", price: 120, place: "Jaipur" },
-                        { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100, place: "Jaipur" }
-                    ]
-                },
-                "Ladakh": {
-                    "Hotels": [
-                        { name: "Mountain Retreat Hotel", image: "https://via.placeholder.com/150", price: 250, place: "Ladakh" },
-                        { name: "Budget Guest House", image: "https://via.placeholder.com/150", price: 80, place: "Ladakh" }
-                    ],
-                    "Villas": [
-                        { name: "Scenic Villa", image: "https://via.placeholder.com/150", price: 300, place: "Ladakh" },
-                        { name: "Lakeside Villa", image: "https://via.placeholder.com/150", price: 200, place: "Ladakh" }
-                    ],
-                    "Airbnbs": [
-                        { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 140, place: "Ladakh" },
-                        { name: "Mountain Airbnb", image: "https://via.placeholder.com/150", price: 120, place: "Ladakh" }
-                    ]
-                },
-                "Varanasi": {
-                    "Hotels": [
-                        { name: "Ganges View Hotel", image: "https://via.placeholder.com/150", price: 180, place: "Varanasi" },
-                        { name: "Budget Holy Stay", image: "https://via.placeholder.com/150", price: 90, place: "Varanasi" }
-                    ],
-                    "Villas": [
-                        { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 220, place: "Varanasi" },
-                        { name: "Ghat Side Villa", image: "https://via.placeholder.com/150", price: 180, place: "Varanasi" }
-                    ],
-                    "Airbnbs": [
-                        { name: "Holy Airbnb", image: "https://via.placeholder.com/150", price: 110, place: "Varanasi" },
-                        { name: "Traditional Airbnb", image: "https://via.placeholder.com/150", price: 100, place: "Varanasi" }
-                    ]
-                },
-                "Rishikesh": {
-                    "Hotels": [
-                        { name: "Yoga Retreat Hotel", image: "https://via.placeholder.com/150", price: 200, place: "Rishikesh" },
-                        { name: "Budget Meditation Stay", image: "https://via.placeholder.com/150", price: 85, place: "Rishikesh" }
-                    ],
-                    "Villas": [
-                        { name: "Riverfront Villa", image: "https://via.placeholder.com/150", price: 230, place: "Rishikesh" },
-                        { name: "Mountain View Villa", image: "https://via.placeholder.com/150", price: 150, place: "Rishikesh" }
-                    ],
-                    "Airbnbs": [
-                        { name: "Eco-friendly Airbnb", image: "https://via.placeholder.com/150", price: 120, place: "Rishikesh" },
-                        { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 110, place: "Rishikesh" }
-                    ]
-                },
-                "Udaipur": {
-                    "Hotels": [
-                        { name: "Lake Palace Hotel", image: "https://via.placeholder.com/150", price: 250, place: "Udaipur" },
-                        { name: "Budget Lake View Hotel", image: "https://via.placeholder.com/150", price: 95, place: "Udaipur" }
-                    ],
-                    "Villas": [
-                        { name: "Luxury Villa", image: "https://via.placeholder.com/150", price: 270, place: "Udaipur" },
-                        { name: "Hilltop Villa", image: "https://via.placeholder.com/150", price: 190, place: "Udaipur" }
-                    ],
-                    "Airbnbs": [
-                        { name: "Palatial Airbnb", image: "https://via.placeholder.com/150", price: 150, place: "Udaipur" },
-                        { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130, place: "Udaipur" }
-                    ]
-                },
-                "Amritsar": {
-                    "Hotels": [
-                        { name: "Golden Temple View Hotel", image: "https://via.placeholder.com/150", price: 210, place: "Amritsar" },
-                        { name: "Budget Pilgrim Stay", image: "https://via.placeholder.com/150", price: 85, place: "Amritsar" }
-                    ],
-                    "Villas": [
-                        { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 240, place: "Amritsar" },
-                        { name: "Countryside Villa", image: "https://via.placeholder.com/150", price: 160, place: "Amritsar" }
-                    ],
-                    "Airbnbs": [
-                        { name: "Pilgrim Airbnb", image: "https://via.placeholder.com/150", price: 120, place: "Amritsar" },
-                        { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100, place: "Amritsar" }
-                    ]
-                },
-                "Mysore": {
-                    "Hotels": [
-                        { name: "Palace View Hotel", image: "https://via.placeholder.com/150", price: 180, place: "Mysore" },
-                        { name: "Budget Stay", image: "https://via.placeholder.com/150", price: 70, place: "Mysore" }
-                    ],
-                    "Villas": [
-                        { name: "Royal Villa", image: "https://via.placeholder.com/150", price: 210, place: "Mysore" },
-                        { name: "Nature Villa", image: "https://via.placeholder.com/150", price: 160, place: "Mysore" }
-                    ],
-                    "Airbnbs": [
-                        { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130, place: "Mysore" },
-                        { name: "Cozy Airbnb", image: "https://via.placeholder.com/150", price: 100, place: "Mysore" }
-                    ]
+                            "Jaipur": {
+                                "Hotels": [
+                                    { name: "Royal Palace Hotel", image: "https://via.placeholder.com/150", price: 200 },
+                                    { name: "Budget Heritage Hotel", image: "https://via.placeholder.com/150", price: 100 }
+                                ],
+                                "Villas": [
+                                    { name: "City View Villa", image: "https://via.placeholder.com/150", price: 220 },
+                                    { name: "Fort Villa", image: "https://via.placeholder.com/150", price: 180 }
+                                ],
+                                "Airbnbs": [
+                                    { name: "Cultural Airbnb", image: "https://via.placeholder.com/150", price: 120 },
+                                    { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                                ]
+                            },
+                            "Ladakh": {
+                                "Hotels": [
+                                    { name: "Mountain Retreat Hotel", image: "https://via.placeholder.com/150", price: 250 },
+                                    { name: "Budget Guest House", image: "https://via.placeholder.com/150", price: 80 }
+                                ],
+                                "Villas": [
+                                    { name: "Scenic Villa", image: "https://via.placeholder.com/150", price: 300 },
+                                    { name: "Lakeside Villa", image: "https://via.placeholder.com/150", price: 200 }
+                                ],
+                                "Airbnbs": [
+                                    { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 140 },
+                                    { name: "Mountain Airbnb", image: "https://via.placeholder.com/150", price: 120 }
+                                ]
+                            },
+                            "Varanasi": {
+                                "Hotels": [
+                                    { name: "Ganges View Hotel", image: "https://via.placeholder.com/150", price: 180 },
+                                    { name: "Budget Holy Stay", image: "https://via.placeholder.com/150", price: 90 }
+                                ],
+                                "Villas": [
+                                    { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 220 },
+                                    { name: "Ghat Side Villa", image: "https://via.placeholder.com/150", price: 180 }
+                                ],
+                                "Airbnbs": [
+                                    { name: "Holy Airbnb", image: "https://via.placeholder.com/150", price: 110 },
+                                    { name: "Traditional Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                                ]
+                            },
+                            "Rishikesh": {
+                                "Hotels": [
+                                    { name: "Yoga Retreat Hotel", image: "https://via.placeholder.com/150", price: 200 },
+                                    { name: "Budget Meditation Stay", image: "https://via.placeholder.com/150", price: 85 }
+                                ],
+                                "Villas": [
+                                    { name: "Riverfront Villa", image: "https://via.placeholder.com/150", price: 230 },
+                                    { name: "Mountain View Villa", image: "https://via.placeholder.com/150", price: 150 }
+                                ],
+                                "Airbnbs": [
+                                    { name: "Eco-friendly Airbnb", image: "https://via.placeholder.com/150", price: 120 },
+                                    { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 110 }
+                                ]
+                            },
+                            "Udaipur": {
+                                "Hotels": [
+                                    { name: "Lake Palace Hotel", image: "https://via.placeholder.com/150", price: 250 },
+                                    { name: "Budget Lake View Hotel", image: "https://via.placeholder.com/150", price: 95 }
+                                ],
+                                "Villas": [
+                                    { name: "Luxury Villa", image: "https://via.placeholder.com/150", price: 270 },
+                                    { name: "Hilltop Villa", image: "https://via.placeholder.com/150", price: 190 }
+                                ],
+                                "Airbnbs": [
+                                    { name: "Palatial Airbnb", image: "https://via.placeholder.com/150", price: 150 },
+                                    { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130 }
+                                ]
+                            },
+                            "Amritsar": {
+                                "Hotels": [
+                                    { name: "Golden Temple View Hotel", image: "https://via.placeholder.com/150", price: 210 },
+                                    { name: "Budget Pilgrim Stay", image: "https://via.placeholder.com/150", price: 85 }
+                                ],
+                                "Villas": [
+                                    { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 240 },
+                                    { name: "Countryside Villa", image: "https://via.placeholder.com/150", price: 160 }
+                                ],
+                                "Airbnbs": [
+                                    { name: "Pilgrim Airbnb", image: "https://via.placeholder.com/150", price: 120 },
+                                    { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                                ]
+                            },
+                            "Mysore": {
+                                "Hotels": [
+                                    { name: "Palace View Hotel", image: "https://via.placeholder.com/150", price: 180 },
+                                    { name: "Budget Stay", image: "https://via.placeholder.com/150", price: 70 }
+                                ],
+                                "Villas": [
+                                    { name: "Royal Villa", image: "https://via.placeholder.com/150", price: 210 },
+                                    { name: "Nature Villa", image: "https://via.placeholder.com/150", price: 160 }
+                                ],
+                                "Airbnbs": [
+                                    { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130 },
+                                    { name: "Cozy Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                                ]
+                            }
+                            // Add other destinations here
+                        };
+
+            function showStayOptions() {
+                    // Show the message
+                    const stayMessage = document.createElement('div');
+                    stayMessage.className = 'message bot-message fade-in';
+                    stayMessage.textContent = "Let's decide the stay next.";
+                    chatContainer.appendChild(stayMessage);
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+                    const stayTypes = ['Hotels', 'Villas', 'Airbnbs'];
+
+                    storedDestinations.forEach(destination => {
+                        const destinationContainer = document.createElement('div');
+                        destinationContainer.className = 'destination-container';
+
+                        const destinationHeading = document.createElement('h3');
+                        destinationHeading.className = 'destination-heading';
+                        destinationHeading.textContent = destination;
+                        destinationContainer.appendChild(destinationHeading);
+
+                        const stayOptionsContainer = document.createElement('div');
+                        stayOptionsContainer.className = 'stay-options-container';
+
+                        stayTypes.forEach(type => {
+                            const button = document.createElement('button');
+                            button.textContent = type;
+                            button.className = 'stay-option-button';
+                            button.addEventListener('click', () => toggleStayData(type, destination));
+                            stayOptionsContainer.appendChild(button);
+                        });
+
+                        destinationContainer.appendChild(stayOptionsContainer);
+
+                        // Create a container for stay options display
+                        const stayDisplayContainer = document.createElement('div');
+                        stayDisplayContainer.className = 'stay-display-container';
+                        stayDisplayContainer.setAttribute('id', `${destination}-stay-display`);
+                        destinationContainer.appendChild(stayDisplayContainer);
+
+                        const sortButton = document.createElement('button');
+                        sortButton.className = 'sort-button';
+                        sortButton.textContent = 'Sort by Price';
+                        sortButton.addEventListener('click', () => sortStayOptions(destination));
+                        destinationContainer.appendChild(sortButton);
+
+                        chatContainer.appendChild(destinationContainer);
+
+                        createDestinationSeparator(destination);
+                    });
+
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
                 }
-                // Add other destinations here
-            };            
-            
-            function showStayData(stayType, currentDestination) {
-                const existingStayContainer = document.querySelector(`.stay-container[data-destination="${currentDestination}"][data-type="${stayType}"]`);
-            
-                const data = stayData[currentDestination][stayType];
-                if (!existingStayContainer || !data) {
-                    console.error("Stay container or data not found.");
-                    return;
-                }
-            
-                existingStayContainer.innerHTML = ''; // Clear the container for re-rendering
-                data.forEach(stay => {
-                    const stayBox = document.createElement('div');
-                    stayBox.className = 'stay-box';
-            
-                    const img = document.createElement('img');
-                    img.src = stay.image;
-                    img.alt = stay.name;
-                    stayBox.appendChild(img);
-            
-                    const name = document.createElement('p');
-                    name.textContent = stay.name;
-                    stayBox.appendChild(name);
-            
-                    const price = document.createElement('p');
-                    price.textContent = `$${stay.price} per night`;
-                    stayBox.appendChild(price);
-            
-                    const chooseButton = document.createElement('button');
-                    chooseButton.textContent = 'Choose';
-                    chooseButton.className = 'choose-button';
-                    chooseButton.addEventListener('click', () => chooseStay(stay, currentDestination));
-                    stayBox.appendChild(chooseButton);
-            
-                    existingStayContainer.appendChild(stayBox);
-                });
-            
-                // Render sort buttons
-                renderSortButtons(currentDestination, stayType);
-            }
-            
-            function renderSortButtons(currentDestination, stayType) {
-                const existingSortContainer = document.querySelector(`.sort-container[data-destination="${currentDestination}"][data-type="${stayType}"]`);
-                if (!existingSortContainer) {
-                    const sortContainer = document.createElement('div');
-                    sortContainer.className = 'sort-container';
-                    sortContainer.setAttribute('data-destination', currentDestination);
-                    sortContainer.setAttribute('data-type', stayType);
-            
-                    const lowToHigh = document.createElement('button');
-                    lowToHigh.textContent = 'Price: Low to High';
-                    lowToHigh.addEventListener('click', () => sortStayData('asc', currentDestination, stayType));
-                    sortContainer.appendChild(lowToHigh);
-            
-                    const highToLow = document.createElement('button');
-                    highToLow.textContent = 'Price: High to Low';
-                    highToLow.addEventListener('click', () => sortStayData('desc', currentDestination, stayType));
-                    sortContainer.appendChild(highToLow);
-            
-                    document.querySelector(`.stay-container[data-destination="${currentDestination}"][data-type="${stayType}"]`).appendChild(sortContainer);
-                }
-            }
-            
-            
-            
-            function hideStayData(currentDestination) {
-                const stayContainer = document.querySelector(`.stay-container[data-destination="${currentDestination}"]`);
-                if (stayContainer) stayContainer.remove();
-            
-                const sortContainer = document.querySelector(`.sort-container[data-destination="${currentDestination}"]`);
-                if (sortContainer) sortContainer.remove();
-            }
-            
-            
-            function chooseStay(stay, currentDestination) {
-                fetch('/choose-stay/', {
-                    method: 'POST',
-                    body: JSON.stringify(stay),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': getCookie('csrftoken'),
+
+                function toggleStayData(type, destination) {
+                    const displayContainer = document.getElementById(`${destination}-stay-display`);
+                    const currentDisplay = displayContainer.getAttribute('data-current-display');
+
+                    if (currentDisplay === type) {
+                        displayContainer.innerHTML = '';
+                        displayContainer.removeAttribute('data-current-display');
+                        return;
                     }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log('Stay chosen:', stay);
-                        const confirmationMessage = document.createElement('div');
-                        confirmationMessage.className = 'message bot-message fade-in';
-                        confirmationMessage.textContent = `You have chosen ${stay.name} in ${currentDestination}.`;
-                        chatContainer.appendChild(confirmationMessage);
-                        chatContainer.scrollTop = chatContainer.scrollHeight;
-                        hideStayData(currentDestination); // Optionally hide data after choosing
-            
-                        // Disable stay option buttons only for the current destination
-                        const stayOptionButtons = document.querySelectorAll(`.destination-container[data-destination="${currentDestination}"] .stay-option-button`);
-                        stayOptionButtons.forEach(button => {
-                            button.disabled = true;
-                        });
-            
-                        // Create and show the "Get Itinerary" button
-                        const getItineraryButton = document.createElement('button');
-                        getItineraryButton.className = 'get-itinerary-button';
-                        getItineraryButton.textContent = 'Get Itinerary';
-                        getItineraryButton.addEventListener('click', () => {
-                            window.location.href = '/finalize-itinerary/';
-                        });
-            
-                        // Append button to the chat container and make it appear smoothly
-                        chatContainer.appendChild(getItineraryButton);
-            
-                        // Delay adding the 'show' class for smooth animation
-                        setTimeout(() => {
-                            getItineraryButton.classList.add('show');
-                        }, 100); // Delay to allow CSS transition to take effect
-            
-                        chatContainer.scrollTop = chatContainer.scrollHeight;
-            
+
+                    displayContainer.innerHTML = '';
+                    displayContainer.setAttribute('data-current-display', type);
+                    
+                    const stayOptionsGrid = document.createElement('div');
+                    stayOptionsGrid.className = 'stay-options-grid';
+
+                    const stayOptions = stayData[destination][type];
+                    stayOptions.forEach(option => {
+                        const optionBox = document.createElement('div');
+                        optionBox.className = 'option-box';
+
+                        const optionImage = document.createElement('img');
+                        optionImage.src = option.image;
+                        optionImage.className = 'option-image';
+
+                        const optionName = document.createElement('h4');
+                        optionName.textContent = option.name;
+
+                        const optionPrice = document.createElement('p');
+                        optionPrice.textContent = `$${option.price}`;
+
+                        const chooseButton = document.createElement('button');
+                        chooseButton.textContent = 'Choose';
+                        chooseButton.className = 'choose-button';
+                        chooseButton.addEventListener('click', () => chooseStayOption(destination, option.name));
+
+                        optionBox.appendChild(optionImage);
+                        optionBox.appendChild(optionName);
+                        optionBox.appendChild(optionPrice);
+                        optionBox.appendChild(chooseButton);
+
+                        stayOptionsGrid.appendChild(optionBox);
+                        
+                    });
+                    displayContainer.appendChild(stayOptionsGrid);
+                }
+
+                let sortOrder = 'ascending'; // Keep track of the current sort order
+
+                function sortStayOptions(destination) {
+                    const displayContainer = document.getElementById(`${destination}-stay-display`);
+                    const currentDisplay = displayContainer.getAttribute('data-current-display');
+
+                    if (!currentDisplay) return;
+
+                    // Clone the current stay options to avoid modifying the original data
+                    const stayOptions = stayData[destination][currentDisplay].slice();
+
+                    // Toggle sorting order
+                    if (sortOrder === 'ascending') {
+                        stayOptions.sort((a, b) => a.price - b.price);
+                        sortOrder = 'descending'; // Switch to descending for next click
                     } else {
-                        console.error('Error choosing stay:', data.error);
+                        stayOptions.sort((a, b) => b.price - a.price);
+                        sortOrder = 'ascending'; // Switch back to ascending for next click
                     }
-                })
-                .catch(error => console.error('Error:', error));
-            }            
-            
-            
-            function sortStayData(order, currentDestination, stayType) {
-                const stayContainer = document.querySelector(`.stay-container[data-destination="${currentDestination}"][data-type="${stayType}"]`);
-                if (!stayContainer) {
-                    console.error("Stay container not found for sorting.");
-                    return;
+
+                    // Clear the current display
+                    displayContainer.innerHTML = '';
+
+                    // Create a grid container
+                    const stayOptionsGrid = document.createElement('div');
+                    stayOptionsGrid.className = 'stay-options-grid';
+
+                    // Populate the grid with sorted options
+                    stayOptions.forEach(option => {
+                        const optionBox = document.createElement('div');
+                        optionBox.className = 'option-box';
+
+                        const optionImage = document.createElement('img');
+                        optionImage.src = option.image;
+                        optionImage.className = 'option-image';
+
+                        const optionName = document.createElement('h4');
+                        optionName.textContent = option.name;
+
+                        const optionPrice = document.createElement('p');
+                        optionPrice.textContent = `$${option.price}`;
+
+                        const chooseButton = document.createElement('button');
+                        chooseButton.textContent = 'Choose';
+                        chooseButton.className = 'choose-button';
+                        chooseButton.addEventListener('click', () => chooseStayOption(destination, option.name));
+
+                        optionBox.appendChild(optionImage);
+                        optionBox.appendChild(optionName);
+                        optionBox.appendChild(optionPrice);
+                        optionBox.appendChild(chooseButton);
+
+                        stayOptionsGrid.appendChild(optionBox);
+                    });
+
+                    // Append the grid container to the display container
+                    displayContainer.appendChild(stayOptionsGrid);
                 }
 
-                const stayBoxes = Array.from(stayContainer.querySelectorAll('.stay-box'));
+                function chooseStayOption(destination, optionName) {
+                    // Find the selected option's details
+                    const selectedOption = Object.values(stayData[destination]).flat().find(option => option.name === optionName);
 
-                stayBoxes.sort((a, b) => {
-                    const priceA = parseFloat(a.querySelector('p:nth-of-type(2)').textContent.replace('$', '').replace(' per night', ''));
-                    const priceB = parseFloat(b.querySelector('p:nth-of-type(2)').textContent.replace('$', '').replace(' per night', ''));
+                    // Create a chat bubble with the chosen option's details
+                    const chosenMessage = document.createElement('div');
+                    chosenMessage.className = 'message bot-message fade-in left-bubble'; // Add left-bubble class for styling
 
-                    return order === 'asc' ? priceA - priceB : priceB - priceA;
-                });
+                    // Add image, name, and price to the message bubble
+                    const optionImage = document.createElement('img');
+                    optionImage.src = selectedOption.image;
+                    optionImage.className = 'bubble-image'; // Add class for styling
 
-                stayBoxes.forEach(box => stayContainer.appendChild(box));
-            }                         
+                    const optionDetails = document.createElement('div');
+                    optionDetails.className = 'bubble-details'; // Add class for styling
+                    optionDetails.innerHTML = `
+                        <strong>${optionName}-${destination}</strong><br>
+                        Price: $${selectedOption.price}
+                    `;
 
-        
+                    chosenMessage.appendChild(optionImage);
+                    chosenMessage.appendChild(optionDetails);
+
+                    chatContainer.appendChild(chosenMessage);
+
+                    // Disable all stay option buttons for this destination
+                    const destinationContainer = document.querySelector(`#${destination}-stay-display`).parentElement;
+                    const buttons = destinationContainer.querySelectorAll('.stay-option-button');
+                    buttons.forEach(button => button.disabled = true);
+
+                    // Hide the entire destination container after selection
+                    destinationContainer.style.display = 'none';
+
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }
+
             // Helper function to get CSRF token
             function getCookie(name) {
                 let cookieValue = null;
