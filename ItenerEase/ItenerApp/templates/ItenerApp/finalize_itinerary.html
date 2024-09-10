@@ -92,13 +92,14 @@
             <form id="chat-form" method="POST">
                 {% csrf_token %}
                 <input type="text" name="user_message" id="user_message" placeholder="Type your message...">
-                <button type="submit">Send</button>
+                <button type="submit" name="send">Send</button>
             </form>
         </div>
     </div>
 
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
+            const itineraryDiv = document.getElementById('itinerary-container')
             const chatForm = document.getElementById('chat-form');
             const chatMessages = document.getElementById('chat-messages');
         
@@ -157,6 +158,20 @@
         
             // Initial scroll to bottom
             scrollToBottom();
+
+            // Create the button to go to finaize itinerary 
+            const button = document.createElement('button');
+            button.textContent = 'Finalize Itinerary';
+            button.name = 'finalize';  // Adding the name attribute
+            // button.className = '';
+        
+            // Attach event listener to the button
+            button.addEventListener('click', () => {
+                window.location.href = '/completed-itinerary/';
+            });
+        
+            // Append the button to the place-box
+            itineraryDiv.appendChild(button);
         });        
     </script>
 </body>

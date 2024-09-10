@@ -344,30 +344,45 @@ def finalize_itinerary(request):
         if key.startswith('stay_place_at') and not any(x in key.lower() for x in ['hotel', 'airbnb', 'villa']):
             itinerary_context[key] = value
 
-    if request.method == 'GET':
-        print("Crafting initial itinerary...")
-        generated_itinerary = generate_itinerary(itinerary_context)
-        print(generated_itinerary)
-        request.session['itinerary'] = generated_itinerary
-        
-        return render(request, 'ItenerApp/finalize_itinerary.html', {
-            'initial_message': "How is this itinerary?",
-            'itinerary': generated_itinerary,
-            'itinerary_context': itinerary_context,
-        })
-
-    # Handle POST request
-    user_message = json.loads(request.body)['user_message']
-    print(user_message)
+    if request.method == 'POST':
+        if "send" in request.POST:
+            # Handle POST request
+            user_message = json.loads(request.body)['user_message']
+            print(user_message)
+            
+            # Modify the existing itinerary based on user input
+            print("Updating itinerary...")
+            modified_itinerary = generate_itinerary_updated(request.session['itinerary'], itinerary_context, user_message)
+            request.session['itinerary'] = modified_itinerary
+            print(modified_itinerary)
+            
+            # Return a JSON response for the frontend to handle
+            return JsonResponse({
+                'success': True,
+                'itinerary_html': modified_itinerary  # This should be HTML that you inject via JS
+            })
+        elif "finalize" in request.POST:
+            return redirect('completed_itinerary')
     
-    # Modify the existing itinerary based on user input
-    print("Updating itinerary...")
-    modified_itinerary = generate_itinerary_updated(request.session['itinerary'], itinerary_context, user_message)
-    request.session['itinerary'] = modified_itinerary
-    print(modified_itinerary)
+    print("Crafting initial itinerary...")
+    generated_itinerary = generate_itinerary(itinerary_context)
+    print(generated_itinerary)
+    request.session['itinerary'] = generated_itinerary
     
-    # Return a JSON response for the frontend to handle
-    return JsonResponse({
-        'success': True,
-        'itinerary_html': modified_itinerary  # This should be HTML that you inject via JS
+    return render(request, 'ItenerApp/finalize_itinerary.html', {
+        'initial_message': "How is this itinerary?",
+        'itinerary': generated_itinerary,
+        'itinerary_context': itinerary_context,
     })
+
+
+'''View to render final display of the itinerary'''
+@login_required
+def completed_itinerary(request):
+    if request.method == 'POST':
+        if 'go_to_dashboard' in request.POST:
+            return redirect('dashboard')
+        else:
+            print("Unknown name in request.POST")
+
+    return render(request, 'ItenerApp/completed_itinerary.html')

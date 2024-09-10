@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from ItenerApp import views as ItenerViews  # Correct import
+from ItenerApp import views as ItenerViews
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -35,5 +35,6 @@ urlpatterns = [
     path('submit-interested-places/', ItenerViews.submit_interested_places, name='submit_interested_places'),
     path('choose-stay/', ItenerViews.choose_stay, name='choose_stay'),
     path('finalize-itinerary/', ItenerViews.finalize_itinerary, name='finalize_itinerary'),
+    path('completed-itinerary/', ItenerViews.completed_itinerary, name='completed_itinerary'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
