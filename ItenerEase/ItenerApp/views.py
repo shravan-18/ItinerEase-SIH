@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.conf import settings
-from django.http import StreamingHttpResponse, JsonResponse, HttpResponse, HttpResponseNotFound
+from django.http import JsonResponse
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
@@ -14,6 +15,22 @@ from .static.scripts import functions
 from decouple import config
 from openai import OpenAI
 import json
+from datetime import datetime
+import os
+
+
+'''Helper Function to Determine the Season'''
+def determine_season(vacation_start_date):
+    month = vacation_start_date.month
+    if month in [12, 1, 2]:
+        return 'Winter'
+    elif month in [3, 4, 5]:
+        return 'Spring'
+    elif month in [6, 7, 8]:
+        return 'Summer'
+    elif month in [9, 10, 11]:
+        return 'Fall'
+    return 'Unknown'
 
 
 '''Global Variables'''
@@ -235,16 +252,28 @@ def generate_itinerary(itinerary_context, user_message=None):
     Return ONLY the HTML code for the table, enclosed within ``` symbols."""
 
     # Format the prompt based on the context and user request (if any)
-    formatted_prompt = demo_template.format(
-        num_people=itinerary_context['num_people'],
-        start_location=itinerary_context['start_location'],
-        destinations=', '.join(itinerary_context['destinations']),
-        primary_activity_preference=itinerary_context['primary_activity_preference'],
-        vacation_start_date=itinerary_context['vacation_start_date'],
-        vacation_end_date=itinerary_context['vacation_end_date'],
-        interested_places=', '.join(itinerary_context['interested_places']['interestedPlaces']),
-        stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')])
-    )
+    try:
+        formatted_prompt = demo_template.format(
+            num_people=itinerary_context['num_people'],
+            start_location=itinerary_context['start_location'],
+            destinations=', '.join(itinerary_context['destinations']),
+            primary_activity_preference=itinerary_context['primary_activity_preference'],
+            vacation_start_date=itinerary_context['vacation_start_date'],
+            vacation_end_date=itinerary_context['vacation_end_date'],
+            interested_places=', '.join(itinerary_context['interested_places']['interestedPlaces']),
+            stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')])
+        )
+    except:
+        formatted_prompt = demo_template.format(
+            num_people=itinerary_context['num_people'],
+            start_location=itinerary_context['start_location'],
+            destinations=', '.join(itinerary_context['destinations']),
+            primary_activity_preference=itinerary_context['primary_activity_preference'],
+            vacation_start_date=itinerary_context['vacation_start_date'],
+            vacation_end_date=itinerary_context['vacation_end_date'],
+            interested_places='Open to explore and visit any place, there are no preferences',
+            stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')])
+        )
     print(formatted_prompt)
 
     client = OpenAI(api_key=config('OPENAI_API_KEY'))
@@ -298,18 +327,32 @@ def generate_itinerary_updated(existing_itinerary, itinerary_context, user_messa
     Return ONLY the HTML code for the table, enclosed within ``` symbols."""
 
     # Format the prompt based on the context and user request (if any)
-    formatted_prompt = demo_template.format(
-        existing_itinerary=existing_itinerary,
-        additional_request=user_message,
-        num_people=itinerary_context['num_people'],
-        start_location=itinerary_context['start_location'],
-        destinations=', '.join(itinerary_context['destinations']),
-        primary_activity_preference=itinerary_context['primary_activity_preference'],
-        vacation_start_date=itinerary_context['vacation_start_date'],
-        vacation_end_date=itinerary_context['vacation_end_date'],
-        interested_places=', '.join(itinerary_context['interested_places']['interestedPlaces']),
-        stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')])
-    )
+    try:
+        formatted_prompt = demo_template.format(
+            existing_itinerary=existing_itinerary,
+            additional_request=user_message,
+            num_people=itinerary_context['num_people'],
+            start_location=itinerary_context['start_location'],
+            destinations=', '.join(itinerary_context['destinations']),
+            primary_activity_preference=itinerary_context['primary_activity_preference'],
+            vacation_start_date=itinerary_context['vacation_start_date'],
+            vacation_end_date=itinerary_context['vacation_end_date'],
+            interested_places=', '.join(itinerary_context['interested_places']['interestedPlaces']),
+            stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')])
+        )
+    except:
+        formatted_prompt = demo_template.format(
+            existing_itinerary=existing_itinerary,
+            additional_request=user_message,
+            num_people=itinerary_context['num_people'],
+            start_location=itinerary_context['start_location'],
+            destinations=', '.join(itinerary_context['destinations']),
+            primary_activity_preference=itinerary_context['primary_activity_preference'],
+            vacation_start_date=itinerary_context['vacation_start_date'],
+            vacation_end_date=itinerary_context['vacation_end_date'],
+            interested_places='Open to explore and visit any place, there are no preferences',
+            stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')])
+        )
     print(formatted_prompt)
 
     client = OpenAI(api_key=config('OPENAI_API_KEY'))
@@ -362,6 +405,48 @@ def finalize_itinerary(request):
                 'itinerary_html': modified_itinerary  # This should be HTML that you inject via JS
             })
         elif "finalize" in request.POST:
+            print("Finalize in request.POST")
+
+            # Parse the vacation_start_date and vacation_end_date strings to datetime objects
+            start_date_str = itinerary_context['vacation_start_date']
+            end_date_str = itinerary_context['vacation_end_date']
+
+            # Convert date strings to datetime objects
+            start_date = datetime.strptime(start_date_str, '%Y-%m-%d') if start_date_str else None
+            end_date = datetime.strptime(end_date_str, '%Y-%m-%d') if end_date_str else None
+
+            # Calculate the trip duration
+            trip_duration = (end_date - start_date).days if start_date and end_date else 'Unknown'
+
+            # Inferred season from start date
+            season = determine_season(start_date) if start_date else 'Unknown'
+
+            itinerary_metadata = {
+                'trip_duration': trip_duration,
+                'season': season,
+                'created_at': timezone.now().strftime('%Y-%m-%d %H:%M:%S'),
+            }
+
+            user_itinerary_data = {
+                'itinerary': itinerary_context,
+                'metadata': itinerary_metadata,
+            }
+            print("User JSON Collected Data: \n", user_itinerary_data)
+
+            # Save data in the user's directory
+            user_id = request.user.id
+            directory_path = os.path.join(settings.MEDIA_ROOT, f'user_data/user_{user_id}/')
+
+            if not os.path.exists(directory_path):
+                os.makedirs(directory_path)
+
+            file_name = f'itinerary_{timezone.now().strftime("%Y%m%d_%H%M%S")}.json'
+            file_path = os.path.join(directory_path, file_name)
+            
+            with open(file_path, 'w') as f:
+                json.dump(user_itinerary_data, f)
+
+            print(f'status: Itinerary saved successfully at path: {file_path}')
             return redirect('completed_itinerary')
     
     print("Crafting initial itinerary...")
