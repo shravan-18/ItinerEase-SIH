@@ -53,16 +53,22 @@ def signupuser(request):
         if functions.check_email(request.POST.get("Email Field")) == False:
             return render(request, "ItenerApp/signupuser.html", {"error": "Invalid Email Address!"})
 
-        # Create a new user...
+        # Check if the passwords match
         if request.POST.get("Password Field") == request.POST.get("Password Confirmation Field"):
             try:
-                user = User.objects.create_user(request.POST['Email Field'], password=request.POST['Password Field'])
+                # Create a new user with username and email
+                user = User.objects.create_user(
+                    username=request.POST['Username Field'],  # Capture username
+                    email=request.POST['Email Field'],  # Capture email
+                    password=request.POST['Password Field']  # Capture password
+                )
                 user.save()
+                
+                # Log the user in
                 login(request, user)
                 return redirect('dashboard')
             except IntegrityError:
-                return render(request, "ItenerApp/signupuser.html", {"error": "Email already exists! Please Log in."})
-
+                return render(request, "ItenerApp/signupuser.html", {"error": "Username or Email already exists! Please log in."})
         else:
             return render(request, "ItenerApp/signupuser.html", {"error": "Passwords did not match!"})
         
@@ -104,7 +110,7 @@ def logoutuser(request):
 '''View to render dashboard'''
 @login_required
 def dashboard(request):
-    return render(request, 'ItenerApp/dashboard.html')
+    return render(request, 'ItenerApp/dashboard.html', {'username': request.user.username})
 
 
 '''View for the first starting page of creating a new itenary user'''
