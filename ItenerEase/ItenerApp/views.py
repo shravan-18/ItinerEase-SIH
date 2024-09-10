@@ -223,7 +223,7 @@ def choose_stay(request):
 
 '''Helper function for generating itinerary from scratch'''
 def generate_itinerary(itinerary_context, user_message=None):
-    # Define the prompt template
+    # Define the base prompt template
     demo_template = """
     Create a detailed, personalized itinerary for a trip based on the following details:
 
@@ -234,6 +234,12 @@ def generate_itinerary(itinerary_context, user_message=None):
     - Vacation dates: {vacation_start_date} to {vacation_end_date}
     - Interested places: {interested_places}
     - Stay details: {stay_details}
+
+    Based on previous user trips, here are some insights:
+    {historical_data}
+
+    Additionally, here are some user reviews and opinions on the places you're visiting:
+    {forum_reviews}
 
     Generate the HTML code for the table representing this itinerary. Ensure the table is visually appealing and well-formatted. Use inline CSS to style the table. Include the following columns:
     - Date
@@ -249,9 +255,58 @@ def generate_itinerary(itinerary_context, user_message=None):
     4. Personalize activities based on user preferences and interests.
     5. Ensure the itinerary is clear and easy to understand.
 
-    Return ONLY the HTML code for the table, enclosed within ``` symbols."""
+    Return ONLY the HTML code for the table, enclosed within ``` symbols.
+    """
 
-    # Format the prompt based on the context and user request (if any)
+    # Load historical JSON files for the user
+    user_id = itinerary_context.get('user_id')  # Assuming 'user_id' is part of the context
+    user_data_path = os.path.join(settings.MEDIA_ROOT, f'user_data/user_{user_id}/')
+    historical_data = ""
+
+    # Check if the user's data directory exists
+    if os.path.exists(user_data_path):
+        # Loop through all the JSON files and extract relevant data
+        for file_name in os.listdir(user_data_path):
+            if file_name.endswith('.json'):
+                file_path = os.path.join(user_data_path, file_name)
+                with open(file_path, 'r') as f:
+                    itinerary_data = json.load(f)
+                    # Extract relevant info (trip duration, season, itinerary highlights)
+                    trip_duration = itinerary_data['metadata'].get('trip_duration', 'Unknown')
+                    season = itinerary_data['metadata'].get('season', 'Unknown')
+                    destinations = ', '.join(itinerary_data['itinerary'].get('destinations', []))
+
+                    # Append the historical data to be included in the prompt
+                    historical_data += f"- Trip to {destinations} ({trip_duration} days, {season} season)\n"
+
+                    # Check if there are any interested places from the previous trip
+                    interested_places = itinerary_data.get('interested_places', {}).get('interestedPlaces', [])
+                    if interested_places:
+                        historical_data += f"  - Interested places: {', '.join(interested_places)}\n"
+                    else:
+                        historical_data += "  - Interested places: No specific preferences\n"
+    else:
+        historical_data = "No previous trip data available."
+
+    # Load forum reviews
+    forum_reviews_path = os.path.join(settings.MEDIA_ROOT, 'forum/reviews.json')
+    forum_reviews = ""
+
+    if os.path.exists(forum_reviews_path):
+        with open(forum_reviews_path, 'r') as f:
+            reviews_data = json.load(f)
+            # Extract and format the reviews
+            for place_entry in reviews_data.get('places', []):
+                place = place_entry.get('place', 'Unknown place')
+                for review in place_entry.get('reviews', []):
+                    user = review.get('user', 'Anonymous')
+                    rating = review.get('rating', 'No rating provided')
+                    comment = review.get('comment', 'No comment provided')
+                    forum_reviews += f"- {place}: Reviewed by {user} - Rating: {rating} - Comment: {comment}\n"
+    else:
+        forum_reviews = "No forum reviews available."
+
+    # Format the prompt with the itinerary context and historical data
     try:
         formatted_prompt = demo_template.format(
             num_people=itinerary_context['num_people'],
@@ -261,24 +316,29 @@ def generate_itinerary(itinerary_context, user_message=None):
             vacation_start_date=itinerary_context['vacation_start_date'],
             vacation_end_date=itinerary_context['vacation_end_date'],
             interested_places=', '.join(itinerary_context['interested_places']['interestedPlaces']),
-            stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')])
+            stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')]),
+            historical_data=historical_data,
+            forum_reviews=forum_reviews
         )
-    except:
+    except KeyError as e:
+        # Handle any missing keys or fallbacks
         formatted_prompt = demo_template.format(
-            num_people=itinerary_context['num_people'],
-            start_location=itinerary_context['start_location'],
-            destinations=', '.join(itinerary_context['destinations']),
-            primary_activity_preference=itinerary_context['primary_activity_preference'],
-            vacation_start_date=itinerary_context['vacation_start_date'],
-            vacation_end_date=itinerary_context['vacation_end_date'],
+            num_people=itinerary_context.get('num_people', 'Unknown'),
+            start_location=itinerary_context.get('start_location', 'Unknown'),
+            destinations=', '.join(itinerary_context.get('destinations', [])),
+            primary_activity_preference=itinerary_context.get('primary_activity_preference', 'Unknown'),
+            vacation_start_date=itinerary_context.get('vacation_start_date', 'Unknown'),
+            vacation_end_date=itinerary_context.get('vacation_end_date', 'Unknown'),
             interested_places='Open to explore and visit any place, there are no preferences',
-            stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')])
+            stay_details=', '.join([f"{key.split('_')[-1]}: {value}" for key, value in itinerary_context.items() if key.startswith('stay_place_at')]),
+            historical_data=historical_data,
+            forum_reviews=forum_reviews
         )
-    print(formatted_prompt)
 
+    print("Formatted prompt: \n", formatted_prompt)
+
+    # Send the formatted prompt to OpenAI API
     client = OpenAI(api_key=config('OPENAI_API_KEY'))
-
-    # Make the API request
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": formatted_prompt}],
@@ -373,6 +433,7 @@ def generate_itinerary_updated(existing_itinerary, itinerary_context, user_messa
 '''View for rendering itinerary and updating it otg using a chat mechanism'''
 def finalize_itinerary(request):
     itinerary_context = {
+        'user_id': request.user.id,
         'num_people': request.session.get('num_people'),
         'start_location': request.session.get('start_location'),
         'destinations': request.session.get('destinations'),
