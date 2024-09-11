@@ -225,37 +225,49 @@ def choose_stay(request):
 def generate_itinerary(itinerary_context, user_message=None):
     # Define the base prompt template
     demo_template = """
-    Create a detailed, personalized itinerary for a trip based on the following details:
+        Create a detailed, personalized itinerary for a trip based on the following details:
 
-    - Number of people: {num_people}
-    - Start location: {start_location}
-    - Destinations: {destinations}
-    - Primary activity preference: {primary_activity_preference}
-    - Vacation dates: {vacation_start_date} to {vacation_end_date}
-    - Interested places: {interested_places}
-    - Stay details: {stay_details}
+        - Number of people: {num_people}
+        - Start location: {start_location}
+        - Destinations: {destinations}
+        - Primary activity preference: {primary_activity_preference}
+        - Vacation dates: {vacation_start_date} to {vacation_end_date}
+        - Interested places: {interested_places}
+        - Stay details: {stay_details}
 
-    Based on previous user trips, here are some insights:
-    {historical_data}
+        Weather Forecast Consideration:
+        Based on the weather forecast retrieved from the OpenWeatherMap API for the specified dates, please adjust the activities to match the weather. For example:
+        - Avoid outdoor activities such as boating or hiking if it's expected to rain.
+        - Suggest indoor alternatives such as museums, cafes, or other cultural experiences if weather is unfavorable.
 
-    Additionally, here are some user reviews and opinions on the places you're visiting:
-    {forum_reviews}
+        Must-Visit Spots:
+        Make sure to include must-visit places that are within a reasonable distance from the destination, even if they are outside the city. For example, if visiting Delhi, include a day trip to the Taj Mahal, as it's a must-see spot nearby.
 
-    Generate the HTML code for the table representing this itinerary. Ensure the table is visually appealing and well-formatted. Use inline CSS to style the table. Include the following columns:
-    - Date
-    - Time
-    - Activity
-    - Location (place name, destination name)
-    - Google Maps link
+        Based on previous user trips, here are some insights:
+        {historical_data}
 
-    Make sure to:
-    1. Provide at least 5-6 activities per day.
-    2. Include free time slots when appropriate.
-    3. Order destinations logically if multiple are specified.
-    4. Personalize activities based on user preferences and interests.
-    5. Ensure the itinerary is clear and easy to understand.
+        Additionally, here are some user reviews and opinions on the places you're visiting:
+        {forum_reviews}
 
-    Return ONLY the HTML code for the table, enclosed within ``` symbols.
+        
+        Generate the HTML code for the table representing this itinerary. Ensure the table is visually appealing and well-formatted. Use inline CSS to style the table. Include the following columns:
+        - Date (in Day, Month format. Eg: 21st Sep)
+        - Time
+        - Activity
+        - Location (place name, destination name)
+        - Google Maps link
+        - Weather Notes: [Weather condition for the day]
+        - Adjustments or alternate plans for unfavorable weather (Always suggest atleast 1 adjustment like a change of plan nearby the previous location).
+
+        Make sure to:
+        1. Provide at least 4-5 activities per day.
+        2. Include free time slots when appropriate.
+        3. Order destinations logically if multiple are specified.
+        4. Personalize activities based on user preferences and interests.
+        5. Ensure the itinerary is clear and easy to understand.
+        6. Suggest any notable attractions that are close to the main destinations but not part of the city itself.
+
+        Do not style the table in any way. Return ONLY the unstyled HTML code for the table, enclosed within ``` symbols. 
     """
 
     # Load historical JSON files for the user
@@ -378,7 +390,7 @@ def generate_itinerary_updated(existing_itinerary, itinerary_context, user_messa
     - Google Maps link
 
     Make sure to:
-    1. Provide at least 5-6 activities per day.
+    1. Provide at least 4-5 activities per day.
     2. Include free time slots when appropriate.
     3. Order destinations logically if multiple are specified.
     4. Personalize activities based on user preferences and interests.
