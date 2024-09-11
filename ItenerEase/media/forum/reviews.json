@@ -1,0 +1,191 @@
+{
+    "places": [
+        {
+            "place": "Taj Mahal",
+            "reviews": [
+                {
+                    "user": "traveller123",
+                    "rating": 5,
+                    "comment": "Absolutely breathtaking! The architecture is stunning and the history behind it is fascinating. A must-visit for anyone coming to India.",
+                    "date": "2024-09-01"
+                },
+                {
+                    "user": "explorer_89",
+                    "rating": 4,
+                    "comment": "Incredible monument! It gets very crowded, so try to visit early in the morning. The beauty of the Taj Mahal is unparalleled.",
+                    "date": "2024-08-15"
+                }
+            ]
+        },
+        {
+            "place": "Jaipur Fort",
+            "reviews": [
+                {
+                    "user": "history_buff",
+                    "rating": 4,
+                    "comment": "Rich in history and architecture. The fort offers fantastic views of the city. A bit of a climb, but worth it.",
+                    "date": "2024-07-20"
+                },
+                {
+                    "user": "adventure_seeker",
+                    "rating": 3,
+                    "comment": "The fort is impressive, but it can get quite hot. Make sure to carry water and wear comfortable shoes.",
+                    "date": "2024-06-10"
+                }
+            ]
+        },
+        {
+            "place": "Goa Beaches",
+            "reviews": [
+                {
+                    "user": "beach_lover",
+                    "rating": 5,
+                    "comment": "Fantastic beaches with clear water and white sand. Perfect for relaxation and water sports. Highly recommended!",
+                    "date": "2024-09-10"
+                },
+                {
+                    "user": "sun_seeker",
+                    "rating": 4,
+                    "comment": "Great place for a beach vacation. Some beaches are more crowded than others, so choose according to your preference.",
+                    "date": "2024-08-25"
+                }
+            ]
+        },
+        {
+            "place": "Kerala Backwaters",
+            "reviews": [
+                {
+                    "user": "nature_lover",
+                    "rating": 5,
+                    "comment": "A serene and picturesque experience. The houseboat ride was relaxing and the scenery was beautiful. Perfect for a peaceful getaway.",
+                    "date": "2024-09-05"
+                },
+                {
+                    "user": "travelling_nomad",
+                    "rating": 4,
+                    "comment": "Wonderful experience with stunning views. The houseboats could use some updating, but the overall experience was great.",
+                    "date": "2024-07-30"
+                }
+            ]
+        },
+        {
+            "place": "Ranthambore National Park",
+            "reviews": [
+                {
+                    "user": "wildlife_explorer",
+                    "rating": 5,
+                    "comment": "Amazing wildlife experience! Saw several tigers and other animals. The guides are knowledgeable and the park is well maintained.",
+                    "date": "2024-08-22"
+                },
+                {
+                    "user": "nature_junkie",
+                    "rating": 4,
+                    "comment": "Great safari experience. The tigers are elusive, but seeing other wildlife made up for it. Be prepared for a bumpy ride.",
+                    "date": "2024-09-12"
+                }
+            ]
+        },
+        {
+            "place": "Qutub Minar",
+            "reviews": [
+                {
+                    "user": "cultural_enthusiast",
+                    "rating": 4,
+                    "comment": "A historic landmark with impressive architecture. The surrounding gardens are lovely. It gets crowded, so plan your visit accordingly.",
+                    "date": "2024-08-18"
+                },
+                {
+                    "user": "travel_guide",
+                    "rating": 3,
+                    "comment": "Interesting site with a rich history, but the ticket prices are a bit high. Worth a visit if you’re into historical monuments.",
+                    "date": "2024-07-05"
+                }
+            ]
+        },
+        {
+            "place": "Hampi",
+            "reviews": [
+                {
+                    "user": "history_buff_2024",
+                    "rating": 5,
+                    "comment": "Incredible ruins and temples! The landscape is unique and the history is fascinating. Definitely worth exploring.",
+                    "date": "2024-09-07"
+                },
+                {
+                    "user": "adventure_lover",
+                    "rating": 4,
+                    "comment": "A historical gem with amazing scenery. It can be quite hot, so visit early in the day. Bring plenty of water.",
+                    "date": "2024-08-20"
+                }
+            ]
+        },
+        {
+            "place": "Shimla",
+            "reviews": [
+                {
+                    "user": "hill_station_fan",
+                    "rating": 4,
+                    "comment": "A beautiful hill station with charming streets and scenic views. It gets crowded during peak season, so plan ahead.",
+                    "date": "2024-08-30"
+                },
+                {
+                    "user": "mountain_lover",
+                    "rating": 3,
+                    "comment": "Lovely place but traffic can be a hassle. The views are great, but accommodations can be overpriced.",
+                    "date": "2024-07-15"
+                }
+            ]
+        },
+        {
+            "place": "Varanasi",
+            "reviews": [
+                {
+                    "user": "cultural_quester",
+                    "rating": 5,
+                    "comment": "A spiritual experience like no other. The ghats are mesmerizing and the cultural heritage is rich. A must-visit for anyone interested in Indian culture.",
+                    "date": "2024-09-08"
+                },
+                {
+                    "user": "temple_tourist",
+                    "rating": 4,
+                    "comment": "The city is vibrant and full of life. It can be overwhelming, but the experiences are unique. Be ready for the hustle and bustle.",
+                    "date": "2024-08-12"
+                }
+            ]
+        },
+        {
+            "place": "Mysore Palace",
+            "reviews": [
+                {
+                    "user": "heritage_lover",
+                    "rating": 5,
+                    "comment": "One of the most beautiful palaces I've ever seen. The architecture and the museum inside are impressive. Definitely worth a visit.",
+                    "date": "2024-08-25"
+                },
+                {
+                    "user": "historian_77",
+                    "rating": 4,
+                    "comment": "The palace is stunning and the guided tours are informative. It gets crowded, so visiting during off-peak hours is better.",
+                    "date": "2024-09-02"
+                }
+            ]
+        },
+        {
+            "place": "Delhi Metro",
+            "reviews": [
+                {
+                    "user": "city_commuter",
+                    "rating": 4,
+                    "comment": "Efficient and affordable way to travel around Delhi. It can be crowded during peak hours, but the service is generally reliable.",
+                    "date": "2024-08-28"
+                },
+                {
+                    "user": "traveling_professional",
+                    "rating": 5,
+                    "comment": "Highly impressed with the cleanliness and punctuality. A great option for getting around the city quickly.",
+                    "date": "2024-07-23"
+                }
+            ]
+        }
+    ]
+}

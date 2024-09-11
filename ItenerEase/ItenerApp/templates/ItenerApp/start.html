@@ -1571,106 +1571,235 @@
 
             // Example stay data (replace with your actual data)
             const stayData = {
-                            "Jaipur": {
-                                "Hotels": [
-                                    { name: "Royal Palace Hotel", image: "https://via.placeholder.com/150", price: 2000 },
-                                    { name: "Budget Heritage Hotel", image: "https://via.placeholder.com/150", price: 1000 }
-                                ],
-                                "Villas": [
-                                    { name: "City View Villa", image: "https://via.placeholder.com/150", price: 12200 },
-                                    { name: "Fort Villa", image: "https://via.placeholder.com/150", price: 18000 }
-                                ],
-                                "Airbnbs": [
-                                    { name: "Cultural Airbnb", image: "https://via.placeholder.com/150", price: 4200 },
-                                    { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 3000 }
-                                ]
-                            },
-                            "Ladakh": {
-                                "Hotels": [
-                                    { name: "Mountain Retreat Hotel", image: "/static/img/Ladakh_Hotel_1.jpg", price: 2500 },
-                                    { name: "Budget Guest House", image: "/static/img/Ladakh_Hotel_2.jpg", price: 8000 }
-                                ],
-                                "Villas": [
-                                    { name: "Scenic Villa", image: "/static/img/Ladakh_Villa_1.jpg", price: 13000 },
-                                    { name: "Lakeside Villa", image: "/static/img/Ladakh_Villa_2.jpg", price: 8000 }
-                                ],
-                                "Airbnbs": [
-                                    { name: "Rustic Airbnb", image: "/static/img/Ladakh_Airbnb_1.jpg", price: 2400 },
-                                    { name: "Mountain Airbnb", image: "/static/img/Ladakh_Airbnb_2.jpg", price: 3200 }
-                                ]
-                            },
-                            "Varanasi": {
-                                "Hotels": [
-                                    { name: "Ganges View Hotel", image: "/static/img/Varnasi_Hotel_1.jpg", price: 1800 },
-                                    { name: "Budget Holy Stay", image: "/static/img/Varnasi_Hotel_2.jpg", price: 1490 }
-                                ],
-                                "Villas": [
-                                    { name: "Spiritual Villa", image: "/static/img/Varnasi_Villa_1.jpg", price: 12200 },
-                                    { name: "Ghat Side Villa", image: "/static/img/Varnasi_Villa_2.jpg", price: 13280 }
-                                ],
-                                "Airbnbs": [
-                                    { name: "Holy Airbnb", image: "/static/img/Varnasi_Airbnb_1.jpeg", price: 2300 },
-                                    { name: "Traditional Airbnb", image: "/static/img/Varnasi_Airbnb_2.jpg", price: 4100 }
-                                ]
-                            },
-                            "Rishikesh": {
-                                "Hotels": [
-                                    { name: "Yoga Retreat Hotel", image: "https://via.placeholder.com/150", price: 200 },
-                                    { name: "Budget Meditation Stay", image: "https://via.placeholder.com/150", price: 85 }
-                                ],
-                                "Villas": [
-                                    { name: "Riverfront Villa", image: "https://via.placeholder.com/150", price: 230 },
-                                    { name: "Mountain View Villa", image: "https://via.placeholder.com/150", price: 150 }
-                                ],
-                                "Airbnbs": [
-                                    { name: "Eco-friendly Airbnb", image: "https://via.placeholder.com/150", price: 120 },
-                                    { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 110 }
-                                ]
-                            },
-                            "Udaipur": {
-                                "Hotels": [
-                                    { name: "Lake Palace Hotel", image: "https://via.placeholder.com/150", price: 250 },
-                                    { name: "Budget Lake View Hotel", image: "https://via.placeholder.com/150", price: 95 }
-                                ],
-                                "Villas": [
-                                    { name: "Luxury Villa", image: "https://via.placeholder.com/150", price: 270 },
-                                    { name: "Hilltop Villa", image: "https://via.placeholder.com/150", price: 190 }
-                                ],
-                                "Airbnbs": [
-                                    { name: "Palatial Airbnb", image: "https://via.placeholder.com/150", price: 150 },
-                                    { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130 }
-                                ]
-                            },
-                            "Amritsar": {
-                                "Hotels": [
-                                    { name: "Golden Temple View Hotel", image: "https://via.placeholder.com/150", price: 210 },
-                                    { name: "Budget Pilgrim Stay", image: "https://via.placeholder.com/150", price: 85 }
-                                ],
-                                "Villas": [
-                                    { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 240 },
-                                    { name: "Countryside Villa", image: "https://via.placeholder.com/150", price: 160 }
-                                ],
-                                "Airbnbs": [
-                                    { name: "Pilgrim Airbnb", image: "https://via.placeholder.com/150", price: 120 },
-                                    { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100 }
-                                ]
-                            },
-                            "Mysore": {
-                                "Hotels": [
-                                    { name: "Palace View Hotel", image: "https://via.placeholder.com/150", price: 180 },
-                                    { name: "Budget Stay", image: "https://via.placeholder.com/150", price: 70 }
-                                ],
-                                "Villas": [
-                                    { name: "Royal Villa", image: "https://via.placeholder.com/150", price: 210 },
-                                    { name: "Nature Villa", image: "https://via.placeholder.com/150", price: 160 }
-                                ],
-                                "Airbnbs": [
-                                    { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130 },
-                                    { name: "Cozy Airbnb", image: "https://via.placeholder.com/150", price: 100 }
-                                ]
-                            }
-                            // Add other destinations here
-                        };
+                "Delhi": {
+                    "Hotels": [
+                        { name: "The Leela Palace", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/267985336.jpg?k=c24dfa97db31621fd2da7fa851493a727f2e492dc267d1dfb4f8f4ac56c193dc&o=&hp=1", price: 25000 },
+                        { name: "Taj Mahal Hotel", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHxv6gLW9T19lZKw4id1qxC6GEg9_kifnwzw&s", price: 20000 },
+                        { name: "The Oberoi", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDyIN4a__rV9wSTzZAK9_kO9XEiM5Rc_a-rw&s", price: 27000 },
+                        { name: "Hyatt Regency", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/422434166.jpg?k=7373daefe8904673766e45fcd830452589383a2d7e9f7794fb54511dd4360513&o=&hp=1", price: 15000 },
+                        { name: "ITC Maurya", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkeruAacG_bioSIssrPUADRlLal-Dkhh2zvA&s", price: 22000 },
+                        { name: "Shangri-La's Eros Hotel", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0vUnVzDHskFG4_oUb1JHKFsL1INIrd1E1xw&s", price: 23000 }
+                    ],
+                    "Villas": [
+                        { name: "Villa 33", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR97fJyGhc9_5GnPCoSq7D7W9CBlxy1Dt8nvg&s", price: 18000 },
+                        { name: "The Lazy Patio", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF1kcVUbhsLewfA5Z27gFn5cd99MTcjIQZZQ&s", price: 12000 },
+                        { name: "Banyan Tree House", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDZVDzHhnwoodG3RokKJzdHMLKaY-SusJTrbzKb9On4QbENNAEh2SL09A6nImyX_Bl9L4&usqp=CAU", price: 15000 },
+                        { name: "Olive Service Apartments", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfGd9zpFjP_ZCVv56Ql7LnslCfZoE2vlCsEA&s", price: 10000 },
+                        { name: "Villa Ridge", image: "https://is1-3.housingcdn.com/01c16c28/ffaf22fc49e6ee3137c7d5bcfd124a92/v0/fs/5_bhk_villa-for-sale-vasant_kunj-New+Delhi-others.jpg", price: 25000 },
+                        { name: "Aura Villa", image: "https://teja12.kuikr.com/is/a/c/430x200/gallery_images/original/cf5b1919a056d0c.gif", price: 22000 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Artistic Stay", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz2KcTaVhS-ML3f39kBLkPfeRS5R_uZWjw0w&s", price: 8000 },
+                        { name: "Hauz Khas Village Studio", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFPwNuxHcfsxOMF8-__HT6WMi1NkoPX-IyJQ&s", price: 6500 },
+                        { name: "Duplex near Humayun's Tomb", image: "https://assets.architecturaldigest.in/photos/61b1b44fc69bc5ca2e9f50d2/16:9/w_1616,h_909,c_limit/Delhi%20nizamuddin%20home-1.jpg", price: 12000 },
+                        { name: "Heritage Bungalow", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwIls3EcIhEqV5KsxMfwBVJ84PP12RimdtiQ&s", price: 10000 },
+                        { name: "Luxurious Designer Studio", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgBh2G7DzCmqUG6lKYFiJ1_eTDKiIy8qv8LA&s", price: 9000 },
+                        { name: "Private Studio in South Delhi", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRzASabTTIdKW48ZvEkagNCt4tYiVhOn6aMw&s", price: 8500 }
+                    ]
+                },
+                "Mumbai": {
+                    "Hotels": [
+                        { name: "Taj Mahal Palace", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/267985336.jpg?k=c24dfa97db31621fd2da7fa851493a727f2e492dc267d1dfb4f8f4ac56c193dc&o=&hp=1", price: 30000 },
+                        { name: "The Oberoi", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHxv6gLW9T19lZKw4id1qxC6GEg9_kifnwzw&s", price: 25000 },
+                        { name: "JW Marriott Juhu", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDyIN4a__rV9wSTzZAK9_kO9XEiM5Rc_a-rw&s", price: 22000 },
+                        { name: "Trident Nariman Point", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/422434166.jpg?k=7373daefe8904673766e45fcd830452589383a2d7e9f7794fb54511dd4360513&o=&hp=1", price: 20000 },
+                        { name: "St. Regis", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkeruAacG_bioSIssrPUADRlLal-Dkhh2zvA&s", price: 27000 },
+                        { name: "Sofitel Mumbai BKC", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0vUnVzDHskFG4_oUb1JHKFsL1INIrd1E1xw&s", price: 23000 }
+                    ],
+                    "Villas": [
+                        { name: "Eko Stay - Sea Breeze Villa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR97fJyGhc9_5GnPCoSq7D7W9CBlxy1Dt8nvg&s", price: 18000 },
+                        { name: "Villa Simla", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF1kcVUbhsLewfA5Z27gFn5cd99MTcjIQZZQ&s", price: 22000 },
+                        { name: "Aurus Villas", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDZVDzHhnwoodG3RokKJzdHMLKaY-SusJTrbzKb9On4QbENNAEh2SL09A6nImyX_Bl9L4&usqp=CAU", price: 25000 },
+                        { name: "Serenity Villa Lonavala", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfGd9zpFjP_ZCVv56Ql7LnslCfZoE2vlCsEA&s", price: 20000 },
+                        { name: "West Valley Villa", image: "https://teja12.kuikr.com/is/a/c/430x200/gallery_images/original/cf5b1919a056d0c.gif", price: 16000 },
+                        { name: "White Villas Alibaug", image: "https://is1-3.housingcdn.com/01c16c28/ffaf22fc49e6ee3137c7d5bcfd124a92/v0/fs/5_bhk_villa-for-sale-vasant_kunj-New+Delhi-others.jpg", price: 28000 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Modern Studio in Bandra", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz2KcTaVhS-ML3f39kBLkPfeRS5R_uZWjw0w&s", price: 9000 },
+                        { name: "Sea View Apartment in Colaba", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFPwNuxHcfsxOMF8-__HT6WMi1NkoPX-IyJQ&s", price: 12000 },
+                        { name: "Cozy Flat near Marine Drive", image: "https://assets.architecturaldigest.in/photos/61b1b44fc69bc5ca2e9f50d2/16:9/w_1616,h_909,c_limit/Delhi%20nizamuddin%20home-1.jpg", price: 10000 },
+                        { name: "Elegant Penthouse in Worli", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwIls3EcIhEqV5KsxMfwBVJ84PP12RimdtiQ&s", price: 15000 },
+                        { name: "Charming Cottage in Versova", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRzASabTTIdKW48ZvEkagNCt4tYiVhOn6aMw&s", price: 11000 },
+                        { name: "Spacious Duplex in Malabar Hill", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgBh2G7DzCmqUG6lKYFiJ1_eTDKiIy8qv8LA&s", price: 17000 }
+                    ]
+                },
+                "Chennai": {
+                    "Hotels": [
+                        { name: "Taj Coromandel", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/267985336.jpg?k=c24dfa97db31621fd2da7fa851493a727f2e492dc267d1dfb4f8f4ac56c193dc&o=&hp=1", price: 25000 },
+                        { name: "The Leela Palace", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHxv6gLW9T19lZKw4id1qxC6GEg9_kifnwzw&s", price: 23000 },
+                        { name: "ITC Grand Chola", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDyIN4a__rV9wSTzZAK9_kO9XEiM5Rc_a-rw&s", price: 21000 },
+                        { name: "Radisson Blu", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/422434166.jpg?k=7373daefe8904673766e45fcd830452589383a2d7e9f7794fb54511dd4360513&o=&hp=1", price: 18000 },
+                        { name: "Hyatt Regency", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkeruAacG_bioSIssrPUADRlLal-Dkhh2zvA&s", price: 20000 },
+                        { name: "The Raintree Hotel", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0vUnVzDHskFG4_oUb1JHKFsL1INIrd1E1xw&s", price: 17000 }
+                    ],
+                    "Villas": [
+                        { name: "ECR Beach House", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR97fJyGhc9_5GnPCoSq7D7W9CBlxy1Dt8nvg&s", price: 22000 },
+                        { name: "Grand Beach Villa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF1kcVUbhsLewfA5Z27gFn5cd99MTcjIQZZQ&s", price: 27000 },
+                        { name: "Baywatch Beach Villa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDZVDzHhnwoodG3RokKJzdHMLKaY-SusJTrbzKb9On4QbENNAEh2SL09A6nImyX_Bl9L4&usqp=CAU", price: 30000 },
+                        { name: "The Beach House", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfGd9zpFjP_ZCVv56Ql7LnslCfZoE2vlCsEA&s", price: 25000 },
+                        { name: "Covelong Bay Villa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDZVDzHhnwoodG3RokKJzdHMLKaY-SusJTrbzKb9On4QbENNAEh2SL09A6nImyX_Bl9L4&usqp=CAU", price: 27000 },
+                        { name: "Palm Villa ECR", image: "https://teja12.kuikr.com/is/a/c/430x200/gallery_images/original/cf5b1919a056d0c.gif", price: 29000 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Cozy Apartment near Marina Beach", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz2KcTaVhS-ML3f39kBLkPfeRS5R_uZWjw0w&s", price: 9000 },
+                        { name: "Luxury Studio in Anna Nagar", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFPwNuxHcfsxOMF8-__HT6WMi1NkoPX-IyJQ&s", price: 11000 },
+                        { name: "Beachfront Villa", image: "https://assets.architecturaldigest.in/photos/61b1b44fc69bc5ca2e9f50d2/16:9/w_1616,h_909,c_limit/Delhi%20nizamuddin%20home-1.jpg", price: 15000 },
+                        { name: "Garden Home in Besant Nagar", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwIls3EcIhEqV5KsxMfwBVJ84PP12RimdtiQ&s", price: 10000 },
+                        { name: "Penthouse near City Center", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRzASabTTIdKW48ZvEkagNCt4tYiVhOn6aMw&s", price: 14000 },
+                        { name: "Private Residence with Pool", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgBh2G7DzCmqUG6lKYFiJ1_eTDKiIy8qv8LA&s", price: 16000 }
+                    ]
+                },
+                "Jaipur": {
+                    "Hotels": [
+                        { name: "Royal Palace Hotel", image: "https://via.placeholder.com/150", price: 2000 },
+                        { name: "Budget Heritage Hotel", image: "https://via.placeholder.com/150", price: 1000 }
+                    ],
+                    "Villas": [
+                        { name: "City View Villa", image: "https://via.placeholder.com/150", price: 12200 },
+                        { name: "Fort Villa", image: "https://via.placeholder.com/150", price: 18000 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Cultural Airbnb", image: "https://via.placeholder.com/150", price: 4200 },
+                        { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 3000 }
+                    ]
+                },
+                "Ladakh": {
+                    "Hotels": [
+                        { name: "Mountain Retreat Hotel", image: "/static/img/Ladakh_Hotel_1.jpg", price: 2500 },
+                        { name: "Budget Guest House", image: "/static/img/Ladakh_Hotel_2.jpg", price: 8000 }
+                    ],
+                    "Villas": [
+                        { name: "Scenic Villa", image: "/static/img/Ladakh_Villa_1.jpg", price: 13000 },
+                        { name: "Lakeside Villa", image: "/static/img/Ladakh_Villa_2.jpg", price: 8000 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Rustic Airbnb", image: "/static/img/Ladakh_Airbnb_1.jpg", price: 2400 },
+                        { name: "Mountain Airbnb", image: "/static/img/Ladakh_Airbnb_2.jpg", price: 3200 }
+                    ]
+                },
+                "Varanasi": {
+                    "Hotels": [
+                        { name: "Ganges View Hotel", image: "/static/img/Varnasi_Hotel_1.jpg", price: 1800 },
+                        { name: "Budget Holy Stay", image: "/static/img/Varnasi_Hotel_2.jpg", price: 1490 }
+                    ],
+                    "Villas": [
+                        { name: "Spiritual Villa", image: "/static/img/Varnasi_Villa_1.jpg", price: 12200 },
+                        { name: "Ghat Side Villa", image: "/static/img/Varnasi_Villa_2.jpg", price: 13280 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Holy Airbnb", image: "/static/img/Varnasi_Airbnb_1.jpeg", price: 2300 },
+                        { name: "Traditional Airbnb", image: "/static/img/Varnasi_Airbnb_2.jpg", price: 4100 }
+                    ]
+                },
+                "Rishikesh": {
+                    "Hotels": [
+                        { name: "Yoga Retreat Hotel", image: "https://via.placeholder.com/150", price: 200 },
+                        { name: "Budget Meditation Stay", image: "https://via.placeholder.com/150", price: 85 }
+                    ],
+                    "Villas": [
+                        { name: "Riverfront Villa", image: "https://via.placeholder.com/150", price: 230 },
+                        { name: "Mountain View Villa", image: "https://via.placeholder.com/150", price: 150 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Eco-friendly Airbnb", image: "https://via.placeholder.com/150", price: 120 },
+                        { name: "Rustic Airbnb", image: "https://via.placeholder.com/150", price: 110 }
+                    ]
+                },
+                "Udaipur": {
+                    "Hotels": [
+                        { name: "Lake Palace Hotel", image: "https://via.placeholder.com/150", price: 250 },
+                        { name: "Budget Lake View Hotel", image: "https://via.placeholder.com/150", price: 95 }
+                    ],
+                    "Villas": [
+                        { name: "Luxury Villa", image: "https://via.placeholder.com/150", price: 270 },
+                        { name: "Hilltop Villa", image: "https://via.placeholder.com/150", price: 190 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Palatial Airbnb", image: "https://via.placeholder.com/150", price: 150 },
+                        { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130 }
+                    ]
+                },
+                "Amritsar": {
+                    "Hotels": [
+                        { name: "Golden Temple View Hotel", image: "https://via.placeholder.com/150", price: 210 },
+                        { name: "Budget Pilgrim Stay", image: "https://via.placeholder.com/150", price: 85 }
+                    ],
+                    "Villas": [
+                        { name: "Spiritual Villa", image: "https://via.placeholder.com/150", price: 240 },
+                        { name: "Countryside Villa", image: "https://via.placeholder.com/150", price: 160 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Pilgrim Airbnb", image: "https://via.placeholder.com/150", price: 120 },
+                        { name: "Modern Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                    ]
+                },
+                "Mysore": {
+                    "Hotels": [
+                        { name: "Palace View Hotel", image: "https://via.placeholder.com/150", price: 180 },
+                        { name: "Budget Stay", image: "https://via.placeholder.com/150", price: 70 }
+                    ],
+                    "Villas": [
+                        { name: "Royal Villa", image: "https://via.placeholder.com/150", price: 210 },
+                        { name: "Nature Villa", image: "https://via.placeholder.com/150", price: 160 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Heritage Airbnb", image: "https://via.placeholder.com/150", price: 130 },
+                        { name: "Cozy Airbnb", image: "https://via.placeholder.com/150", price: 100 }
+                    ]
+                },
+                "Pune": {
+                    "Hotels": [
+                        { name: "JW Marriott", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/267985336.jpg?k=c24dfa97db31621fd2da7fa851493a727f2e492dc267d1dfb4f8f4ac56c193dc&o=&hp=1", price: 24000 },
+                        { name: "Hyatt Pune", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHxv6gLW9T19lZKw4id1qxC6GEg9_kifnwzw&s", price: 20000 },
+                        { name: "The O Hotel", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDyIN4a__rV9wSTzZAK9_kO9XEiM5Rc_a-rw&s", price: 18000 },
+                        { name: "Conrad Pune", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/422434166.jpg?k=7373daefe8904673766e45fcd830452589383a2d7e9f7794fb54511dd4360513&o=&hp=1", price: 26000 },
+                        { name: "The Westin", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkeruAacG_bioSIssrPUADRlLal-Dkhh2zvA&s", price: 22000 },
+                        { name: "Marriott Suites Pune", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0vUnVzDHskFG4_oUb1JHKFsL1INIrd1E1xw&s", price: 19000 }
+                    ],
+                    "Villas": [
+                        { name: "Ivy Villa at Mulshi", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR97fJyGhc9_5GnPCoSq7D7W9CBlxy1Dt8nvg&s", price: 28000 },
+                        { name: "Lavasa Lakeside Villa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF1kcVUbhsLewfA5Z27gFn5cd99MTcjIQZZQ&s", price: 27000 },
+                        { name: "Amara Villa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDZVDzHhnwoodG3RokKJzdHMLKaY-SusJTrbzKb9On4QbENNAEh2SL09A6nImyX_Bl9L4&usqp=CAU", price: 31000 },
+                        { name: "SaffronStays’ White House", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfGd9zpFjP_ZCVv56Ql7LnslCfZoE2vlCsEA&s", price: 25000 },
+                        { name: "Hill View Villa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDZVDzHhnwoodG3RokKJzdHMLKaY-SusJTrbzKb9On4QbENNAEh2SL09A6nImyX_Bl9L4&usqp=CAU", price: 29000 },
+                        { name: "Casa Blanca", image: "https://teja12.kuikr.com/is/a/c/430x200/gallery_images/original/cf5b1919a056d0c.gif", price: 33000 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Studio in Koregaon Park", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz2KcTaVhS-ML3f39kBLkPfeRS5R_uZWjw0w&s", price: 9000 },
+                        { name: "Scenic Bungalow in Lonavala", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFPwNuxHcfsxOMF8-__HT6WMi1NkoPX-IyJQ&s", price: 13000 },
+                        { name: "Loft near FC Road", image: "https://assets.architecturaldigest.in/photos/61b1b44fc69bc5ca2e9f50d2/16:9/w_1616,h_909,c_limit/Delhi%20nizamuddin%20home-1.jpg", price: 11000 },
+                        { name: "Designer Villa in Baner", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwIls3EcIhEqV5KsxMfwBVJ84PP12RimdtiQ&s", price: 14000 },
+                        { name: "Heritage Stay in Camp Area", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRzASabTTIdKW48ZvEkagNCt4tYiVhOn6aMw&s", price: 12000 },
+                        { name: "Penthouse near Hinjewadi", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgBh2G7DzCmqUG6lKYFiJ1_eTDKiIy8qv8LA&s", price: 15000 }
+                    ]
+                },
+                "Kolkata": {
+                    "Hotels": [
+                        { name: "The Oberoi Grand", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/267985336.jpg?k=c24dfa97db31621fd2da7fa851493a727f2e492dc267d1dfb4f8f4ac56c193dc&o=&hp=1", price: 22000 },
+                        { name: "Taj Bengal", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHxv6gLW9T19lZKw4id1qxC6GEg9_kifnwzw&s", price: 21000 },
+                        { name: "ITC Sonar", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDyIN4a__rV9wSTzZAK9_kO9XEiM5Rc_a-rw&s", price: 23000 },
+                        { name: "Hyatt Regency", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/422434166.jpg?k=7373daefe8904673766e45fcd830452589383a2d7e9f7794fb54511dd4360513&o=&hp=1", price: 20000 },
+                        { name: "Novotel", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkeruAacG_bioSIssrPUADRlLal-Dkhh2zvA&s", price: 18000 },
+                        { name: "The Lalit Great Eastern", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0vUnVzDHskFG4_oUb1JHKFsL1INIrd1E1xw&s", price: 24000 }
+                    ],
+                    "Villas": [
+                        { name: "Baganbari Heritage Villa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR97fJyGhc9_5GnPCoSq7D7W9CBlxy1Dt8nvg&s", price: 25000 },
+                        { name: "Park Villa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF1kcVUbhsLewfA5Z27gFn5cd99MTcjIQZZQ&s", price: 26000 },
+                        { name: "SaffronStays’ The House of Joy", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDZVDzHhnwoodG3RokKJzdHMLKaY-SusJTrbzKb9On4QbENNAEh2SL09A6nImyX_Bl9L4&usqp=CAU", price: 27000 },
+                        { name: "The Pool Villa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfGd9zpFjP_ZCVv56Ql7LnslCfZoE2vlCsEA&s", price: 29000 },
+                        { name: "Rajbari Villas", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDZVDzHhnwoodG3RokKJzdHMLKaY-SusJTrbzKb9On4QbENNAEh2SL09A6nImyX_Bl9L4&usqp=CAU", price: 28000 },
+                        { name: "The Corner House", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDZVDzHhnwoodG3RokKJzdHMLKaY-SusJTrbzKb9On4QbENNAEh2SL09A6nImyX_Bl9L4&usqp=CAU", price: 24000 }
+                    ],
+                    "Airbnbs": [
+                        { name: "Historic Apartment near Victoria Memorial", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz2KcTaVhS-ML3f39kBLkPfeRS5R_uZWjw0w&s", price: 12000 },
+                        { name: "Colonial Bungalow in South Kolkata", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFPwNuxHcfsxOMF8-__HT6WMi1NkoPX-IyJQ&s", price: 14000 },
+                        { name: "Designer Loft in Salt Lake", image: "https://assets.architecturaldigest.in/photos/61b1b44fc69bc5ca2e9f50d2/16:9/w_1616,h_909,c_limit/Delhi%20nizamuddin%20home-1.jpg", price: 11000 },
+                        { name: "Cozy Stay in Ballygunge", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwIls3EcIhEqV5KsxMfwBVJ84PP12RimdtiQ&s", price: 13000 },
+                        { name: "Luxury Penthouse near Park Street", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRzASabTTIdKW48ZvEkagNCt4tYiVhOn6aMw&s", price: 16000 },
+                        { name: "Riverside Villa near Eco Park", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgBh2G7DzCmqUG6lKYFiJ1_eTDKiIy8qv8LA&s", price: 18000 }
+                    ]
+                },
+            };
 
             function showStayOptions() {
                     // Show the message
