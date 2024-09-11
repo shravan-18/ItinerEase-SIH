@@ -34,6 +34,7 @@
             padding: 10px;
             margin: 10px 0;
             max-width: 70%;
+            background-color: #D5DEE4;
         }
         
         #submit-dates-button {
@@ -258,12 +259,12 @@
         }
         
         #finalize-button {
-            background-color: #4CAF50;
+            background-color: #318AC5;
             color: white;
         }
         
         #finalize-button:hover {
-            background-color: #45a049;
+            background-color: #2b74a5;
         }
         
         #default-message-button {
@@ -271,9 +272,11 @@
             color: white;
         }
         
-        #default-message-button:hover {
+        #default-message-button:hover { 
             background-color: #d32f2f;
         }     
+
+        
 
         .stay-options-container {
             display: block;
@@ -287,7 +290,7 @@
             display: inline-block;
             margin-right: 10px;
             margin-bottom: 10px;
-            background-color: #007BFF;
+            background-color: #318AC5;
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -384,8 +387,7 @@
         
         /* Style for the chat bubble */
         .message.left-bubble {
-            background-color:  #D5DEE4; /* Change background color to white */
-            background-color:  #f1f1f1;; /* Change background color to white */
+            background-color: #D5DEE4; /* Change background color to white */
             color: black; /* Change text color to black */
             float: left; /* Align bubble to the left */
             margin: 10px 0; /* Add some margin */
@@ -442,7 +444,7 @@
         /* Style for the image inside the option box */
         .option-image {
             width: 100%; /* Make sure the image fits inside the box */
-            height: auto; /* Maintain aspect ratio */
+            height: 150px; /* Maintain aspect ratio */
             border-radius: 5px; /* Rounded corners for the image */
             margin-bottom: 10px; /* Space between image and text */
         }
@@ -613,6 +615,25 @@
         /* Style the submit button on hover */
         #date-form button[type="submit"]:hover {
             background-color: #0056b3;
+        }
+
+        .get-itinerary-button {
+            display: block;         /* Make the button a block element */
+            margin: 20px auto;      /* Center the button horizontally with auto margins */
+            padding: 10px 20px;     /* Add padding for better size */
+            background-color:#318AC5; /* Button background color */
+            color: white;           /* Button text color */
+            border: none;           /* Remove border */
+            border-radius: 5px;     /* Add rounded corners */
+            font-size: 16px;        /* Increase font size */
+            cursor: pointer;        /* Change cursor to pointer on hover */
+            text-align: center;     /* Ensure the text is centered */
+            transition: background-color 0.3s ease; /* Smooth hover transition */
+        }
+
+        /* Optional: Add hover effect */
+        .get-itinerary-button:hover {
+            background-color: #256794;
         }
     </style>
 </head>
@@ -886,7 +907,7 @@
                 chatContainer.appendChild(travelDateMessage);
         
                 const dateFormHTML = `
-                    <form id="date-form" class="message bot-message fade-in style="width:400px;" ">
+                    <form id="date-form" class="message bot-message fade-in" style='width:400px;' ">
                         <label for="from-date">From Date:</label>
                         <input type="date" id="from-date" name="from_date" required>
                         
@@ -1437,6 +1458,17 @@
                 separator.setAttribute('data-destination', destination);
                 chatContainer.appendChild(separator);
             }
+
+            function removeDestinationSeparator(destination) {
+                // Find the separator using the data-destination attribute
+                const separator = document.querySelector(`.destination-separator[data-destination="${destination}"]`);
+                
+                // Check if the separator exists and then remove it
+                if (separator) {
+                    separator.remove();
+                }
+            }
+
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             // Example stay data (replace with your actual data)
@@ -1706,7 +1738,7 @@
             
                 // Create a chat bubble with the chosen option's details
                 const chosenMessage = document.createElement('div');
-                chosenMessage.className = 'message bot-message fade-in left-bubble'; // Add left-bubble class for styling
+                chosenMessage.className = 'message left-bubble fade-in'; // Add left-bubble class for styling
             
                 // Add image, name, and price to the message bubble
                 const optionImage = document.createElement('img');
@@ -1732,6 +1764,7 @@
             
                 // Hide the entire destination container after selection
                 destinationContainer.style.display = 'none';
+                removeDestinationSeparator(destination)
             
                 // Send the chosen option to the Django backend
                 const postData = {
