@@ -5,25 +5,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Endobuddy</title>
+    <title>ItinerEase - AI to Please, Travel in Peace</title>
 
     <!-- Bootstrap CSS File -->
     <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Main Stylesheet File -->
-    <link href="{% static 'css/index-styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/indexStyles.css' %}" rel="stylesheet">
+    
 </head>
 <body>
-    <div class="container">
-        <h1>ItenerEase Landing Page</h1>
-        <!-- <button onclick="location.href='/signupuser'">Sign up</button>
-        <button onclick="location.href='/loginuser'">Log in</button> -->
-        <a class="btn btn-primary" href="{% url 'signupuser' %}">Sign up</a>
-        <a class="btn btn-primary" href="{% url 'loginuser' %}">Login</a>
-        
-    </div>
 
-    <!-- jQuery -->
-    <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'signupuser' %}">Create Your Ideal Trip</a></li>
+                <li><a href="{% url 'loginuser' %}">Review Your Prior Trips</a></li>
+                <li><a href="{% url 'loginuser' %}">Sign In</a></li>
+                <li><a href="{% url 'signupuser' %}" class="register-button">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Ready for a new journey?</h1>
+            <h2>Let's craft your next Indian getaway.</h2>
+            <div class="sign-in-box">
+                <p>Sign In and Let’s Start Planning Your Ideal Indian Getaway!</p>
+                <a href="{% url 'loginuser' %}" class="sign-in-link">Sign-In</a>
+            </div>
+            <br/>
+            <a href="{% url 'signupuser' %}" class="journey-link">Let's Start Our Journey...</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Our Features</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <img src="static/img/linkedin-sales-solutions-0QvTyp0gH3A-unsplash.jpg" alt="Itinerary Adjustment">
+                <h3>Itinerary Adjustment</h3>
+                <p>Modify your plans on the go, and our AI will refine the itinerary to fit your needs.</p>
+            </div>
+            <div class="feature-item">
+                <img src="static/img/kenrick-mills-1h2Pg97SXfA-unsplash.jpg" alt="Real-Time Updates">
+                <h3>Real-Time Updates</h3>
+                <p>Stay updated with the latest weather, local events, and travel information.</p>
+            </div>
+            <div class="feature-item">
+                <img src="static/img/vincent-camacho-w2KG8YFf2IM-unsplash.jpg" alt="Personalized Itineraries">
+                <h3>Personalized Itineraries</h3>
+                <p>Get custom travel plans tailored to your preferences, budget, and destinations.</p>
+            </div>
+            <div class="feature-item">
+              <img src="static/img/jorgen-hendriksen-UfVy7UjQ_rA-unsplash.jpg" alt="Easy Booking">
+              <h3>Easy Booking</h3>
+              <p>Book flights, hotels, and activities directly through the platform, hassle-free..</p>
+          </div>
+        </div>
+    </section>
+
 </body>
 </html>
+

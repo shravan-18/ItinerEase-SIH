@@ -5,63 +5,112 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Desktop - 5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@&display=swap" rel="stylesheet">
     
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="{% static 'css/login-styles.css' %}" />
+    <style>
+        /* Inline CSS for background image */
+        body {
+            background-image: url('{% static "img/Beach.png" %}');
+            background-size: cover; /* Cover the entire page */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container styling */
+        .container {
+            background-color: rgba(190, 216, 218, 0.85); /* Slightly transparent white */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        /* Style adjustments for form elements and text */
+        .group-16 {
+            margin-bottom: 20px;
+        }
+
+        .unlock-magic {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #007bff; /* Blue color for emphasis */
+        }
+
+        .sign-in-text {
+            font-size: 1.25rem;
+            color: #333;
+        }
+
+        .input, .input-1 {
+            margin-bottom: 20px;
+        }
+
+        .input input, .input-1 input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .sign-in {
+            background-color: #007bff; /* Blue button */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sign-in:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div class="desktop-5">
-        <div class="cervi-image"></div>
-        
         <div class="container">
-            <div class="group-3">
-                <div class="cervilens-2"></div>
-                <img class="cervi-lens" src="{% static 'img/logo.png' %}" alt="Cervi Lens" />
-            </div>
-            
+            <!-- Heading Section -->
             <div class="group-16">
-                <span class="welcome-back">Welcome Back!</span>
-                <span class="login-to-your-account">Login to your Account</span>
+                <span class="unlock-magic">Unlock the Magic of India</span>
+                <p class="sign-in-text"><b> Sign In to Design Your <br>Dream Getaway </b></p>
             </div>
             
+            <!-- Form Section -->
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ error }}
                 
-                <div class="username">Email Address</div>
+                <!-- Username Field -->
                 <div class="input">
-                    <input type="text" name="Email" class="top" placeholder="Enter Email Address">
+                    <input type="text" name="Email" class="top" placeholder="Enter Email Id">
                 </div>
-                
-                <div class="password">Password</div>
+
+                <!-- Password Field with Icon -->
                 <div class="input-1">
                     <input type="password" name="Password" class="top-1" placeholder="Enter password">
                 </div>
-                
-                <div class="forgot-your-password">Forgot your password?</div>
-                
+
+                <!-- Sign-in Button -->
                 <div class="group-15">
                     <button type="submit" class="sign-in">Sign In</button>
                 </div>
+
+                <p>Don't have an account? Sign up <a href="{% url 'signupuser' %}" style="font-weight: bold; color: #007bff;">here</a><span style="color: #007bff;">!</span></p>
             </form>
-            
-            <div class="container-1">
-                <div class="dont-have-an-account">Don’t have an account? </div>
-                
-                <div class="group-8">
-                    <a href="{% url 'signupuser' %}" class="sign-up">SIGN UP</a>
-                </div>
-            </div>
         </div>
     </div>
 </body>

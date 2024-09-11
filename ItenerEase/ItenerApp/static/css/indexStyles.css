@@ -1,0 +1,147 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #f0f0f0;
+}
+
+/* Navigation */
+header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10; /* Ensures the navbar is on top of the hero section */
+}
+
+nav ul {
+  display: flex;
+  justify-content: flex-end;
+  list-style-type: none;
+  padding-right: 30px;
+  padding-top: 20px;
+}
+
+nav ul li {
+  margin-left: 20px;
+}
+
+nav ul li a {
+  color: white; /* Text color to stand out against the background image */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-button {
+  background-color: rgba(255, 255, 255, 0.2); /* Slightly transparent button background */
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.register-button:hover {
+  background-color: rgba(255, 255, 255, 0.4); /* Make button more visible on hover */
+}
+
+/* Hero Section */
+.hero {
+  background-image: url('img/amulya-agarwal-b5tZmNPtuFY-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+  position: relative;
+  min-height: 500px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.sign-in-box {
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.sign-in-link {
+  display: block;
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.journey-link {
+  color: white;
+  text-decoration: none;
+  margin-top: 20px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+/* Features Section */
+.features {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: white;
+}
+
+.features h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.feature-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.feature-item {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+}
+
+.feature-item img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.feature-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.feature-item p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .feature-grid {
+      flex-direction: column;
+      align-items: center;
+  }
+}
