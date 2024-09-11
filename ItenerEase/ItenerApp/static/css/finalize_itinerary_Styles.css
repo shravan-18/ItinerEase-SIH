@@ -1,0 +1,118 @@
+/* General table styling */
+table {
+    width: 100%;
+    border-collapse: separate; /* Allows rounded corners */
+    border-spacing: 0; /* Removes gap between cells for smooth corner rounding */
+    margin: 20px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 12px; /* Rounded corners for the whole table */
+    overflow: hidden; /* Ensures contents don’t overflow rounded edges */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Softer and larger shadow for style */
+}
+
+/* Header styling */
+thead th {
+    background-color: #004d40; /* Dark teal background */
+    color: #ffffff;
+    padding: 18px;
+    font-size: 18px;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 3px solid #00251a; /* Darker border for contrast */
+    /*border-top-left-radius: 12px; /* Rounded top-left corner */
+    /*border-top-right-radius: 12px; /* Rounded top-right corner */
+}
+
+th {
+    background-color: #004d40; /* Dark teal background */
+    color: #ffffff;
+    padding: 18px;
+    font-size: 18px;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 3px solid #00251a; /* Darker border for contrast */
+    /*border-top-left-radius: 12px; /* Rounded top-left corner */
+    /*border-top-right-radius: 12px; /* Rounded top-right corner */
+}
+
+/* Body row styling */
+tbody tr {
+    background-color: #ffffff;
+    transition: background-color 0.4s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f1f1f1; /* Zebra striping for readability */
+}
+
+tbody tr:hover {
+    background-color: #e0f2f1; /* Light teal background on hover */
+    transform: translateY(-4px); /* Slight lift effect on hover */
+}
+
+/* Body cell styling */
+tbody td {
+    padding: 16px;
+    font-size: 15px;
+    color: #333;
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+}
+
+/* First column styling */
+tbody td:first-child {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Last row - Remove bottom border */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Google Maps link button styling */
+tbody td a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00796b; /* Dark teal background */
+    color: white;
+    text-decoration: none;
+    border-radius: 25px; /* More rounded button */
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+tbody td a:hover {
+    background-color: #004d40; /* Darker teal on hover */
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Footer row styling (optional if needed) */
+tfoot td {
+    background-color: #eeeeee;
+    padding: 12px;
+    font-size: 15px;
+    text-align: right;
+    font-weight: bold;
+    border-bottom-left-radius: 12px; /* Rounded bottom-left corner */
+    border-bottom-right-radius: 12px; /* Rounded bottom-right corner */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+
+    thead th, tbody td {
+        padding: 12px;
+    }
+
+    tbody td a {
+        padding: 8px 16px;
+    }
+}

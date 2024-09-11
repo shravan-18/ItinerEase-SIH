@@ -396,7 +396,7 @@ def generate_itinerary_updated(existing_itinerary, itinerary_context, user_messa
     4. Personalize activities based on user preferences and interests.
     5. Ensure the itinerary is clear and easy to understand.
 
-    Return ONLY the HTML code for the table, enclosed within ``` symbols."""
+    Do not style the table in any way. Return ONLY the unstyled HTML code for the table, enclosed within ``` symbols."""
 
     # Format the prompt based on the context and user request (if any)
     try:
