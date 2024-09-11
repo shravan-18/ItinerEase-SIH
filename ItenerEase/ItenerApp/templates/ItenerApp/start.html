@@ -30,7 +30,7 @@
         }
         
         .message {
-            border-radius: 20px;
+            border-radius: 20px 20px 20px 0px;
             padding: 10px;
             margin: 10px 0;
             max-width: 70%;
@@ -52,7 +52,7 @@
         }
         
         .bot-message {
-            background-color: #f1f1f1;
+            background-color: #D5DEE4;
             align-self: flex-start;
         }
         
@@ -93,7 +93,7 @@
         }
         
         .add-destination-button {
-            background-color: #007bff;
+            background-color: #318AC5;
             color: white;
             border: none;
             cursor: pointer;
@@ -106,6 +106,10 @@
             align-items: center;
             margin-left: 10px;
             margin-bottom: 10px;
+        }
+
+        .add-destination-button:hover{
+            background-color: #2d7eb4;
         }
         
         .destination-group {
@@ -380,6 +384,7 @@
         
         /* Style for the chat bubble */
         .message.left-bubble {
+            background-color:  #D5DEE4; /* Change background color to white */
             background-color:  #f1f1f1;; /* Change background color to white */
             color: black; /* Change text color to black */
             float: left; /* Align bubble to the left */
@@ -471,6 +476,144 @@
         .choose-button:hover {
             background-color: #0056b3; /* Darker blue on hover */
         }
+
+        /* Style the form */
+        #itinerary-form {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            border: 1px solid #D5DEE4;
+            border-radius: 8px;
+            background-color: #D5DEE4;
+        }
+
+        /* Style the labels */
+        #itinerary-form label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* Style the input fields */
+        #itinerary-form input[type="number"],
+        #itinerary-form input[type="text"],
+        #itinerary-form select {
+            width: 100%;
+            max-width: 300px;
+            padding: 8px;
+            margin-bottom: 12px;
+
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Style the submit button */
+        #itinerary-form button[type="submit"] {
+            background-color: #318AC5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* Style the submit button on hover */
+        #itinerary-form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style the destination container */
+        #destinations-container {
+            margin-bottom: 12px;
+        }
+
+        /* Style the destination group (if needed for additional styling) */
+        .destination-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        /* Ensure proper spacing and alignment */
+        #destinations-container .destination-group:not(:last-child) {
+            margin-bottom: 12px;
+        }
+
+        /* Style the remove button */
+        .remove-destination-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            font-size: 18px;
+            display: flex; /* Enable flexbox */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            line-height: 0; /* Remove line-height to avoid affecting vertical alignment */
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Style the remove button on hover */
+        .remove-destination-button:hover {
+            background-color: #c82333;
+        }
+
+        .right-bubble {
+            background-color: #202E53; /* Background color */
+            color: white; /* Text color */
+            align-self: flex-end; /* Align the bubble to the right inside the chat container */
+            margin: 10px 0; /* Margin between messages */
+            padding: 15px; /* Padding for content */
+            border-radius: 20px 20px 0px 20px; /* Rounded corners */
+            max-width: 80%; /* Limit the bubble width */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for a 3D effect */
+            display: flex; /* Flexbox for aligning content */
+            align-items: center;
+        }
+
+        .right-chat-bubble-content {
+            margin: 0;
+        }
+
+        #date-form input[type="date"] {
+            width: 100%; /* Full width for date inputs */
+            max-width: 300px; /* Limit the width of the inputs */
+            padding: 10px; /* Padding inside the input fields */
+            margin-bottom: 20px; /* Space between input fields */
+            border: 1px solid #ccc; /* Border around the input */
+            border-radius: 5px; /* Slightly rounded corners for inputs */
+            font-size: 16px; /* Adjust font size */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Inner shadow for a 3D effect */
+        }
+
+         /* Style the submit button */
+         #date-form button[type="submit"] {
+            background-color: #318AC5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Style the submit button on hover */
+        #date-form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -494,15 +637,15 @@
             setTimeout(function() {
                 const introMessage = document.createElement('div');
                 introMessage.className = 'message bot-message fade-in';
-                introMessage.textContent = "You're looking for an itinerary, I see. How many people are going? What are the dates, starting location, and destination?";
+                introMessage.textContent = "Welcome to ItinerEase! Looks like you are planning for a trip. How many people are going? What are the dates, starting location, and destination?";
                 chatContainer.appendChild(introMessage);
             }, 2000);
         
             setTimeout(function() {
                 const formHTML = `
-                    <form id="itinerary-form" class="fade-in">
+                    <form id="itinerary-form">
                         <label for="num-people">Number of People:</label>
-                        <input type="number" id="num-people" name="num_people" required>
+                        <input type="number" id="num-people" name="num_people" min="1" required>
         
                         <label for="start-location">Starting Location:</label>
                         <input type="text" id="start-location" name="start_location" required>
@@ -527,35 +670,110 @@
                 `;
         
                 const formContainer = document.createElement('div');
+                formContainer.className = 'message bot-message fade-in';
                 formContainer.innerHTML = formHTML;
                 chatContainer.appendChild(formContainer);
         
-                // Add event listener for the "+" button
+                // Function to update the visibility of remove buttons
+                function updateRemoveButtonVisibility() {
+                    const allGroups = document.querySelectorAll('#destinations-container .destination-group');
+                    allGroups.forEach((group, index) => {
+                        const removeButton = group.querySelector('.remove-destination-button');
+                        if (removeButton) {
+                            // Only show the remove button for the last destination group if there is more than one group
+                            removeButton.style.display = (index === allGroups.length - 1 && allGroups.length > 1) ? 'inline' : 'none';
+                        }
+                    });
+                }
+
+                // Initial call to set visibility of existing remove buttons
+                updateRemoveButtonVisibility();
+
+                // Event listener for the initial "+" button
                 document.getElementById('add-destination').addEventListener('click', function() {
                     const newDestinationGroup = document.createElement('div');
                     newDestinationGroup.className = 'destination-group';
-        
+
                     const newDestination = document.createElement('input');
                     newDestination.type = 'text';
                     newDestination.className = 'destination-field';
                     newDestination.name = 'destinations[]';
                     newDestination.placeholder = 'Enter a destination';
                     newDestination.required = true;
-        
+
                     const newAddButton = document.createElement('button');
                     newAddButton.type = 'button';
                     newAddButton.className = 'add-destination-button';
                     newAddButton.textContent = '+';
-        
+
+                    const newRemoveButton = document.createElement('button');
+                    newRemoveButton.type = 'button';
+                    newRemoveButton.className = 'remove-destination-button';
+                    newRemoveButton.textContent = '-';
+                    newRemoveButton.style.display = 'none'; // Initially hide the remove button
+
                     newDestinationGroup.appendChild(newDestination);
                     newDestinationGroup.appendChild(newAddButton);
+                    newDestinationGroup.appendChild(newRemoveButton);
                     document.getElementById('destinations-container').appendChild(newDestinationGroup);
-        
-                    // Recursively add event listener to the new "+" button
-                    newAddButton.addEventListener('click', arguments.callee);
+
+                    // Add event listener to the new "+" button
+                    newAddButton.addEventListener('click', function() {
+                        const newDestinationGroup = document.createElement('div');
+                        newDestinationGroup.className = 'destination-group';
+                        
+                        const newDestination = document.createElement('input');
+                        newDestination.type = 'text';
+                        newDestination.className = 'destination-field';
+                        newDestination.name = 'destinations[]';
+                        newDestination.placeholder = 'Enter a destination';
+                        newDestination.required = true;
+                        
+                        const newAddButton = document.createElement('button');
+                        newAddButton.type = 'button';
+                        newAddButton.className = 'add-destination-button';
+                        newAddButton.textContent = '+';
+                        
+                        const newRemoveButton = document.createElement('button');
+                        newRemoveButton.type = 'button';
+                        newRemoveButton.className = 'remove-destination-button';
+                        newRemoveButton.textContent = '-';
+                        newRemoveButton.style.display = 'none'; // Initially hide the remove button
+
+                        newDestinationGroup.appendChild(newDestination);
+                        newDestinationGroup.appendChild(newAddButton);
+                        newDestinationGroup.appendChild(newRemoveButton);
+                        document.getElementById('destinations-container').appendChild(newDestinationGroup);
+
+                        updateRemoveButtonVisibility(); // Update visibility of remove buttons
+                        newAddButton.addEventListener('click', arguments.callee); // Recursive event listener for new "+" buttons
+
+                        // Add event listener to the new "Remove" button
+                        newRemoveButton.addEventListener('click', function() {
+                            // Remove the destination group only if there are more than one destination group
+                            if (document.querySelectorAll('#destinations-container .destination-group').length > 1) {
+                                newDestinationGroup.remove();
+                                updateRemoveButtonVisibility(); // Update visibility of remove buttons after removal
+                            }
+                        });
+                    });
+
+                    // Add event listener to the new "Remove" button
+                    newRemoveButton.addEventListener('click', function() {
+                        // Remove the destination group only if there are more than one destination group
+                        if (document.querySelectorAll('#destinations-container .destination-group').length > 1) {
+                            newDestinationGroup.remove();
+                            updateRemoveButtonVisibility(); // Update visibility of remove buttons after removal
+                        }
+                    });
+
+                    updateRemoveButtonVisibility(); // Update visibility of remove buttons
                 });
+                // Initial call to set visibility of existing remove buttons
+                updateRemoveButtonVisibility();
             }, 3500); // Adding delay to simulate the sequential flow
-        
+            
+            
             // Handle form submission via AJAX
             document.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -578,6 +796,21 @@
                 storedDestinations = Array.from(destinationFields).map(field => field.value);
                 storedVacationType = form.querySelector('#vacation-type').value;
                 
+                const numPeople = form.querySelector('#num-people').value;
+                const startLocation = form.querySelector('#start-location').value;
+                
+                // Create and display the chat bubble
+                const chatBubble = document.createElement('div');
+                chatBubble.className = 'message right-bubble';
+                chatBubble.innerHTML = `
+                    <div class="right-chat-bubble-content">
+                        <p>Number of People: ${numPeople}</p>
+                        <p>Starting Location: ${startLocation}</p>
+                        <p>Destination(s): ${storedDestinations.join(', ')}</p>
+                        <p>Vacation Type: ${storedVacationType}</p>
+                    </div>
+                `;
+                chatContainer.appendChild(chatBubble);
                 // Create form data
                 const formData = new FormData(form);
                 formData.append('destinations', JSON.stringify(storedDestinations)); // Send destinations as JSON array
@@ -595,7 +828,7 @@
                     if (data.success) {
                         const botMessage = document.createElement('div');
                         botMessage.className = 'message bot-message fade-in';
-                        botMessage.textContent = `Okay perfect! You are ${data.num_people} people going from ${data.start_location} to ${storedDestinations.join(', ')} on a ${storedVacationType} trip.`;
+                        botMessage.textContent = `Perfect! You are ${data.num_people} people going from ${data.start_location} to ${storedDestinations.join(', ')} on a ${storedVacationType} trip.`;
                         chatContainer.appendChild(botMessage);
                         chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
             
@@ -653,7 +886,7 @@
                 chatContainer.appendChild(travelDateMessage);
         
                 const dateFormHTML = `
-                    <form id="date-form" class="fade-in">
+                    <form id="date-form" class="message bot-message fade-in style="width:400px;" ">
                         <label for="from-date">From Date:</label>
                         <input type="date" id="from-date" name="from_date" required>
                         
@@ -668,8 +901,48 @@
                 dateFormContainer.innerHTML = dateFormHTML;
                 chatContainer.appendChild(dateFormContainer);
                 chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
+
+                setupDateForm();
             }
-        
+            
+            function setupDateForm() {
+                const fromDateInput = document.getElementById('from-date');
+                const toDateInput = document.getElementById('to-date');
+
+                // Get today's date
+                const today = new Date().toISOString().split('T')[0];
+                const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0]; // Tomorrow's date
+
+                // Set minimum values for the date inputs
+                fromDateInput.setAttribute('min', today);
+                toDateInput.setAttribute('min', tomorrow);
+
+                // Update the "to-date" based on the selected "from-date"
+                fromDateInput.addEventListener('change', function() {
+                    const selectedFromDate = new Date(fromDateInput.value);
+                    const minToDate = new Date(selectedFromDate.getTime() + 86400000).toISOString().split('T')[0];
+                    toDateInput.setAttribute('min', minToDate);
+                });
+
+                // Handle form submission
+                document.getElementById('date-form').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const fromDate = fromDateInput.value;
+                    const toDate = toDateInput.value;
+
+                    // Display travel date confirmation
+                    const dateConfirmationMessage = document.createElement('div');
+                    dateConfirmationMessage.className = 'message right-bubble';
+                    dateConfirmationMessage.textContent = `Travel dates set from ${fromDate} to ${toDate}.`;
+                    chatContainer.appendChild(dateConfirmationMessage);
+                    chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
+
+                    // Here you can proceed to the next steps after travel dates are confirmed
+                    // e.g., ask for more details or save the dates
+                });
+            }
+
             function disableForm(form) {
                 // Disable all form fields to lock them
                 const formFields = form.querySelectorAll('input, select, button');
