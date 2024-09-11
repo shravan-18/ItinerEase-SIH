@@ -250,7 +250,7 @@ def generate_itinerary(itinerary_context, user_message=None):
         {forum_reviews}
 
         
-        Generate the HTML code for the table representing this itinerary. Ensure the table is visually appealing and well-formatted. Use inline CSS to style the table. Include the following columns:
+        Generate the HTML code for the table representing this itinerary. Ensure the table is visually appealing and well-formatted. Include the following columns:
         - Date (in Day, Month format. Eg: 21st Sep)
         - Time
         - Activity
@@ -258,6 +258,8 @@ def generate_itinerary(itinerary_context, user_message=None):
         - Google Maps link
         - Weather Notes: [Weather condition for the day]
         - Adjustments or alternate plans for unfavorable weather (Always suggest atleast 1 adjustment like a change of plan nearby the previous location).
+
+        Use apt and short names for column titles.
 
         Make sure to:
         1. Provide at least 4-5 activities per day.
@@ -382,12 +384,17 @@ def generate_itinerary_updated(existing_itinerary, itinerary_context, user_messa
     - Interested places: {interested_places}
     - Stay details: {stay_details}
 
-    Generate the HTML code for the table representing this itinerary. Ensure the table is visually appealing and well-formatted. Use inline CSS to style the table. Include the following columns:
-    - Date
+    Generate the HTML code for the table representing this itinerary. Ensure the table is visually appealing and well-formatted. Include the following columns:
+    - Date (in Day, Month format. Eg: 21st Sep)
     - Time
     - Activity
     - Location (place name, destination name)
     - Google Maps link
+    - Weather Notes: [Weather condition for the day]
+    - Adjustments or alternate plans for unfavorable weather (Always suggest atleast 1 adjustment like a change of plan nearby the previous location).
+
+    Use apt and short names for column titles.
+    
 
     Make sure to:
     1. Provide at least 4-5 activities per day.
@@ -395,6 +402,7 @@ def generate_itinerary_updated(existing_itinerary, itinerary_context, user_messa
     3. Order destinations logically if multiple are specified.
     4. Personalize activities based on user preferences and interests.
     5. Ensure the itinerary is clear and easy to understand.
+    6. Suggest any notable attractions that are close to the main destinations but not part of the city itself.
 
     Do not style the table in any way. Return ONLY the unstyled HTML code for the table, enclosed within ``` symbols."""
 
@@ -463,7 +471,7 @@ def finalize_itinerary(request):
     if request.method == 'POST':
         if "send" in request.POST:
             # Handle POST request
-            user_message = json.loads(request.body)['user_message']
+            user_message = request.POST.get('user_message', '')
             print(user_message)
             
             # Modify the existing itinerary based on user input

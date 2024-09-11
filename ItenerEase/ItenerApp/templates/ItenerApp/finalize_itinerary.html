@@ -104,27 +104,28 @@
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
             const itineraryDiv = document.getElementById('itinerary-container')
-            const chatForm = document.getElementById('send_message_button');
+            const sendButton = document.getElementById('send_message_button');
             const chatMessages = document.getElementById('chat-messages');
         
-            chatForm.addEventListener('submit', function(e) {
+            sendButton.addEventListener('click', function(e) {
+                console.log("Send message button clicked...");
                 e.preventDefault();
-                
+        
                 const userMessage = document.getElementById('user_message').value;
                 console.log(userMessage);
-                
+        
                 // Append user message to the chat
                 const userMessageElem = document.createElement('div');
                 userMessageElem.classList.add('message', 'user-message');
                 userMessageElem.textContent = userMessage;
                 chatMessages.appendChild(userMessageElem);
-                
+        
                 // Display a bot message indicating processing
                 const botMessageElem = document.createElement('div');
                 botMessageElem.classList.add('message', 'bot-message');
                 botMessageElem.textContent = 'Working on it...';
                 chatMessages.appendChild(botMessageElem);
-                
+        
                 // Send the message via AJAX
                 fetch("{% url 'finalize_itinerary' %}", {
                     method: 'POST',
@@ -132,25 +133,26 @@
                         'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ user_message: userMessage })
+                    body: JSON.stringify({ 'user_message': userMessage })
                 })
-               .then(response => response.json())
-               .then(data => {
+                .then(response => response.json())
+                .then(data => {
                     const itineraryHtml = data.itinerary_html;
                     // Update the itinerary container
                     document.querySelector('#itinerary-container').innerHTML = itineraryHtml;
-                    
+        
                     // Replace bot message with the updated response
                     botMessageElem.textContent = 'Here is the updated itinerary:';
-                    
+        
                     // Clear the input
                     document.getElementById('user_message').value = '';
                 })
-               .catch(error => {
+                .catch(error => {
                     console.error('Error:', error);
                     botMessageElem.textContent = 'An error occurred. Please try again.';
                 });
             });
+        });
         
             // Scroll chat messages to the bottom after adding a new message
             function scrollToBottom() {
