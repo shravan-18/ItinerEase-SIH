@@ -404,7 +404,7 @@ def generate_itinerary_updated(existing_itinerary, itinerary_context, user_messa
     5. Ensure the itinerary is clear and easy to understand.
     6. Suggest any notable attractions that are close to the main destinations but not part of the city itself.
 
-    Do not style the table in any way. Return ONLY the unstyled HTML code for the table, enclosed within ``` symbols."""
+    Do not style the table in any way. Return ONLY the unstyled HTML code for the table in the <table> tag, enclosed within ``` symbols."""
 
     # Format the prompt based on the context and user request (if any)
     try:
@@ -470,6 +470,7 @@ def finalize_itinerary(request):
 
     if request.method == 'POST':
         if "send" in request.POST:
+            print("Send in request.POST")
             # Handle POST request
             user_message = request.POST.get('user_message', '')
             print(user_message)

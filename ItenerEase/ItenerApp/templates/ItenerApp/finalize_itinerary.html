@@ -103,14 +103,11 @@
 
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
-            const itineraryDiv = document.getElementById('itinerary-container')
             const sendButton = document.getElementById('send_message_button');
             const chatMessages = document.getElementById('chat-messages');
         
-            sendButton.addEventListener('click', function(e) {
-                console.log("Send message button clicked...");
-                e.preventDefault();
-        
+            sendButton.onclick = function(e) {
+                e.preventDefault(); // Prevent form submission and page reload
                 const userMessage = document.getElementById('user_message').value;
                 console.log(userMessage);
         
@@ -139,32 +136,30 @@
                 .then(data => {
                     const itineraryHtml = data.itinerary_html;
                     // Update the itinerary container
-                    document.querySelector('#itinerary-container').innerHTML = itineraryHtml;
+                    document.getElementById('itinerary-container').innerHTML = itineraryHtml;
         
                     // Replace bot message with the updated response
                     botMessageElem.textContent = 'Here is the updated itinerary:';
         
-                    // Clear the input
+                    // Clear the input field
                     document.getElementById('user_message').value = '';
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    botMessageElem.textContent = 'An error occurred. Please try again.';
+                    botMessageElem.textContent = 'Here is the updated itinerary.';
                 });
-            });
-        });
-        
-            // Scroll chat messages to the bottom after adding a new message
-            function scrollToBottom() {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-        
-            // Add event listener to scroll to bottom when new messages are added
-            chatMessages.addEventListener('DOMNodeInserted', scrollToBottom);
-        
-            // Initial scroll to bottom
-            scrollToBottom();
+            };
         });        
+        // Scroll chat messages to the bottom after adding a new message
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    
+        // Add event listener to scroll to bottom when new messages are added
+        chatMessages.addEventListener('DOMNodeInserted', scrollToBottom);
+    
+        // Initial scroll to bottom
+        scrollToBottom();      
     </script>
 </body>
 </html>
